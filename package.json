@@ -1,7 +1,7 @@
 {
   "name": "inex-front",
   "version": "1.0.0",
-  "description": "Inex Modern method of exam registrantion and management! An example React, GraphQL, Next and Apollo",
+  "description": "inex frontend modern exam system, GraphQL, Next and Apollo",
   "main": "index.js",
   "scripts": {
     "dev": "next -p 7777",
