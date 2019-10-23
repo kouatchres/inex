@@ -5,7 +5,7 @@ const Navbar = () => (
         <Link href="/newDivision">
             <a >New Division</a>
         </Link>
-        <Link href="/CandDisplay">
+        <Link href="/candidatePage">
             <a >Candidates</a>
         </Link>
         <Link href="/newCand">
@@ -14,10 +14,10 @@ const Navbar = () => (
         <Link href="/newRegion">
             <a >New Region</a>
         </Link>
-        <Link href="/candidatePage">
-            <a >Candidate</a>
+        <Link href="/newGender">
+            <a >Gender</a>
         </Link>
-        <Link href="/regionPage">
+        <Link href="/displayRegionList">
             <a>Region</a>
         </Link>
         <Link href="/townPage">
@@ -28,13 +28,13 @@ const Navbar = () => (
             <a >
                 Admin</a>
         </Link>
-        <Link href="/gender">
+        <Link href="/center">
             <a >
-                Gender</a>
+                Center</a>
         </Link>
-        <Link href="/board">
+        <Link href="/appTool">
             <a >
-                Board</a>
+                Home</a>
         </Link>
 
     </NavStyles>

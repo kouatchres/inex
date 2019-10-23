@@ -1,12 +1,13 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App, {Container} from 'next/app';
+import Toolbar from '../src/components/Toolbar/Toolbar'
 
 function App() {
-  return (
-    <div className="App">
- <p>Hey there this is the App!!!</p>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Toolbar/>
+        </div>
+    );
 }
 
 export default App;

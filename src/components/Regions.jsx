@@ -48,3 +48,4 @@ return <ItemsList>
     }
 }
 export default Regions;
+export {ALL_REGIONS_QUERY};

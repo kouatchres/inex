@@ -7,10 +7,10 @@ display:block;
 margin: 0 auto; 
 max-width:40vw;
 `;
-const newDivision =()=> {
+const newDivision =(props)=> {
   return (
     <DivStyled>
-      <CreateDivision />
+      <CreateDivision  />
     </DivStyled>
   )
 }

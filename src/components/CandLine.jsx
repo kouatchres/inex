@@ -79,8 +79,8 @@ class CandLine extends Component {
                     <div className="name">
                         <Link
                             href={{
-                            pathname: 'update',
-                            query: {id: id}
+                            pathname: 'updatePage',
+                            query: {id}
                         }}>
                             <a >Update</a>
                         </Link>

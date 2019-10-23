@@ -4,7 +4,7 @@ import Form from './styles/Form'
 import gql from 'graphql-tag'
 import Error from './ErrorMessage'
 import styled from 'styled-components';
-import CreateDivision from './CreateDivision';
+
 
 const StyledDivision = styled.div `
 display: block; 
@@ -21,12 +21,21 @@ query GET_ALL_REGIONS_QUERY{
 }
 }
 `;
+const SELECT_A_REGION =gql`
+  query SELECT_A_REGION($id: ID!){
+      region(id: $id){
+          id
+          regName
+          regCode
+      }
+  }
+`;
 
 const CREATE_DIVISION_MUTATION = gql `
    mutation CREATE_DIVISION_MUTATION(
  $divName: String!,
  $divCode: String!,
- $region: RegionCreateOneInput!
+ $region: ID!
 
    ){
 createDivision(
@@ -46,30 +55,45 @@ class createDivision extends Component {
     state = {
         divName: "",
         divCode: "",
-        region: 'cjzknbgmdjse90b53p5n3udb6',
-        regObj: [],
-        selectedItem: "cjzknbgmdjse90b53p5n3udb6"
+        region: '',
     }
 
     handleChange = (e) => {
         const {name, type, value} = e.target;
         this.setState({[name]: value});
     }
+    
+    selectSingleRegion= async (e, region)=>{
+            e.preventDefault();
+            const selectedRegion = data.Regions.find(region=> region.id===this.state.region);
+            console.log('selecting Region!!');
+            const res = await region({
+                variables: {
+                    // id: this.props.id,
+                    ...this.state
+                }
+            });
+            console.log('Region selected!!');
+        }
+    
+    
     render() {
         return (
             <Query query={GET_ALL_REGIONS_QUERY}>
 
                 {({loading, error, data}) => {
-                 if(loading )  return <p>Loading...</p>;
-                 if(error) return <Error error={error}  />;
+                 {loading && <p>Loading...</p>};
+                 {error && <Error error={error}  />};
                     console.log(data);
-                    const regObject = data
-                        .regions
-                        .find(region => region.id === this.state.region);
+ const regObject = data.regions.find(region => region.id === this.state.region);
                     console.log(regObject);
                     return (
 
-                        <Mutation mutation={CREATE_DIVISION_MUTATION} variables={this.state}>
+                        <Mutation 
+                        mutation={CREATE_DIVISION_MUTATION} 
+                        variables={{
+                            region: regObject,
+                            ...this.state}}>
 
                             {(createDivision, {loading, error}) => (
                                 <StyledDivision>
@@ -90,11 +114,9 @@ class createDivision extends Component {
                                                 value={this.state.region}
                                                 onChange={this.handleChange}
                                                 required>
-                                                {data
-                                                    .regions
-                                                    .map((region) => <option value={region.id} key={region.id}>
-                                                        {region.regName}
-                                                    </option>)}
+                                                {data.regions.map((region) => 
+                                        <option value={region.id} key={region.id}>
+                                                        {region.regName}</option>)}
                                             </select>
 
                                             <input

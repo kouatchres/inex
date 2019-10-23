@@ -4,7 +4,7 @@ const Candidate = (props) => {
     return (
         <div>
             <p>Candidate page</p>
-            <Candidates/>
+            <Candidates />
         </div>
     )
 }

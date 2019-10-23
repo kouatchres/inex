@@ -1,4 +1,5 @@
-import Navbar from '../Nav';
+// import Navbar from '../Nav';
+import Navbare from './Navbare';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -56,12 +57,12 @@ const Header = () => (
     <StyledHeader>
         <div className="bar">
             <LogoStyled>
-                <Link href="/">
+                <Link href="/candidates">
                     <a>INEX</a>
                 </Link>
             </LogoStyled>
             <div className="navigation">
-                <Navbar/>
+                <Navbare/>
             </div>
         </div>
         <div className="sub-bar">
