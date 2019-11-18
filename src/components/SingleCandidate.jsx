@@ -35,9 +35,8 @@ const CandImg = styled.div `
   padding:10px;
 
    img {
-    height:300px;
-    width:200px;
-    /* object-fit: cover; */
+    height:400px;
+    width:600px;
     border-radius: 15px;
     
   }

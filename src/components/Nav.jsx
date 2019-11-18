@@ -20,8 +20,11 @@ const Navbar = () => (
         <Link href="/displayRegionList">
             <a>Region</a>
         </Link>
-        <Link href="/townPage">
-            <a >Town</a>
+        <Link href="/displayDivisions">
+            <a>Division</a>
+        </Link>
+        <Link href="/divisionPage">
+            <a >Div</a>
         </Link>
 
         <Link href="/admin">

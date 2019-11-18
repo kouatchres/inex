@@ -35,8 +35,8 @@ class Regions extends Component {
                 <Query query={ALL_REGIONS_QUERY}>
 
                   {({data, error, loading})=> {
-if(loading ) return  <p>Loading...</p> 
-if(error ) return  <p>Error: {error.message} </p>
+loading &&  <p>Loading...</p> 
+error &&  <p>Error: {error.message} </p>
 
 return <ItemsList>
       {data.regions.map(region=> <p>  {region.regName}</p>)}        

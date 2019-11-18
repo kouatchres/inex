@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Mutation} from 'react-apollo'
 import gql from 'graphql-tag'
 import  styled from 'styled-components'
-import { ALL_CANDIDATES_QUERY } from './Candidates'
+import { ALL_CANDIDATES_QUERY } from '../components/candidate/CandidateList'
 
 const DELETE_CANDIDATE_MUTATION = gql `
  mutation DELETE_CANDIDATE_MUTATION($id: ID!){
@@ -17,8 +17,8 @@ const DelBtn = styled.button `
   font-weight: bold;
   background-color:#375;
   border-radius:10px;
-  font-size:1.8rem;
-  height:40px;
+  font-size:1.1rem;
+  height:30px;
 `;
 
 

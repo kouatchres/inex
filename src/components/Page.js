@@ -9,13 +9,13 @@ const theme = {
   googleBlue: '#359',
   goldenBorwn: '#d17f05',
   black: '#393939',
-  grey: '#3a3a3a',
+  grey: '#aaabaa',
   slightGrey: 'rgb(243, 241, 241)',
   lightGrey: '#E1E1E1',
   darkGrey: '#EEEEEE',
   pureWhite: '#FFFFFF',
   offWhite: '#EDEDED',
-  bs: '3.5px 3.5px 2.5px  rgba(0,0,0,0.09)',
+  bs: '3.5px 3.5px 2.5px  rgba(0,0,0,0.9)',
   bs2: '0 4px 8px 0 rgba(0,0,0,0.04)'};
 
 const StyledPage = styled.div`
