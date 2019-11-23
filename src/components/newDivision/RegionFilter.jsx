@@ -1,6 +1,6 @@
 import React from 'react'
 
-function RegionFilter({allRegions}) {
+function RegionFilter({allRegions, handleChange,handleRegionChange}) {
     console.log("region in region filter");
     console.log(allRegions.regions);
     let  allRegs = [...allRegions.regions];
@@ -16,10 +16,12 @@ function RegionFilter({allRegions}) {
                 <div className="form-group">
                     <label htmlFor="region">Select region</label>
                     <select
-                     className="form-control" 
+                     className="form-control"
                      type="text" 
                      name="region" 
-                     id="region">
+                     id="region"
+                     onChange={handleChange}
+                     >
                         {regsForSelect}
                     </select>
                 </div>

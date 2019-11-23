@@ -4,6 +4,7 @@ import Form from './styles/Form'
 import gql from 'graphql-tag'
 import Error from './ErrorMessage'
 import styled from 'styled-components';
+import { storeRegion } from '../../src/data'
 
 const StyledDivision = styled.div `
 display: block; 
@@ -11,12 +12,21 @@ text-align:center;
 margin: 0 auto;
 min-width:350px;
 `;
+const LOCAL_STATE_QUERY = gql `
+query{
+    regions @client
+}
+
+
+`;
+
 
 const GET_ALL_REGIONS_QUERY = gql `
 query GET_ALL_REGIONS_QUERY{
   regions{
       id
      regName
+     regCode
 }
 }
 `;
@@ -34,7 +44,7 @@ const CREATE_DIVISION_MUTATION = gql `
    mutation CREATE_DIVISION_MUTATION(
  $divName: String!,
  $divCode: String!,
- $region: RegionCreateOneInput!
+ $region: RegionCreateWithoutDivisionInput!
 
    ){
 createDivision(
@@ -54,38 +64,71 @@ class createDivision extends Component {
     state = {
         divName: "",
         divCode: "",
-        regionId: '',
-        selctedRegion: {},
-        regions: []
+        regionID: '12',
+        region:storeRegion
+
     }
-    componentDidUpdate() {
-        // this.updateStateWithRegion();
+    componentDidMount() {
+
     }
     handleChange = (e) => {
-        const {name, type, value} = e.target;
+        const {name, value} = e.target;
         this.setState({[name]: value});
+        
+    }
+    
+    removeTypeName=()=>{
+    //   const  region={id:"ck34nq828n2pd0919yxj6db5c", regName:"Guantanamera", regCode:"GR"}
+    const region= this.state.region
+      const allowed = ['id', 'regName','regCode'];
+
+      const filtered = Object.keys(region)
+        .filter(key => allowed.includes(key))
+        .reduce((obj, key) => {
+          obj[key] = region[key];
+          return obj;
+        }, 
+        {});
+            console.log(filtered)
+      return filtered;
+      
+    }
+   
+
+    handleRegionChange = (dataSource) => {
+        // 1 copy the data source
+      if(dataSource.length>0){
+          const tempRegions = [...dataSource];
+          // get the region object
+const selectedRegion = tempRegions.find(item => item.id === this.state.regionID);
+        console.log("getting selected region");
+        console.log(selectedRegion);
+        return selectedRegion;
     }
 
-    handleRegionChange = (regionID) => {
-        let tempRegions = this.state.regions;
-        const selectedRegion = tempRegions.find(region => region.id === regionID);
-        this.setState({selectedRegion});
-    }
+}
+
 
     render() {
         return (
-            <Query query={GET_ALL_REGIONS_QUERY}>
 
+<Query 
+query={GET_ALL_REGIONS_QUERY}
+>
                 {({data, loading, error}) => {
                     { loading && <p>Loading...</p>};
                     {error && <Error error={error}/>};
-                    console.log(data);
-                    const {regions}= data;
+                    const {regions} =data;
+                    //'getting region from the state')
+                    console.log(this.state.region)
+                    //*******important function'stripping off __typename')
+   const refinedRegions = regions.map(({__typename, ...others}) => others)
                     return (
                         <Mutation
                             mutation={CREATE_DIVISION_MUTATION}
+                           
                             variables={{
-                            ...this.state
+                                ...this.state, region:this.handleRegionChange(refinedRegions)
                         }}>
 
                             {(createDivision, {loading, error}) => (
@@ -102,9 +145,9 @@ class createDivision extends Component {
 
                                             <select
                                                 type="select"
-                                                id="region"
-                                                name="region"
-                                                value={this.state.region}
+                                                id="regionID"
+                                                name="regionID"
+                                                value={this.state.regionID}
                                                 onChange={this.handleChange}
                                                 required>
                                                 {data

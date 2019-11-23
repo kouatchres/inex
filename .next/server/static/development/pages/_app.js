@@ -138,6 +138,10 @@ function createClient(_ref) {
         },
         headers: headers
       });
+    },
+    // local data from apollo client
+    clientState: {
+      resolvers: {}
     }
   });
 }

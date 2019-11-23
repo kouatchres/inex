@@ -11,15 +11,15 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
+    "/newDivision": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/divisionPage": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
     "/displayRegionList": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/candidatePage": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

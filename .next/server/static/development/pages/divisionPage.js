@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -246,6 +246,14 @@ var _jsxFileName = "E:\\Inex Node GraphQL\\inex-graphql\\src\\components\\newDiv
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -265,7 +273,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  query SELECT_A_DIVISION($id: ID!){\n      division(id: $id){\n          id\n          divName\n          divCode\n      }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\nquery GET_ALL_REGIONS_QUERY{\n   regions{\n       id\n       regName\n }\n}\n\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -275,7 +283,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\nquery GET_ALL_REGIONS_QUERY{\n   regions{\n       id\n       regName\n }\n}\n\n"]);
+  var data = _taggedTemplateLiteral(["\n  query GET_DIVISIONS_OF_A_REGION{\n  division(region:$regionID){\n    id\n    divName\n    divCode\n  }\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -309,8 +317,16 @@ var StyledDivision = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.di
   componentId: "sc-1fx0zii-0"
 })(["display:block;text-align:center;margin:0 auto;min-width:350px;"]);
 var GET_DIVSIONS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_5___default()(_templateObject());
-var GET_ALL_REGIONS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_5___default()(_templateObject2());
-var SELECT_A_DIVISION = graphql_tag__WEBPACK_IMPORTED_MODULE_5___default()(_templateObject3());
+var GET_DIVISIONS_OF_A_REGION = graphql_tag__WEBPACK_IMPORTED_MODULE_5___default()(_templateObject2());
+var GET_ALL_REGIONS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_5___default()(_templateObject3()); // const SELECT_A_DIVISION = gql `
+//   query SELECT_A_DIVISION($id: ID!){
+//       division(id: $id){
+//           id
+//           divName
+//           divCode
+//       }
+//   }
+// `;
 
 var DivisionContainer =
 /*#__PURE__*/
@@ -333,66 +349,98 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
       regionID: '',
       regions: [],
-      selectedRegion: {}
+      selectedRegion: {},
+      divisions: [],
+      divName: '',
+      divCode: '',
+      region: '',
+      division: '',
+      selectedDivisions: []
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleChange", function (event) {
-      var target = event.target;
-      var name = target.name,
-          value = target.value;
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleChange", function (e) {
+      var _e$target = e.target,
+          name = _e$target.name,
+          value = _e$target.value;
 
-      _this.setState(_defineProperty({}, name, value), _this.selectedRegion(_this.state.regionID));
+      _this.setState(_defineProperty({}, name, value));
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleRegionChange", function (regionID) {
+      var tempRegions = _toConsumableArray(_this.state.regions);
+
+      console.log(tempRegions);
+      var selectedRegion = tempRegions.find(function (region) {
+        return region.id === regionID;
+      });
+      console.log("getting selected region");
+      console.log(selectedRegion);
+
+      _this.setState(_defineProperty({}, selectedRegion, region));
     });
 
     return _this;
   }
 
   _createClass(DivisionContainer, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_4__["Query"], {
         query: GET_ALL_REGIONS_QUERY,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 66
+          lineNumber: 89
         },
         __self: this
       }, function (_ref) {
         var data = _ref.data;
+        var regions = data.regions;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegionFilter__WEBPACK_IMPORTED_MODULE_2__["default"], {
           allRegions: data,
+          handleChange: _this2.handleChange,
+          handleRegionChange: _this2.handleRegionChange,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 74
+            lineNumber: 97
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_4__["Query"], {
           query: GET_DIVSIONS_QUERY,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 76
+            lineNumber: 102
           },
           __self: this
         }, function (_ref2) {
           var data = _ref2.data;
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h7", {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 82
-            },
-            __self: this
-          }, "Getting divisions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DivisionFilter__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DivisionFilter__WEBPACK_IMPORTED_MODULE_1__["default"], {
             allDivisions: data,
+            handleChange: _this2.handleChange,
+            handleRegionChange: _this2.handleRegionChange,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 83
+              lineNumber: 108
             },
             __self: this
           }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DivisionList__WEBPACK_IMPORTED_MODULE_3__["default"], {
             allRegions: data,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 84
+              lineNumber: 113
+            },
+            __self: this
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "text",
+            name: "country",
+            id: "country",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 114
             },
             __self: this
           }));
@@ -432,7 +480,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 function DivisionFilter(_ref) {
-  var allDivisions = _ref.allDivisions;
+  var allDivisions = _ref.allDivisions,
+      handleChange = _ref.handleChange,
+      handleRegionChange = _ref.handleRegionChange;
   console.log("divisions in division filter");
   console.log(allDivisions.divisions);
 
@@ -443,7 +493,7 @@ function DivisionFilter(_ref) {
       key: item.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 9
+        lineNumber: 10
       },
       __self: this
     }, item.divName);
@@ -451,47 +501,57 @@ function DivisionFilter(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13
+      lineNumber: 14
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14
+      lineNumber: 15
     },
     __self: this
   }, "this is th form beginnings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "filter-form",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 15
+      lineNumber: 16
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    htmlFor: "region",
-    __source: {
-      fileName: _jsxFileName,
       lineNumber: 18
     },
     __self: this
-  }, "Select division"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-    className: "form-control",
-    type: "text",
-    name: "region",
-    id: "region",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "division",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 19
     },
     __self: this
-  }, divsForSelect))));
+  }, "Select division"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control",
+    type: "text",
+    name: "division",
+    onChange: handleRegionChange,
+    id: "division",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 20
+    },
+    __self: this
+  }, divsForSelect)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    name: "denty",
+    id: "denty",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 30
+    },
+    __self: this
+  })));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (DivisionFilter);
@@ -586,7 +646,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 function RegionFilter(_ref) {
-  var allRegions = _ref.allRegions;
+  var allRegions = _ref.allRegions,
+      handleChange = _ref.handleChange,
+      handleRegionChange = _ref.handleRegionChange;
   console.log("region in region filter");
   console.log(allRegions.regions);
 
@@ -634,6 +696,7 @@ function RegionFilter(_ref) {
     type: "text",
     name: "region",
     id: "region",
+    onChange: handleChange,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 18
@@ -646,7 +709,7 @@ function RegionFilter(_ref) {
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!*************************************!*\
   !*** multi ./pages/divisionPage.js ***!
   \*************************************/

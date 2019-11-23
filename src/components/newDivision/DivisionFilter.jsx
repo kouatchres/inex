@@ -1,6 +1,7 @@
 import React from 'react'
 
-function DivisionFilter({allDivisions}) {
+function DivisionFilter({allDivisions,handleChange,handleRegionChange}) {
+
     console.log("divisions in division filter");
         console.log(allDivisions.divisions);
     const  allDivs = [...allDivisions.divisions];
@@ -15,16 +16,22 @@ function DivisionFilter({allDivisions}) {
             <form className="filter-form">
                 {  /*  Select item*/   }
                 <div className="form-group">
-                    <label htmlFor="region">Select division</label>
+                    <label htmlFor="division">Select division</label>
                     <select
                      className="form-control" 
                      type="text" 
-                     name="region" 
-                     id="region">
+                     name="division"
+                     onChange={handleRegionChange} 
+                     id="division">
                         {divsForSelect}
                     </select>
                 </div>
                 {/* end region select item */}
+                <input 
+                type="text"
+                name="denty"
+                id="denty"
+                />
             </form>
         </section>
     )
