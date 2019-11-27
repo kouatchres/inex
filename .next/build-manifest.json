@@ -11,15 +11,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/newDivision": [
+    "/newSubDivision": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/divisionPage": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/displayRegionList": [
+    "/newRegion": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

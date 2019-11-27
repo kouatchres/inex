@@ -589,8 +589,8 @@ var Navbar = function Navbar() {
       lineNumber: 21
     },
     __self: this
-  }, "Region")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
-    href: "/displayDivisions",
+  }, "Regions")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/newSubDivision",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 23
@@ -602,7 +602,7 @@ var Navbar = function Navbar() {
       lineNumber: 24
     },
     __self: this
-  }, "Division")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+  }, "SubDivision")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
     href: "/divisionPage",
     __source: {
       fileName: _jsxFileName,

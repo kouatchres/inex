@@ -30,15 +30,6 @@ query GET_ALL_REGIONS_QUERY{
 }
 }
 `;
-const SELECT_A_REGION = gql `
-  query SELECT_A_REGION($id: ID!){
-      region(id: $id){
-          id
-          regName
-          regCode
-      }
-  }
-`;
 
 const CREATE_DIVISION_MUTATION = gql `
    mutation CREATE_DIVISION_MUTATION(
@@ -68,33 +59,13 @@ class createDivision extends Component {
         region:storeRegion
 
     }
-    componentDidMount() {
 
-    }
     handleChange = (e) => {
         const {name, value} = e.target;
         this.setState({[name]: value});
         
     }
-    
-    removeTypeName=()=>{
-    //   const  region={id:"ck34nq828n2pd0919yxj6db5c", regName:"Guantanamera", regCode:"GR"}
-    const region= this.state.region
-      const allowed = ['id', 'regName','regCode'];
-
-      const filtered = Object.keys(region)
-        .filter(key => allowed.includes(key))
-        .reduce((obj, key) => {
-          obj[key] = region[key];
-          return obj;
-        }, 
-        {});
-            console.log(filtered)
-      return filtered;
-      
-    }
-   
-
+  
     handleRegionChange = (dataSource) => {
         // 1 copy the data source
       if(dataSource.length>0){

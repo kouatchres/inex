@@ -18,10 +18,10 @@ const Navbar = () => (
             <a >Gender</a>
         </Link>
         <Link href="/displayRegionList">
-            <a>Region</a>
+            <a>Regions</a>
         </Link>
-        <Link href="/displayDivisions">
-            <a>Division</a>
+        <Link href="/newSubDivision">
+            <a>SubDivision</a>
         </Link>
         <Link href="/divisionPage">
             <a >Div</a>

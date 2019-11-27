@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import DivisionList from '../src/components/division/DivisionList';
 import styled from 'styled-components';
 
 const ALL_DIVISIONS_QUERY = gql `
