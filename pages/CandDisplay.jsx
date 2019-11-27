@@ -86,10 +86,8 @@ class CandDisplay extends Component {
                 <Query query={ALL_CANDIDATES_QUERY}>
                     {({loading, error, data}) => {
                         console.log(data.candidates)
-                        if (loading) 
-                            return <p>Loading...</p>
-                        if (loading) 
-                            return <p>Error: {error.message}</p>
+                        loading && <p>Loading...</p>
+                        loading &&  <p>Error: {error.message}</p>
                         return (
                             <CandidateList>
                                 {data

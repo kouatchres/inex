@@ -109,7 +109,7 @@ const {handleSingleCand} =this.props.data
 
         return (
 
-            <ItemStyled  onClick={()=>{handleSingleCand(id)}}  >
+            <ItemStyled >
                 <CandAllInfo>
                     <CandImg>
 {image && <img src={image} alt={cand1stName}/>}

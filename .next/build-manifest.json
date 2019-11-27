@@ -1,6 +1,6 @@
 {
   "devFiles": [
-    "static/development/dll/dll_a03dc7d555b897b731fa.js"
+    "static/development/dll/dll_a2101089cef155c33957.js"
   ],
   "pages": {
     "/_app": [
@@ -11,11 +11,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/newSubDivision": [
+    "/candidatePage": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/newRegion": [
+    "/updateCand": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
