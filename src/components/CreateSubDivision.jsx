@@ -1,203 +1,227 @@
-import React, {Component} from 'react'
-import {Mutation, Query} from 'react-apollo'
-import Form from './styles/Form'
-import gql from 'graphql-tag'
-import Error from './ErrorMessage'
+import React, { Component } from 'react';
+import { Mutation, Query } from 'react-apollo';
+import Form from './styles/Form';
+import gql from 'graphql-tag';
+import Error from './ErrorMessage';
 import styled from 'styled-components';
-import { storeRegion,storedDivision } from '../data'
+import { storeRegion, storedDivision } from '../data';
 
-const StyledDivision = styled.div `
-display: block; 
-text-align:center;
-margin: 0 auto;
-min-width:350px;
+const StyledDivision = styled.div`
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+	min-width: 350px;
 `;
 
-const GET_ALL_REGIONS_QUERY = gql `
-query GET_ALL_REGIONS_QUERY{
-  regions{
-      id
-     regName
-     regCode
-}
-}
+const GET_ALL_REGIONS_QUERY = gql`
+	query GET_ALL_REGIONS_QUERY {
+		regions(orderBy: regName_DESC) {
+			id
+			regName
+			regCode
+		}
+	}
 `;
-const GET_ALL_DIVISIONS_QUERY = gql `
-query GET_ALL_DIVISIONS_QUERY{
-  divisions{
-      id
-     divName
-     divCode
-         }
-}
+const GET_ALL_DIVISIONS_QUERY = gql`
+	query GET_ALL_DIVISIONS_QUERY {
+		divisions(orderBy: divName_ASC) {
+			id
+			divName
+			divCode
+		}
+	}
 `;
-const GET_DIVISIONS_OF_A_REGION_QUERY = gql `
-    query GET_DIVISIONS_OF_A_REGION_QUERY($id: ID!){
-  getDivisions(
-      id:$id
-  ){
-      id
-     divName
-     divCode
-        }
-}
+const GET_DIVISIONS_OF_A_REGION_QUERY = gql`
+	query GET_DIVISIONS_OF_A_REGION_QUERY($id: ID!) {
+		region(id: $id) {
+			id
+			regName
+			division(orderBy: divName_ASC) {
+				id
+				divName
+				divCode
+			}
+		}
+	}
 `;
-const CREATE_SUBDIVISION_MUTATION = gql `
-   mutation CREATE_SUBDIVISION_MUTATION(
-        $subDivName: String!
-        $subDivCode: String!
-        $division: DivisionWhereUniqueInput!
-   ){
-createSubDivision(
-             subDivName: $subDivName,
-             subDivCode: $subDivCode,
-             division: $division
-){
-            id
-            subDivName
-            subDivCode
-            division{
-                divName
-            }
-            
-   }
-   }
- `;
+const CREATE_SUBDIVISION_MUTATION = gql`
+	mutation CREATE_SUBDIVISION_MUTATION(
+		$subDivName: String!
+		$subDivCode: String!
+		$division: DivisionWhereUniqueInput!
+	) {
+		createSubDivision(subDivName: $subDivName, subDivCode: $subDivCode, division: $division) {
+			id
+			subDivName
+			subDivCode
+			division {
+				divName
+			}
+		}
+	}
+`;
 
 class createSubDivision extends Component {
+	state = {
+		subDivName: '',
+		subDivCode: '',
+		divisionID: '12',
+		regionID: '12',
+		region: storeRegion,
+		division: storedDivision
+	};
 
-    state = {
-        subDivName: "",
-        subDivCode: "",
-        divisionID: '12',
-        regionID: '12',
-        region:storeRegion,
-        division: storedDivision
+	handleChange = (e) => {
+		const { name, value, type } = e.target;
+		const val = type === 'number' ? parseInt(value) : value;
+		this.setState({ [name]: val });
+	};
 
-    }
-    
-    handleChange = (e) => {
-        const {name, value} = e.target;
-        this.setState({[name]: value});
-        
-    }
-  
-    findChosenDivision = (dataSource) => {
-        // 1 copy the data source
-      if(dataSource.length>0){
-          const tempDivisions = [...dataSource];
-          // get the region object
-const selectedDivision = tempDivisions.find(item => item.id === this.state.divisionID);
-        console.log(selectedDivision);
-        return selectedDivision;
-    }
+	getSelectedDivision = (dataSource) => {
+		// 1 copy the data source
+		if (dataSource.length > 0) {
+			const tempDivisions = [ ...dataSource ];
+			// get the selected division object
+			const selectedDivision = tempDivisions.find((item) => item.id === this.state.divisionID);
+			console.log(selectedDivision);
+			return selectedDivision;
+		}
+	};
 
-}
+	getSelectedRegion = (dataSource) => {
+		// 1 copy the data source
+		if (dataSource.length > 0) {
+			const tempRegions = [ ...dataSource ];
+			// get the selected region object
+			const selectedRegion = tempRegions.find((item) => item.id === this.state.regionID);
+			console.log('getting selected region');
+			console.log(selectedRegion);
+			return selectedRegion;
+		}
+	};
 
-    render() {
-        return (
-<Query 
-query={GET_ALL_REGIONS_QUERY}
->
-{({data, loading, error})=>{
-        { loading && <p>Loading...</p>};
-        {error && <Error error={error}/>};
-        const {regions} =data;
-        const seletedRegionID=regions[0].id
-        console.log(seletedRegionID);
-        //prepare the options for the region select
-       const regionsOptions= regions.map(item =>
-   <option value={item.id} key={item.id} >{item.regName}</option>)
-         
- return  (
-<Query 
-query={GET_ALL_DIVISIONS_QUERY}
->
-                {({data, loading, error}) => {
-                    { loading && <p>Loading...</p>};
-                    {error && <Error error={error}/>};
-                    const {divisions} =data;
-                    console.log(data)
-                    //'getting region from the state')
-                    //*******important function'stripping off __typename')
+	render() {
+		return (
+			<Query query={GET_ALL_REGIONS_QUERY}>
+				{({ data, loading, error }) => {
+					{
+						loading && <p>Loading...</p>;
+					}
+					{
+						error && <Error error={error} />;
+					}
+					const { regions } = data;
+					const anyRegion = regions[0];
+					console.log('this is any chosen region');
+					console.log(anyRegion);
 
-// prepare the options for the divisions select
-{/* const divisionsOptions= divisions.map(item => */}
-    {/* <option value={item.id} key={item.id} >{item.divName}</option>) */}
+					//prepare data for the region select options
+					const regionsOptions = regions.map((item) => (
+						<option value={item.id} key={item.id}>
+							{item.regName}
+						</option>
+					));
+					return (
+						<Query
+							query={GET_DIVISIONS_OF_A_REGION_QUERY}
+							variables={this.getSelectedRegion(regions) || anyRegion}
+						>
+							{({ data, loading, error }) => {
+								{
+									loading && <p>Loading...</p>;
+								}
+								{
+									error && <Error error={error} />;
+								}
 
-   {/* const refinedDivisions = divisions.map(({__typename,divName,divCode, ...others}) => others)  */}
-                    return (
-                        <Mutation
-                            mutation={CREATE_SUBDIVISION_MUTATION}
-                           
-                            variables={{
-                                ...this.state
-                        }}>
+								console.log('these are the divisions of the selected region');
+								console.log(data.region.division);
+								const divisionsOptions = data.region.division.map((item) => (
+									<option value={item.id} key={item.id}>
+										{item.divName}
+									</option>
+								));
+								//*******important function'stripping off __typename')
+								const divisionsOfARegion = data.region.division.map(
+									({ divName, divCode, __typename, ...others }) => others
+								);
 
-                            {(createSubDivision, {loading, error}) => (
-                                <StyledDivision>
-                                    <Form
-                                        onSubmit={async e => {
-                                        e.preventDefault();
-                                        const res = await createSubDivision();
-                                        console.log(res);
-                                    }}>
-                                        <h5>New Sub Division</h5>
-                                        <Error error={error}/>
-                                        <fieldset disabled={loading} aria-busy={loading}>
-
-                                            <select
-                                                type="select"
-                                                id="regionID"
-                                                name="regionID"
-                                                value={this.state.regionID}
-                                                onChange={this.handleChange}
-                                                required>
-                                         {regionsOptions}
-                                            </select>
-                                            <select
-                                                type="select"
-                                                id="divisionID"
-                                                name="divisionID"
-                                                value={this.state.divisionID}
-                                                onChange={this.handleChange}
-                                                required>
-                                                {/* { divisionsOptions} */}
-                                            </select>
-
-                                            <input
-                                                type="text"
-                                                id="subDivName"
-                                                name="subDivName"
-                                                placeholder="Sub Division Name"
-                                                value={this.state.subDivName}
-                                                onChange={this.handleChange}
-                                                required/>
-                                            <input
-                                                type="text"
-                                                id="subDivCode"
-                                                name="subDivCode"
-                                                placeholder="Sub Division Code"
-                                                value={this.state.subDivCode}
-                                                onChange={this.handleChange}
-                                                required/>
-                                            <div className="submitButton">
-                                                <button type="submit">`Submit${loading? 'ting': ''}`</button>
-                                            </div>
-                                        </fieldset>
-                                    </Form>
-                                </StyledDivision>
-                            )}
-                        </Mutation>
-                    );
-                }}
-            </Query>
-            )
-         }}
-       </Query>
-
-        );
-    }
+								return (
+									<Mutation
+										mutation={CREATE_SUBDIVISION_MUTATION}
+										variables={{
+											...this.state,
+											division: this.getSelectedDivision(divisionsOfARegion)
+										}}
+									>
+										{(createSubDivision, { loading, error }) => (
+											<StyledDivision>
+												<Form
+													onSubmit={async (e) => {
+														e.preventDefault();
+														const res = await createSubDivision();
+														console.log(res);
+														console.log(this.state);
+													}}
+												>
+													<h5>New Sub-Division</h5>
+													<Error error={error} />
+													<fieldset disabled={loading} aria-busy={loading}>
+														<select
+															type="select"
+															id="regionID"
+															name="regionID"
+															value={this.state.regionID}
+															onChange={this.handleChange}
+															required
+														>
+															{regionsOptions}
+														</select>
+														<select
+															type="select"
+															id="divisionID"
+															name="divisionID"
+															value={this.state.divisionID}
+															onChange={this.handleChange}
+															required
+														>
+															{divisionsOptions}
+														</select>
+														<input
+															type="text"
+															id="subDivName"
+															name="subDivName"
+															placeholder="Sub Division Name"
+															value={this.state.subDivName}
+															onChange={this.handleChange}
+															required
+														/>
+														<input
+															type="text"
+															id="subDivCode"
+															name="subDivCode"
+															placeholder="Sub Division Code"
+															value={this.state.subDivCode}
+															onChange={this.handleChange}
+															required
+														/>
+														<div className="submitButton">
+															<button type="submit">Submit{loading ? 'ting' : ''}</button>
+														</div>
+													</fieldset>
+												</Form>
+											</StyledDivision>
+										)}
+									</Mutation>
+								);
+							}}
+						</Query>
+					);
+				}}
+			</Query>
+		);
+	}
 }
 
 export default createSubDivision;
+export { GET_ALL_DIVISIONS_QUERY };

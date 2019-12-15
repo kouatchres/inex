@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const loading = keyframes`
   from {
@@ -14,7 +14,7 @@ const loading = keyframes`
 
 const Form = styled.form`
   /* box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05); */
-  background: ${props=> props.theme.pureWhite};
+  background: ${props => props.theme.pureWhite};
   /* background: rgba(0, 0, 0, 0.02); */
   border: 5px solid white;
   padding: 20px;
@@ -34,7 +34,7 @@ const Form = styled.form`
     padding: 1rem;
     font-size: 2rem;
     border-style: none;
-    border-bottom: 1px solid ${props=> props.theme.black};
+    border-bottom: 1px solid ${props => props.theme.black};
     &:focus {
       outline: 0;
       border-color: ${props => props.theme.red};
@@ -43,14 +43,14 @@ const Form = styled.form`
   button,
   input[type='submit'] {
     width: auto;
-    background: ${props=> props.theme.googleBlue};
+    background: ${props => props.theme.googleBlue};
     color: white;
     border: 0;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: 300;
     border-radius:7px;
     margin-top: 1rem;
-    padding: 1.5rem 1.2rem;
+    padding: .8rem .8rem;
   }
   fieldset {
     max-width: 80vw;
@@ -62,9 +62,9 @@ const Form = styled.form`
     display: flex;
     flex-direction: row;
     /* grid-template-columns: repeat(auto-fit, -ms-content-zoom-limit-max(200px,1fr)); */
-    border-radius:15px;
+    border-radius:.5rem;
     justify-items: center;
-    box-shadow: ${props=> props.theme.bs};
+    box-shadow: ${props => props.theme.bs};
 
     &[disabled] {
       opacity: 0.3;

@@ -46,6 +46,8 @@ const StyledHeader = styled.div `
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(100px,1fr));
     padding: .5rem;
+    font-size:.8rem;
+    
     /* justify-content:center; */
     /* justify-items:center; */
     align-items:center;
