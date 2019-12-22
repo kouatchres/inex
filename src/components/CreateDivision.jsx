@@ -6,6 +6,7 @@ import Error from "./ErrorMessage";
 import styled from "styled-components";
 import { storeRegion } from "../../src/data";
 import { GET_ALL_DIVISIONS_QUERY } from "./CreateSubDivision";
+import { Select, option } from "@material-ui/core";
 
 const StyledDivision = styled.div`
   display: block;
@@ -33,7 +34,7 @@ const CREATE_DIVISION_MUTATION = gql`
   }
 `;
 
-class createDivision extends Component {
+class CreateDivision extends Component {
   state = {
     divName: "",
     divCode: "",
@@ -109,6 +110,7 @@ class createDivision extends Component {
                         onChange={this.handleChange}
                         required
                       >
+                        <option>Choisissez une region</option>
                         {getRegions}
                       </select>
 
@@ -116,7 +118,7 @@ class createDivision extends Component {
                         type="text"
                         id="divName"
                         name="divName"
-                        placeholder="Division Name"
+                        placeholder="Nom Departement"
                         value={this.state.divName}
                         onChange={this.handleChange}
                         required
@@ -125,7 +127,7 @@ class createDivision extends Component {
                         type="text"
                         id="divCode"
                         name="divCode"
-                        placeholder="Division Code"
+                        placeholder="Code departement"
                         value={this.state.divCode}
                         onChange={this.handleChange}
                         required
@@ -145,5 +147,5 @@ class createDivision extends Component {
   }
 }
 
-export default createDivision;
+export default CreateDivision;
 export { GET_ALL_REGIONS_QUERY };

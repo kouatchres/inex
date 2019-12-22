@@ -1,22 +1,23 @@
-import React, { Component } from 'react';
-import styled, { ThemeProvider, injectGlobal } from 'styled-components';
-import Header from './Header';
-import Meta from './Meta';
+import React, { Component } from "react";
+import styled, { ThemeProvider, injectGlobal } from "styled-components";
+import Header from "./Header";
+import Meta from "./Meta";
 
 const theme = {
-  maxWidth: '1300px',
-  red: '#FF0000',
-  googleBlue: '#359',
-  goldenBorwn: '#d17f05',
-  black: '#393939',
-  grey: '#aaabaa',
-  slightGrey: 'rgb(243, 241, 241)',
-  lightGrey: '#E1E1E1',
-  darkGrey: '#EEEEEE',
-  pureWhite: '#FFFFFF',
-  offWhite: '#EDEDED',
-  bs: '3.5px 3.5px 2.5px  rgba(0,0,0,0.9)',
-  bs2: '0 4px 8px 0 rgba(0,0,0,0.04)'};
+  maxWidth: "1300px",
+  red: "#FF0000",
+  googleBlue: "#359",
+  goldenBorwn: "#d17f05",
+  black: "#393939",
+  grey: "#aaabaa",
+  slightGrey: "rgb(243, 241, 241)",
+  lightGrey: "#E1E1E1",
+  darkGrey: "#EEEEEE",
+  pureWhite: "#FFFFFF",
+  offWhite: "#EDEDED",
+  bs: "3.5px 3.5px 2.5px  rgba(0,0,0,0.9)",
+  bs2: "0 4px 8px 0 rgba(0,0,0,0.04)"
+};
 
 const StyledPage = styled.div`
   background: white;
@@ -36,6 +37,7 @@ injectGlobal`
     font-weight: normal;
     font-style: normal;
   }
+ 
   html {
     box-sizing: border-box;
     font-size: 10px;

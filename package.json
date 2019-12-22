@@ -14,8 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^4.4.0",
-    "@material-ui/icons": "^4.2.0",
+    "@material-ui/core": "^4.8.0",
+    "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.3.3",
     "apollo-boost": "^0.1.16",
     "apollo-client": "^2.4.2",
@@ -26,6 +26,7 @@
     "downshift": "^3.2.10",
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
+    "formik": "^2.0.8",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "jshint": "^2.10.3",
@@ -44,7 +45,9 @@
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
     "styled-components": "^3.4.9",
-    "waait": "^1.0.2"
+    "typeface-roboto": "0.0.75",
+    "waait": "^1.0.2",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "babel-jest": "^23.6.0",

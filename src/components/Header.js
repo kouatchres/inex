@@ -1,19 +1,18 @@
-import Link from 'next/link';
-import styled from 'styled-components';
-import Nav from './Nav';
-import Router from 'next/router';
-import NProgress from 'nprogress';
+import Link from "next/link";
+import styled from "styled-components";
+import MegaMenu from "./mega-menu/MegaMenu";
+import Router from "next/router";
+import NProgress from "nprogress";
 
-Router.onRouteChangeStart= ()=> {
+Router.onRouteChangeStart = () => {
   NProgress.start();
-}
-Router.onRouteChangeComplete= ()=> {
- NProgress.done();
-}
-Router.onRouteChangeError= ()=> {
+};
+Router.onRouteChangeComplete = () => {
   NProgress.done();
-  
-}
+};
+Router.onRouteChangeError = () => {
+  NProgress.done();
+};
 
 const Logo = styled.h1`
   font-size: 2rem;
@@ -22,7 +21,7 @@ const Logo = styled.h1`
   z-index: 2;
   transform: skew(-22deg);
   a {
-    padding: 0.5rem 1rem;
+    /* padding: 0.5rem 1rem; */
     /* background: #d17f05; */
     background: ${props => props.theme.googleBlue};
     color: white;
@@ -62,9 +61,9 @@ const Header = () => (
           <a>INEX</a>
         </Link>
       </Logo>
-      <Nav />
+      <MegaMenu />
     </div>
-      </StyledHeader>
+  </StyledHeader>
 );
 
 export default Header;

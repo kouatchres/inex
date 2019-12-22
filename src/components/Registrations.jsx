@@ -184,7 +184,7 @@ const CREATE_REGISTRATION_MUTATION = gql `
       $session: SessionWhereUniqueInput!, 
       $center: CenterWhereUniqueInput!,
       ) {
-    createRegistration( 
+    createRegistrations( 
         exam:$exam,
         series: $series,
         series: $series,
@@ -199,7 +199,7 @@ const CREATE_REGISTRATION_MUTATION = gql `
   }
 `;
 
-class Registration extends Component {
+class Registrations extends Component {
     state = {
         townName: "",
         townCode: "",
@@ -222,7 +222,8 @@ class Registration extends Component {
         session: storedSession,
         series: storedSeries,
         educationType: storedEducType,
-        candidate: storedCandidate
+        candidate: storedCandidate,
+        candidateRegistrationID:"125"
     };
 
     handleChange = e => {
@@ -231,7 +232,7 @@ class Registration extends Component {
         this.setState({[name]: val});
     };
 
-    getSelectedRegion = dataSource => {
+    getselectedRegion = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempRegions = [...dataSource];
@@ -243,7 +244,7 @@ class Registration extends Component {
         }
     };
 
-    getSelectedDivision = dataSource => {
+    getselectedDivision = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempDivisions = [...dataSource];
@@ -254,7 +255,7 @@ class Registration extends Component {
         }
     };
 
-    getSelectedSubDivision = (dataSource) => {
+    getselectedSubDivision = (dataSource) => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempSubDivisions = [...dataSource];
@@ -266,7 +267,7 @@ class Registration extends Component {
         }
     };
 
-    getSelectedTown = dataSource => {
+    getselectedTown = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempTown = [...dataSource];
@@ -278,7 +279,7 @@ class Registration extends Component {
         }
     };
 
-    getSelectedCenter = dataSource => {
+    getselectedCenter = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempCenter = [...dataSource];
@@ -289,7 +290,7 @@ class Registration extends Component {
             return selectedCenter;
         }
     };
-    getSelectedExam = dataSource => {
+    getselectedExam = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempExam = [...dataSource];
@@ -300,7 +301,7 @@ class Registration extends Component {
             return selectedExam;
         }
     };
-    getSelectedSession = dataSource => {
+    getselectedSession = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempSession = [...dataSource];
@@ -311,7 +312,7 @@ class Registration extends Component {
             return selectedSession;
         }
     };
-    getSelectedSeries = dataSource => {
+    getselectedSeries = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempSeries = [...dataSource];
@@ -322,7 +323,7 @@ class Registration extends Component {
             return selectedSeries;
         }
     };
-    getSelectedEducType = dataSource => {
+    getselectedEducType = dataSource => {
         // 1 copy the data source
         if (dataSource.length > 0) {
             const tempEducType = [...dataSource];
@@ -347,17 +348,18 @@ class Registration extends Component {
                     }
                     const {regions} = data;
                     const anyRegion = regions[0];
-
-                    //prepare data for the region select options
-                    const regionsOptions = regions.map(item => (
+     //prepare data for the region select options
+     const regionsOptions = regions.map(item => (
                         <option value={item.id} key={item.id}>
                             {item.regName}
                         </option>
                     ));
+
+
                     return (
                         <Query
                             query={GET_DIVISIONS_OF_A_REGION_QUERY}
-                            variables={this.getSelectedRegion(regions) || anyRegion}>
+                            variables={this.getselectedRegion(regions) || anyRegion}>
                             {({data, loading, error}) => {
                                 {
                                     loading && <p>Loading...</p>;
@@ -375,10 +377,12 @@ class Registration extends Component {
                                         {item.divName}
                                     </option>
                                 ));
+
+                         
                                 return (
                                     <Query
                                         query={GET_SUBDIVISIONS_OF_A_DIVSION_QUERY}
-                                        variables={division && (this.getSelectedDivision(division) || anyDivision)}>
+                                        variables={division && (this.getselectedDivision(division) || anyDivision)}>
                                         {({data, loading, error}) => {
                                             {
                                                 loading && <p>Loading...</p>;
@@ -388,19 +392,18 @@ class Registration extends Component {
                                             }
                                             const {division:departement} = data;
                                             const {subDivision} = departement;
-
-                                            const subDivisionsOptions =
-                                                subDivision
-                                                .map(item => (
+                                            const subDivisionsOptions =subDivision.map(item => (
                                                     <option value={item.id} key={item.id}>
                                                         {item.subDivName}
                                                     </option>
-                                                ));
+                                                )); 
+
+
 
                                             return (
                                                 <Query
                                                     query={GET_TOWNS_OF_A_SUBDIVISIONS_QUERY}
-                                                    variables={this.getSelectedSubDivision(subDivision)}>
+                                                    variables={this.getselectedSubDivision(subDivision)}>
                                                     {({data, loading, error}) => {
                                                         {
                                                             loading && <p>Loding...</p>;
@@ -411,15 +414,17 @@ class Registration extends Component {
 
                                                         console.log("these are the towns of the selected Sub division");
                                                       
-                                                        const village = data.subDivision; 
-                                                    const allTowns = { ...village };
-                                                       const { town } = allTowns;
+                                                        const {subDivision} = data; 
+                                                       console.log(data)
+                                                       const newTowns ={...subDivision}
+                                                        const {town} = newTowns
+                                                       console.log(newTowns)
                                                        console.log(town)
-
+                                                       
                                      return (
                                                 <Query
                                                     query={GET_CENTERS_OF_A_TOWN_QUERY}
-                                                    variables={ town &&  this.getSelectedTown(town) }
+                                                    variables={ town &&  this.getselectedTown(town) }
                                                      >
                                                     {({data, loading, error}) => {
                                                         {
@@ -429,12 +434,9 @@ class Registration extends Component {
                                                             error && <Error error={error}/>;
                                                         }
                                         const { town: ville} =data
-
                                         const theTowns= {...ville}
                                        const { center}= theTowns
                                         console.log(center)
-                                                       
-                                                        //*******important function'stripping off __typename')
                                                         return (
 
                                                             <Query query={GET_ALL_SESSIONS_QUERY}>
@@ -461,7 +463,7 @@ class Registration extends Component {
 
                                                                 return (
                                                                     <Query query={GET_ALL_SERIES_OF_EDUCATION_TYPE_QUERY}
-                                                                    variables={educationTypes && this.getSelectedEducType(educationTypes)}
+                                                                    variables={educationTypes && this.getselectedEducType(educationTypes)}
                                                                     >
                                                                         {({data, loading, error}) => {
                                                                         {
@@ -494,11 +496,11 @@ class Registration extends Component {
                                                                                         ...this.state
 
                                                                                     }}>
-                                                                                        {(createRegistration, {loading, error}) => (
+                                                                                        {(createRegistrations, {loading, error}) => (
                                                                                                 <Form
                                                                                                     onSubmit={async e => {
                                                                                                     e.preventDefault();
-                                                                                                    const res = await createRegistration();
+                                                                                                    const res = await createRegistrations();
                                                                                                     console.log(res);
                                                                                                 }}>
                                                                                                     <h4>S'inscrire a un examen</h4>
@@ -510,10 +512,11 @@ class Registration extends Component {
                                                                                                             type="select"
                                                                                                             id="regionID"
                                                                                                             name="regionID"
-                                                                                                            placeholder="Select a region"
+                                                                                                            placeholder="select a region"
                                                                                                             value={this.state.regionID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
+                                                                                                            <option>Choisissez une region</option>
                                                                                                             {regionsOptions }
                                                                                                         </select>
 
@@ -524,6 +527,7 @@ class Registration extends Component {
                                                                                                             value={this.state.divisionID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
+                                                                                                            <option>Choisissez un departement</option>
                                                                                                             {divisionsOptions }
                                                                                                         </select>
                                                                                                         <select
@@ -533,6 +537,7 @@ class Registration extends Component {
                                                                                                             value={this.state.subDivisionID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
+                                                                                                            <option>choisissez un Arrondissement</option>
                                                                                                             {subDivisionsOptions}
                                                                                                         </select>
                                                                                                         <select
@@ -542,9 +547,9 @@ class Registration extends Component {
                                                                                                             value={this.state.townID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
-                                                                                                            {town && town.map(item => (
-                                                                                                              <option key={item.id} value={item.id}  >{item.townName}</option>
-                                                                                                            ))  }
+                                                                                                            <option>choisissez une Ville</option>
+                                                                             { town && (town.map(item => (<option value={item.id} key={item.id}>
+                                                                                {item.townName}</option>))) }
 
 
                                                                                                         </select>
@@ -556,9 +561,10 @@ class Registration extends Component {
                                                                                                             value={this.state.centerID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
-                                                                                                            {center && center.map(item => (
-                                                                                                              <option key={item.id} value={item.id}  >{item.centerName}</option>
-                                                                                                            ))  }
+                                                                                                            
+                                                                                                              <option>Choisissez un Centre d'Examen</option>
+                                                                                                              {center && center.map(item => (
+                                                                                                              <option key={item.id} value={item.id}>{item.centerName}</option>))  }
                                                                                                         </select>
     
                                                                                                         </CenterSelect>
@@ -571,11 +577,13 @@ class Registration extends Component {
                                                                                                             value={this.state.examID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
-                                                                                                            {exams && exams.map(item => (
-                                                                                                              <option key={item.id} value={item.id}  >{item.examName}</option>
-                                                                                                            ))  }
+ 
+                                                                                                            <option>Choisissez un Examen</option>
+                                                                                                              {exams && exams.map(item => (
+                                                                                                              <option key={item.id} value={item.id}>{item.examName}</option>))  }
                                                                                                         </select>
 
+                                                                                                      
                                                                                                         <select
                                                                                                             type="select"
                                                                                                             id="sessionID"
@@ -583,9 +591,9 @@ class Registration extends Component {
                                                                                                             value={this.state.sessionID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
-                                                                                                            {sessions && sessions.map(item => (
-                                                                                                              <option key={item.id} value={item.id}  >{item.sessionName}</option>
-                                                                                                            ))  }
+                                                                                                            <option>Choisissez la Session</option>
+                                                                                                              {sessions && sessions.map(item => (
+                                                                                                              <option key={item.id} value={item.id}>{item.sessionName}</option>))  }
                                                                                                         </select>
                                                                                                         <select
                                                                                                             type="select"
@@ -594,9 +602,8 @@ class Registration extends Component {
                                                                                                             value={this.state.educTypeID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
-                                                                                                            {educationTypes && educationTypes.map(item => (
-                                                                                                              <option key={item.id} value={item.id}  >{item.educationTypeName}</option>
-                                                                                                            ))  }
+                                                                                                                      <option>Choisissez un Type d'enseignement</option>
+                                                                                                            {educationTypes && educationTypes.map(item=> (<option key={item.id} value={item.id}  >{item.educationTypeName}  </option>))}
                                                                                                         </select>
                                                                                                         <select
                                                                                                             type="select"
@@ -605,18 +612,10 @@ class Registration extends Component {
                                                                                                             value={this.state.seriesID}
                                                                                                             onChange={this.handleChange}
                                                                                                             required>
-                                                                                                            {series && series.map(item => (
-                                                                                                              <option key={item.id} value={item.id}  >{item.seriesName}</option>
-                                                                                                            ))  }
+                                                                                                            <option>Choisissez une Serie</option>
+                                                                                                            {series && series.map(item=> (<option key={item.id} value={item.id}  > {item.seriesName}  </option>))}
                                                                                                         </select>
-                                                                                                        <input
-                                                                                                            type="text"
-                                                                                                            id="candidateRegistrationID"
-                                                                                                            name="candidateRegistrationID"
-                                                                                                            placeholder="Candidate Registration ID"
-                                                                                                            value={this.state.candidateRegistrationID}
-                                                                                                            onChange={this.handleChange}
-                                                                                                            required/>
+                                                                                                       
                                                                                                         </OtherSelect>
                                                                                                        
                                                                                                         <div className="submitButton">
@@ -658,4 +657,4 @@ class Registration extends Component {
     }
 }
 
-export default Registration;
+export default Registrations;

@@ -90,7 +90,7 @@ class CreateTown extends Component {
     this.setState({ [name]: val });
   };
 
-  getSelectedDivision = dataSource => {
+  getselectedDivision = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempDivisions = [...dataSource];
@@ -101,7 +101,7 @@ class CreateTown extends Component {
     }
   };
 
-  getSelectedSubDivision = dataSource => {
+  getselectedSubDivision = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempSubDivisions = [...dataSource];
@@ -113,7 +113,7 @@ class CreateTown extends Component {
     }
   };
 
-  getSelectedRegion = dataSource => {
+  getselectedRegion = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempRegions = [...dataSource];
@@ -147,7 +147,7 @@ class CreateTown extends Component {
             </option>
           ));
           return (
-            <Query query={GET_DIVISIONS_OF_A_REGION_QUERY} variables={this.getSelectedRegion(regions) || anyRegion}>
+            <Query query={GET_DIVISIONS_OF_A_REGION_QUERY} variables={this.getselectedRegion(regions) || anyRegion}>
               {({ data, loading, error }) => {
                 {
                   loading && <p>Loading...</p>;
@@ -172,7 +172,7 @@ class CreateTown extends Component {
                 return (
                   <Query
                     query={GET_SUBDIVISIONS_OF_A_DIVSION_QUERY}
-                    variables={this.getSelectedDivision(division) || anyDivision}
+                    variables={this.getselectedDivision(division) || anyDivision}
                   >
                     {({ data, loading, error }) => {
                       {
@@ -202,7 +202,7 @@ class CreateTown extends Component {
                           mutation={CREATE_TOWN_MUTATION}
                           variables={{
                             ...this.state,
-                            subDiv: this.getSelectedSubDivision(subDivisionsOfADivision)
+                            subDiv: this.getselectedSubDivision(subDivisionsOfADivision)
                           }}
                         >
                           {(createTown, { loading, error }) => (
@@ -214,7 +214,7 @@ class CreateTown extends Component {
                                   console.log(res);
                                 }}
                               >
-                                <h5>New Town</h5>
+                                <h5>Nouvelle Ville</h5>
                                 <Error error={error} />
                                 <fieldset disabled={loading} aria-busy={loading}>
                                   <select
@@ -225,6 +225,7 @@ class CreateTown extends Component {
                                     onChange={this.handleChange}
                                     required
                                   >
+                                    <option>choisssez une region</option>
                                     {regionsOptions}
                                   </select>
 
@@ -236,6 +237,7 @@ class CreateTown extends Component {
                                     onChange={this.handleChange}
                                     required
                                   >
+                                    <option> choisissez un departement</option>
                                     {divisionsOptions}
                                   </select>
                                   <select
@@ -246,13 +248,14 @@ class CreateTown extends Component {
                                     onChange={this.handleChange}
                                     required
                                   >
+                                    <option> choisissez un arrondissement</option>
                                     {subDivisionsOptions}
                                   </select>
                                   <input
                                     type="text"
                                     id="townName"
                                     name="townName"
-                                    placeholder="Town Name"
+                                    placeholder="Nom de la ville"
                                     value={this.state.subDivName}
                                     onChange={this.handleChange}
                                     required
@@ -261,7 +264,7 @@ class CreateTown extends Component {
                                     type="text"
                                     id="townCode"
                                     name="townCode"
-                                    placeholder="Town Code"
+                                    placeholder="Code de la ville"
                                     value={this.state.subDivCode}
                                     onChange={this.handleChange}
                                     required

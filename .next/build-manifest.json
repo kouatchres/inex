@@ -10,6 +10,18 @@
     "/_error": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
+    ],
+    "/modifyRegion": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/newTown": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/updateRegion": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
     ]
   }
 }

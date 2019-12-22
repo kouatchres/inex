@@ -4,6 +4,7 @@ import Form from "./styles/Form";
 import gql from "graphql-tag";
 import Error from "./ErrorMessage";
 import styled from "styled-components";
+import { select, option } from "@material-ui/core";
 import { storedTown, storeRegion, storedDivision, storedSubDivision, bestTowns } from "../data";
 
 const StyledDivision = styled.div`
@@ -110,7 +111,7 @@ class CreateCenter extends Component {
     this.setState({ [name]: setValue });
   };
 
-  getSelectedDivision = dataSource => {
+  getselectedDivision = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempDivisions = [...dataSource];
@@ -121,7 +122,7 @@ class CreateCenter extends Component {
     }
   };
 
-  getSelectedSubDivision = dataSource => {
+  getselectedSubDivision = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempSubDivisions = [...dataSource];
@@ -133,7 +134,7 @@ class CreateCenter extends Component {
     }
   };
 
-  getSelectedTown = dataSource => {
+  getselectedTown = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempTown = [...dataSource];
@@ -145,7 +146,7 @@ class CreateCenter extends Component {
     }
   };
 
-  getSelectedRegion = dataSource => {
+  getselectedRegion = dataSource => {
     // 1 copy the data source
     if (dataSource.length > 0) {
       const tempRegions = [...dataSource];
@@ -177,7 +178,7 @@ class CreateCenter extends Component {
             </option>
           ));
           return (
-            <Query query={GET_DIVISIONS_OF_A_REGION_QUERY} variables={this.getSelectedRegion(regions) || anyRegion}>
+            <Query query={GET_DIVISIONS_OF_A_REGION_QUERY} variables={this.getselectedRegion(regions) || anyRegion}>
               {({ data, loading, error }) => {
                 {
                   loading && <p>Loading...</p>;
@@ -198,7 +199,7 @@ class CreateCenter extends Component {
                 return (
                   <Query
                     query={GET_SUBDIVISIONS_OF_A_DIVSION_QUERY}
-                    variables={this.getSelectedDivision(division) || anyDivision}
+                    variables={this.getselectedDivision(division) || anyDivision}
                   >
                     {({ data, loading, error }) => {
                       {
@@ -222,7 +223,7 @@ class CreateCenter extends Component {
                       return (
                         <Query
                           query={GET_TOWNS_OF_A_SUBDIVISION_QUERY}
-                          variables={this.getSelectedSubDivision(arrondissement) || anySubDivision}
+                          variables={this.getselectedSubDivision(arrondissement) || anySubDivision}
                         >
                           {({ data, loading, error }) => {
                             {
@@ -243,7 +244,7 @@ class CreateCenter extends Component {
                                 mutation={CREATE_CENTER_MUTATION}
                                 variables={{
                                   ...this.state,
-                                  town: this.getSelectedTown(
+                                  town: this.getselectedTown(
                                     town ? town.map(({ __typename, townName, townCode, ...others }) => others) : storedTown
                                   )
                                 }}
@@ -257,7 +258,7 @@ class CreateCenter extends Component {
                                         console.log(res);
                                       }}
                                     >
-                                      <h5>New Exam Center</h5>
+                                      <h5>Nouveau Centre d'Examen</h5>
                                       <Error error={error} />
                                       <fieldset disabled={loading} aria-busy={loading}>
                                         <select
@@ -268,6 +269,7 @@ class CreateCenter extends Component {
                                           onChange={this.handleChange}
                                           required
                                         >
+                                          <option>Choisissez une region</option>
                                           {regionsOptions}
                                         </select>
 
@@ -279,6 +281,7 @@ class CreateCenter extends Component {
                                           onChange={this.handleChange}
                                           required
                                         >
+                                          <option>Choisissez un departement</option>
                                           {divisionsOptions}
                                         </select>
                                         <select
@@ -289,6 +292,7 @@ class CreateCenter extends Component {
                                           onChange={this.handleChange}
                                           required
                                         >
+                                          <option>Choisissez un arrondissement</option>
                                           {subDivisionsOptions}
                                         </select>
                                         <select
@@ -299,6 +303,7 @@ class CreateCenter extends Component {
                                           onChange={this.handleChange}
                                           required
                                         >
+                                          <option>Choisissez une ville</option>
                                           {town
                                             ? town.map(item => (
                                                 <option value={item.id} key={item.id}>
@@ -315,8 +320,8 @@ class CreateCenter extends Component {
                                           type="text"
                                           id="centerName"
                                           name="centerName"
-                                          placeholder="Center Name"
-                                          value={this.state.c4enterName}
+                                          placeholder="Nom du Centre d'examen"
+                                          value={this.state.centerName}
                                           onChange={this.handleChange}
                                           required
                                         />
@@ -324,7 +329,7 @@ class CreateCenter extends Component {
                                           type="text"
                                           id="centerCode"
                                           name="centerCode"
-                                          placeholder="Center Code"
+                                          placeholder="Code centre d'examen"
                                           value={this.state.centerCode}
                                           onChange={this.handleChange}
                                           required
@@ -333,7 +338,7 @@ class CreateCenter extends Component {
                                           type="text"
                                           id="centerNumber"
                                           name="centerNumber"
-                                          placeholder="Center Number"
+                                          placeholder="No du Centre"
                                           value={this.state.centerNumber}
                                           onChange={this.handleChange}
                                           required

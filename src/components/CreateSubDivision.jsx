@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import Error from './ErrorMessage';
 import styled from 'styled-components';
 import { storeRegion, storedDivision } from '../data';
+import { select, option } from '@material-ui/core';
 
 const StyledDivision = styled.div`
 	display: block;
@@ -61,7 +62,7 @@ const CREATE_SUBDIVISION_MUTATION = gql`
 	}
 `;
 
-class createSubDivision extends Component {
+class CreateSubDivision extends Component {
 	state = {
 		subDivName: '',
 		subDivCode: '',
@@ -77,7 +78,7 @@ class createSubDivision extends Component {
 		this.setState({ [name]: val });
 	};
 
-	getSelectedDivision = (dataSource) => {
+	getselectedDivision = (dataSource) => {
 		// 1 copy the data source
 		if (dataSource.length > 0) {
 			const tempDivisions = [ ...dataSource ];
@@ -88,7 +89,7 @@ class createSubDivision extends Component {
 		}
 	};
 
-	getSelectedRegion = (dataSource) => {
+	getselectedRegion = (dataSource) => {
 		// 1 copy the data source
 		if (dataSource.length > 0) {
 			const tempRegions = [ ...dataSource ];
@@ -118,13 +119,13 @@ class createSubDivision extends Component {
 					//prepare data for the region select options
 					const regionsOptions = regions.map((item) => (
 						<option value={item.id} key={item.id}>
-							{item.regName}
+							{item.regName}-{item.regCode}
 						</option>
 					));
 					return (
 						<Query
 							query={GET_DIVISIONS_OF_A_REGION_QUERY}
-							variables={this.getSelectedRegion(regions) || anyRegion}
+							variables={this.getselectedRegion(regions) || anyRegion}
 						>
 							{({ data, loading, error }) => {
 								{
@@ -151,7 +152,7 @@ class createSubDivision extends Component {
 										mutation={CREATE_SUBDIVISION_MUTATION}
 										variables={{
 											...this.state,
-											division: this.getSelectedDivision(divisionsOfARegion)
+											division: this.getselectedDivision(divisionsOfARegion)
 										}}
 									>
 										{(createSubDivision, { loading, error }) => (
@@ -175,7 +176,8 @@ class createSubDivision extends Component {
 															onChange={this.handleChange}
 															required
 														>
-															{regionsOptions}
+															<option>Choisissez une region</option>
+															   {regionsOptions}
 														</select>
 														<select
 															type="select"
@@ -185,13 +187,14 @@ class createSubDivision extends Component {
 															onChange={this.handleChange}
 															required
 														>
+															<option>Choisissez un departement</option>
 															{divisionsOptions}
 														</select>
 														<input
 															type="text"
 															id="subDivName"
 															name="subDivName"
-															placeholder="Sub Division Name"
+															placeholder="Nom Arrondissement"
 															value={this.state.subDivName}
 															onChange={this.handleChange}
 															required
@@ -200,7 +203,7 @@ class createSubDivision extends Component {
 															type="text"
 															id="subDivCode"
 															name="subDivCode"
-															placeholder="Sub Division Code"
+															placeholder="Code Arrondissement"
 															value={this.state.subDivCode}
 															onChange={this.handleChange}
 															required
@@ -223,5 +226,5 @@ class createSubDivision extends Component {
 	}
 }
 
-export default createSubDivision;
+export default CreateSubDivision;
 export { GET_ALL_DIVISIONS_QUERY };

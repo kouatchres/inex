@@ -171,7 +171,7 @@ class CreateCandidate extends Component {
                           type="file"
                           id="file"
                           name="file"
-                          placeholder="Upload your picture"
+                          placeholder=" telechargez photo"
                           onChange={this.uploadFile}
                           required
                         />
@@ -186,13 +186,14 @@ class CreateCandidate extends Component {
                           onChange={this.handleChange}
                           required
                         >
+                          <option>Choisissez le Sexe</option>
                           {allGenders}
                         </select>
                         <input
                           type="text"
                           id="cand1stName"
                           name="cand1stName"
-                          placeholder="First Name"
+                          placeholder="Nom"
                           value={this.state.cand1stName}
                           onChange={this.handleChange}
                           required
@@ -201,7 +202,7 @@ class CreateCandidate extends Component {
                           type="text"
                           id="cand2ndName"
                           name="cand2ndName"
-                          placeholder="Second Name"
+                          placeholder="Prenoms"
                           value={this.state.cand2ndName}
                           onChange={this.handleChange}
                           required
@@ -210,7 +211,7 @@ class CreateCandidate extends Component {
                           type="text"
                           id="cand3rdName"
                           name="cand3rdName"
-                          placeholder="Last Name"
+                          placeholder="Autres noms"
                           value={this.state.cand3rdName}
                           onChange={this.handleChange}
                           required
@@ -228,7 +229,7 @@ class CreateCandidate extends Component {
                           type="number"
                           id="phoneNumb"
                           name="phoneNumb"
-                          placeholder="Phone Number"
+                          placeholder="No Tel"
                           value={this.state.phoneNumb}
                           onChange={this.handleChange}
                           required
@@ -237,7 +238,7 @@ class CreateCandidate extends Component {
                           type="text"
                           id="placeOfBirth"
                           name="placeOfBirth"
-                          placeholder="Birth Place"
+                          placeholder="Lieu Naissance"
                           value={this.state.placeOfBirth}
                           onChange={this.handleChange}
                           required
@@ -246,7 +247,7 @@ class CreateCandidate extends Component {
                           type="text"
                           id="candCode"
                           name="candCode"
-                          placeholder="Candidate Code"
+                          placeholder="Code Candidat "
                           value={this.state.candCode}
                           onChange={this.handleChange}
                           required

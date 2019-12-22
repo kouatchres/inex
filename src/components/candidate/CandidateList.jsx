@@ -39,13 +39,13 @@ class Candidates extends Component {
       <CenteredStyled>
         <Pagination />
         <Query query={ALL_CANDIDATES_QUERY}>
-          {({ loading, error, data }) => {
+          {({ data, loading, error }) => {
             console.log(data.candidates);
             {
               loading && <p>Loading...</p>;
             }
             {
-              loading && <p> Error: {error.message}</p>;
+              error && <p> Error: {error.message}</p>;
             }
             return (
               <CandidateList>
