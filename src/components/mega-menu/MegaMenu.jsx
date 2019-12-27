@@ -117,40 +117,40 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Region</h3>
                   <hr />
-                  <Link href="/newRegion">
+                  <Link href="/creates/newRegion">
                     <a>Nouvelle Region</a>
                   </Link>
-                  <Link href="/modifyRegion">
+                  <Link href="/modify/modifyRegion">
                     <a>Modifier Region</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Departement</h3>
                   <hr />
-                  <Link href="/newDivision">
+                  <Link href="/creates/newDivision">
                     <a>Nouveau Departement</a>
                   </Link>
-                  <Link href="/modifyDivision">
+                  <Link href="/modify/modifyDivision">
                     <a>Modifier Department</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Arrondissement</h3>
                   <hr />
-                  <Link href="/newSubDivision">
+                  <Link href="/creates/newSubDivision">
                     <a>Nouvel Arrondissement</a>
                   </Link>
-                  <Link href="/modifySubDivision">
+                  <Link href="/modify/modifySubDivision">
                     <a>Modifier Arrondissement</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Ville</h3>
                   <hr />
-                  <Link href="/newTown">
+                  <Link href="/creates/newTown">
                     <a>Nouvelle Ville</a>
                   </Link>
-                  <Link href="/modifyTown">
+                  <Link href="/modify/modifyTown">
                     <a>Modifier Ville</a>
                   </Link>
                 </ul>
@@ -159,40 +159,40 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Centre</h3>
                   <hr />
-                  <Link href="/newCenter">
+                  <Link href="/creates/newCenter">
                     <a> Nouveau Centre</a>
                   </Link>
-                  <Link href="/modifyCenter">
+                  <Link href="/modify/modifyCenter">
                     <a>Modifier Centre</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Inscription</h3>
                   <hr />
-                  <Link href="/newRegister">
+                  <Link href="/creates/newRegister">
                     <a> Nouvelle Inscription</a>
                   </Link>
-                  <Link href="/modifyRegistration">
+                  <Link href="/modify/modifyRegistration">
                     <a>Modifier Inscription</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Poste</h3>
                   <hr />
-                  <Link href="/newPost">
+                  <Link href="/creates/newPost">
                     <a>Nouveau Poste</a>
                   </Link>
-                  <Link href="/modifyPost">
+                  <Link href="/modify/modifyRank">
                     <a>Modifier Poste</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Examen</h3>
                   <hr />
-                  <Link href="/newExam">
+                  <Link href="/creates/newExam">
                     <a>Nouvel Examen</a>
                   </Link>
-                  <Link href="/modifyExam">
+                  <Link href="/modify/modifyExam">
                     <a>Modifier Examen</a>
                   </Link>
                 </ul>
@@ -201,17 +201,17 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Utilisateur</h3>
                   <hr />
-                  <Link href="/newUser">
+                  <Link href="/creates/newUser">
                     <a>Nouveau Utilisateur</a>
                   </Link>
-                  <Link href="/modifyUser">
+                  <Link href="/modify/modifyUser">
                     <a>Modifier Utilisateur</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Centre</h3>
                   <hr />
-                  <Link href="/newCenter">
+                  <Link href="/creates/newCenter">
                     <a>Nouveau Centre</a>
                   </Link>
                   <Link href="/regionList">
@@ -221,20 +221,20 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Session</h3>
                   <hr />
-                  <Link href="/newSession">
+                  <Link href="/creates/newSession">
                     <a>Nouvelle Session</a>
                   </Link>
-                  <Link href="/modifySession">
+                  <Link href="/modify/modifySession">
                     <a>Modifier Session</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Series</h3>
                   <hr />
-                  <Link href="/newSeries">
+                  <Link href="/creates/newSeries">
                     <a>Nouvelle Series</a>
                   </Link>
-                  <Link href="/modifySeries">
+                  <Link href="/modify/modifySeries">
                     <a>Modifier Series</a>
                   </Link>
                 </ul>
@@ -243,40 +243,40 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Sexe</h3>
                   <hr />
-                  <Link href="/newGender">
+                  <Link href="/creates/newGender">
                     <a>nouveau Sexe</a>
                   </Link>
-                  <Link href="/modifyGender">
+                  <Link href="/modify/modifyGender">
                     <a>Modifier Sexe</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Candidat</h3>
                   <hr />
-                  <Link href="/newCand">
+                  <Link href="/creates/newCand">
                     <a>nouveau Candidat</a>
                   </Link>
-                  <Link href="/modifyCandidate">
+                  <Link href="/modify/modifyCandidate">
                     <a>Candidats</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Enseignement</h3>
                   <hr />
-                  <Link href="/newEducationType">
+                  <Link href="/creates/newEducationType">
                     <a>Nouveau Type D'enseignement</a>
                   </Link>
-                  <Link href="/modifyEducType">
+                  <Link href="/modify/modifyEducType">
                     <a>Modifier Type D'enseignement</a>
                   </Link>
                 </ul>
                 <ul>
                   <h3 className="menu-category">Matiere</h3>
                   <hr />
-                  <Link href="/newSubject">
+                  <Link href="/creates/newSubject">
                     <a>Nouvelle Matiere </a>
                   </Link>
-                  <Link href="/modifySubject">
+                  <Link href="/modify/modifySubject">
                     <a>New App Mui</a>
                   </Link>
                 </ul>
@@ -287,10 +287,10 @@ const MegaMenu = () => (
             <a href="/App">App</a>
           </li>
           <li>
-            <a href="/newRegister">Contact</a>
+            <a href="/creates/newRegister">Contact</a>
           </li>
           <li>
-            <a href="/newRegister">Register</a>
+            <a href="/creates/newRegister">Register</a>
           </li>
         </ul>
       </div>

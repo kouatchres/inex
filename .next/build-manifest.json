@@ -11,15 +11,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/modifyRegion": [
+    "/updates/updateSubDivision": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/newTown": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/updateRegion": [
+    "/modify/modifySubDivision": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

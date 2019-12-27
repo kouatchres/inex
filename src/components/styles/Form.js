@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 const loading = keyframes`
   from {
@@ -14,13 +14,13 @@ const loading = keyframes`
 
 const Form = styled.form`
   /* box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05); */
-  background: ${props => props.theme.pureWhite};
+  background: ${(props) => props.theme.pureWhite};
   /* background: rgba(0, 0, 0, 0.02); */
   border: 5px solid white;
   padding: 20px;
-  font-size: 1.7rem;
-  line-height: 1.4;
-  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  font-weight: 100;
   label {
     margin-bottom: 2rem;
     /* display: block;
@@ -32,22 +32,22 @@ const Form = styled.form`
   select {
     width: 100%;
     padding: 1rem;
-    font-size: 2rem;
+    font-size: 1.3rem;
     border-style: none;
-    border-bottom: 1px solid ${props => props.theme.black};
+    border-bottom: 1px solid ${(props) => props.theme.black};
     &:focus {
       outline: 0;
-      border-color: ${props => props.theme.red};
+      border-color: ${(props) => props.theme.red};
     }
   }
   button,
   input[type='submit'] {
     width: auto;
-    background: ${props => props.theme.googleBlue};
+    background: ${(props) => props.theme.googleBlue};
     color: white;
     border: 0;
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 1.3rem;
+    font-weight: 200;
     border-radius:7px;
     margin-top: 1rem;
     padding: .8rem .8rem;
@@ -57,14 +57,14 @@ const Form = styled.form`
     /* min-width: 300px; */
     margin: 20px 
     height: 60vh;
-    border: .8px solid ${props => props.theme.lightGrey};
+    border: .8px solid ${(props) => props.theme.lightGrey};
     padding: 15px;
     display: flex;
     flex-direction: row;
     /* grid-template-columns: repeat(auto-fit, -ms-content-zoom-limit-max(200px,1fr)); */
     border-radius:.5rem;
     justify-items: center;
-    box-shadow: ${props => props.theme.bs};
+    box-shadow: ${(props) => props.theme.bs};
 
     &[disabled] {
       opacity: 0.3;

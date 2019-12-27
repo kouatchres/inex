@@ -719,7 +719,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newRegion",
+    href: "/creates/newRegion",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 120
@@ -732,7 +732,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvelle Region")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyRegion",
+    href: "/modify/modifyRegion",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 123
@@ -764,7 +764,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newDivision",
+    href: "/creates/newDivision",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 130
@@ -777,7 +777,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouveau Departement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyDivision",
+    href: "/modify/modifyDivision",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 133
@@ -809,7 +809,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newSubDivision",
+    href: "/creates/newSubDivision",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 140
@@ -822,7 +822,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvel Arrondissement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifySubDivision",
+    href: "/modify/modifySubDivision",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 143
@@ -854,7 +854,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newTown",
+    href: "/creates/newTown",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 150
@@ -867,7 +867,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvelle Ville")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyTown",
+    href: "/modify/modifyTown",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 153
@@ -906,7 +906,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newCenter",
+    href: "/creates/newCenter",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 162
@@ -919,7 +919,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, " Nouveau Centre")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyCenter",
+    href: "/modify/modifyCenter",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 165
@@ -951,7 +951,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newRegister",
+    href: "/creates/newRegister",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 172
@@ -964,7 +964,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, " Nouvelle Inscription")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyRegistration",
+    href: "/modify/modifyRegistration",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 175
@@ -996,7 +996,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newPost",
+    href: "/creates/newPost",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 182
@@ -1009,7 +1009,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouveau Poste")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyPost",
+    href: "/modify/modifyRank",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 185
@@ -1041,7 +1041,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newExam",
+    href: "/creates/newExam",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 192
@@ -1054,7 +1054,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvel Examen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyExam",
+    href: "/modify/modifyExam",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 195
@@ -1093,7 +1093,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newUser",
+    href: "/creates/newUser",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 204
@@ -1106,7 +1106,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouveau Utilisateur")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyUser",
+    href: "/modify/modifyUser",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 207
@@ -1138,7 +1138,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newCenter",
+    href: "/creates/newCenter",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 214
@@ -1183,7 +1183,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newSession",
+    href: "/creates/newSession",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 224
@@ -1196,7 +1196,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvelle Session")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifySession",
+    href: "/modify/modifySession",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 227
@@ -1228,7 +1228,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newSeries",
+    href: "/creates/newSeries",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 234
@@ -1241,7 +1241,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvelle Series")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifySeries",
+    href: "/modify/modifySeries",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 237
@@ -1280,7 +1280,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newGender",
+    href: "/creates/newGender",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 246
@@ -1293,7 +1293,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "nouveau Sexe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyGender",
+    href: "/modify/modifyGender",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 249
@@ -1325,7 +1325,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newCand",
+    href: "/creates/newCand",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 256
@@ -1338,7 +1338,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "nouveau Candidat")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyCandidate",
+    href: "/modify/modifyCandidate",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 259
@@ -1370,7 +1370,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newEducationType",
+    href: "/creates/newEducationType",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 266
@@ -1383,7 +1383,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouveau Type D'enseignement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifyEducType",
+    href: "/modify/modifyEducType",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 269
@@ -1415,7 +1415,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/newSubject",
+    href: "/creates/newSubject",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 276
@@ -1428,7 +1428,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, "Nouvelle Matiere ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modifySubject",
+    href: "/modify/modifySubject",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 279
@@ -1460,7 +1460,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "/newRegister",
+    href: "/creates/newRegister",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 290
@@ -1473,7 +1473,7 @@ var MegaMenu = function MegaMenu() {
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "/newRegister",
+    href: "/creates/newRegister",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 293
