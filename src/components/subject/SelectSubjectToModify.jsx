@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import DeleteRegion from "../region/DeleteRegion";
+import { getAllSubjectsQuery } from "../queries&Mutations&Functions/Queries";
 
 const DeleteBlock = styled.div`
   align-content: left;
@@ -40,16 +41,6 @@ const StyledDivision = styled.div`
   width: 70vw;
 `;
 
-const GET_ALL_SUBJECTS_QUERY = gql`
-  query GET_ALL_SUBJECTS_QUERY {
-    subjects(orderBy: subjectName_ASC) {
-      id
-      subjectName
-      subjectCode
-    }
-  }
-`;
-
 class SelectSubjectToModify extends Component {
   state = {
     id: ""
@@ -64,7 +55,7 @@ class SelectSubjectToModify extends Component {
   render = () => {
     const { id } = this.state;
     return (
-      <Query query={GET_ALL_SUBJECTS_QUERY}>
+      <Query query={getAllSubjectsQuery}>
         {({ data, loading, error }) => {
           {
             loading && <p>Loading...</p>;

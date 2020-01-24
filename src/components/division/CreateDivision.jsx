@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
-import gql from 'graphql-tag';
 import Error from '../ErrorMessage';
 import styled from 'styled-components';
-import { storeRegion } from '../../data';
+import { getAllRegionsQuery } from '../queries&Mutations&Functions/Queries';
+import { createDivisionMutation } from '../queries&Mutations&Functions/Mutations';
+import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
 
 const StyledDivision = styled.div`
 	display: block;
@@ -13,35 +14,12 @@ const StyledDivision = styled.div`
 	min-width: 350px;
 `;
 
-const GET_ALL_REGIONS_QUERY = gql`
-	query GET_ALL_REGIONS_QUERY {
-		regions(orderBy: regName_DESC) {
-			id
-			regName
-			regCode
-		}
-	}
-`;
-
-const CREATE_DIVISION_MUTATION = gql`
-	mutation CREATE_DIVISION_MUTATION(
-		$divName: String!
-		$divCode: String!
-		$region: RegionCreateWithoutDivisionInput!
-	) {
-		createDivision(divName: $divName, divCode: $divCode, region: $region) {
-			id
-			divName
-		}
-	}
-`;
-
 class CreateDivision extends Component {
 	state = {
 		divName: '',
 		divCode: '',
 		regionID: '12',
-		region: storeRegion
+		region: ''
 	};
 
 	handleChange = (e) => {
@@ -50,6 +28,9 @@ class CreateDivision extends Component {
 		this.setState({ [name]: val });
 	};
 
+	resetForm() {
+		this.setState({ divName: '', divCode: '' });
+	}
 	getSelectedRegion = (dataSource) => {
 		// 1 copy the data source
 		if (dataSource.length > 0) {
@@ -63,8 +44,9 @@ class CreateDivision extends Component {
 	};
 
 	render() {
+		const { regionID } = this.state;
 		return (
-			<Query query={GET_ALL_REGIONS_QUERY}>
+			<Query query={getAllRegionsQuery}>
 				{({ data, loading, error }) => {
 					{
 						loading && <p>Loading...</p>;
@@ -76,20 +58,22 @@ class CreateDivision extends Component {
 					//'getting region from the state')
 					console.log(this.state.region);
 
-					const getRegions = regions.map((region) => (
-						<option value={region.id} key={region.id}>
-							{region.regName}
-						</option>
-					));
+					const getRegions =
+						regions &&
+						regions.map((item) => (
+							<option value={item.id} key={item.id}>
+								{item.regName}
+							</option>
+						));
 
 					//*******important function'stripping off __typename')
 					const refinedRegions = regions.map(({ __typename, ...others }) => others);
 					return (
 						<Mutation
-							mutation={CREATE_DIVISION_MUTATION}
+							mutation={createDivisionMutation}
 							variables={{
 								...this.state,
-								region: this.getSelectedRegion(refinedRegions)
+								region: getSelectedObject(refinedRegions, regionID)
 							}}
 						>
 							{(createDivision, { loading, error }) => (
@@ -99,6 +83,7 @@ class CreateDivision extends Component {
 											e.preventDefault();
 											const res = await createDivision();
 											console.log(res);
+											this.resetForm();
 										}}
 									>
 										<h5>New Division</h5>
@@ -135,7 +120,7 @@ class CreateDivision extends Component {
 												required
 											/>
 											<div className="submitButton">
-												<button type="submit">Submit</button>
+												<button type="submit">Valid{loading ? 'ation en cours' : 'er'}</button>
 											</div>
 										</fieldset>
 									</Form>
@@ -150,4 +135,3 @@ class CreateDivision extends Component {
 }
 
 export default CreateDivision;
-export { GET_ALL_REGIONS_QUERY };

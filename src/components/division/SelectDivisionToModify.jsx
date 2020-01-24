@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import DeleteDivision from "./DeleteDivision";
+import { getAllRegionsQuery, getDivisionsOfARegionQuery } from "../queries&Mutations&Functions/Queries";
 
 const DeleteBlock = styled.div`
   align-content: left;
@@ -42,31 +43,6 @@ const StyledDivision = styled.div`
   margin: 0 auto;
   width: 70vw;
 `;
-
-const GET_ALL_REGIONS_QUERY = gql`
-  query GET_ALL_REGIONS_QUERY {
-    regions(orderBy: regName_DESC) {
-      id
-      regName
-      regCode
-    }
-  }
-`;
-
-const GET_DIVISIONS_OF_A_REGION_QUERY = gql`
-  query GET_DIVISIONS_OF_A_REGION_QUERY($id: ID!) {
-    region(id: $id) {
-      id
-      regName
-      division(orderBy: divName_ASC) {
-        id
-        divName
-        divCode
-      }
-    }
-  }
-`;
-
 class SelectDivisionToModify extends Component {
   state = {
     regionID: "12",
@@ -106,7 +82,7 @@ class SelectDivisionToModify extends Component {
   render = () => {
     const { id } = this.state;
     return (
-      <Query query={GET_ALL_REGIONS_QUERY}>
+      <Query query={getAllRegionsQuery}>
         {({ data, loading, error }) => {
           {
             loading && <p>Loading...</p>;
@@ -125,7 +101,7 @@ class SelectDivisionToModify extends Component {
             </option>
           ));
           return (
-            <Query query={GET_DIVISIONS_OF_A_REGION_QUERY} variables={this.getSelectedRegion(regions) || anyRegion}>
+            <Query query={getDivisionsOfARegionQuery} variables={this.getSelectedRegion(regions) || anyRegion}>
               {({ data, loading, error }) => {
                 {
                   loading && <p>Loading...</p>;

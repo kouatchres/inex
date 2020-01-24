@@ -8,6 +8,15 @@ export const storedGender = {
   genderName: "Male",
   genderCode: "M"
 };
+export const storedCenterAdmin = {
+  // id: "ck53prxol8gn30993hpis93x7",
+  authCode: "2h@&g82C"
+};
+export const storedSubjectType = {
+  id: "cjzkbe47nadpi0b53a6wjogji",
+  genderName: "Facultative",
+  genderCode: "Fac"
+};
 export const storedDivision = {
   id: "ck3albumntavq09228sbbzlh8",
   divName: "Lithuania",
@@ -26,15 +35,15 @@ export const storedSubDivision = {
 };
 
 export const storedEducType = {
-  id: "ck3m9r2e51ar009642q8k5nhs",
+  id: "ck3tyz8l2fqbx09225saobbuw",
   educTypeCode: "BCG",
   educTypeName: "Generale"
 };
 
 export const storedCandidate = {
-  id: "ck3m9r2e51ar009642q8k5nhs",
-  candidateCode: "BCG",
-  candidateName: "Generale"
+  // id: "ck4rchsjfcvd50922jyy877fp",
+  candCode: "8al2cj40nbhl",
+  email: "hanson@gmail.com"
 };
 
 export const storedSeries = {
@@ -51,7 +60,7 @@ export const storedSession = {
 
 export const storedExam = {
   id: "ck3m9r2e51ar009642q8k5nhs",
-  examCode: "BCG",
+  examCode: "Bju",
   examName: "Generale"
 };
 
@@ -59,6 +68,17 @@ export const storedCenter = {
   id: "ck3m9r2e51ar009642q8k5nhs",
   centerCode: "BCG",
   centerName: "Generale"
+};
+
+export const storedSubject = {
+  id: "ck3m9r2e51ar009642q8k5nhs",
+  centerCode: "Chem",
+  centerName: "Chemistry"
+};
+export const storedRank = {
+  id: "ck3m9r2e51ar009642q8k5nhs",
+  centerCode: "CC",
+  centerName: "Charge de mission"
 };
 
 export const bestTowns = [

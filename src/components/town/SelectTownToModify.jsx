@@ -6,6 +6,15 @@ import Link from 'next/link';
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import DeleteDivision from './DeleteDivision';
+import {handleChange } from "../queries&Mutations&Functions/Functions";
+
+import {
+    getAllRegionsQuery,
+    getDivisionsOfARegionQuery,
+    getSubDivisionsOfADivisionQuery,
+    getTownsOfASubDivisionQuery
+  } from "../queries&Mutations&Functions/Queries";
+  
 
 const ButtonBlock =styled.div`
   display:grid;
@@ -47,59 +56,6 @@ const CenterSelect = styled.div `
   margin: 0 auto;
   min-width: 40rem;
 `;
-
-const GET_ALL_REGIONS_QUERY = gql `
-  query GET_ALL_REGIONS_QUERY {
-    regions(orderBy: regName_DESC) {
-    regName
-    regCode
-    id
-  }
-  }
-`;
-
-const GET_DIVISIONS_OF_A_REGION_QUERY = gql `
-  query GET_DIVISIONS_OF_A_REGION_QUERY($id: ID!) {
-    region(id: $id) {
-      regName
-      id
-      division(orderBy: divName_ASC) {
-        divName
-        divCode
-        id
-      }
-    }
-  }
-`;
-
-const GET_SUBDIVISIONS_OF_A_DIVSION_QUERY = gql `
-  query GET_SUBDIVISIONS_OF_A_DIVSION_QUERY($id: ID!) {
-    division(id: $id) {
-      divName
-      id
-      subDivision(orderBy: subDivName_ASC) {
-        subDivName
-        subDivCode
-        id
-      }
-    }
-  }
-`;
-
-const GET_TOWNS_OF_A_SUBDIVISIONS_QUERY = gql `
-  query GET_TOWNS_OF_A_SUBDIVISIONS_QUERY($id: ID!) {
-    subDivision(id: $id) {
-      subDivName
-      id
-      town(orderBy: townName_ASC) {
-        townName
-        townCode
-        id
-      }
-    }
-  }
-`;
-
 class SelectTownToModify extends Component {
     state = { 
         regionID: '125',
@@ -109,12 +65,12 @@ class SelectTownToModify extends Component {
         centerID: '125',
         id: '125'
     };
-
-    handleChange = e => {
-        const {name, value, type} = e.target;
-        const val = type === "number"? parseInt(value): value;
-        this.setState({[name]: val});
-    };
+    
+    // handleChange = e => {
+    //     const {name, value, type} = e.target;
+    //     const val = type === "number"? parseInt(value): value;
+    //     this.setState({[name]: val});
+    // };
 
     getselectedRegion = dataSource => {
         // 1 copy the data source
@@ -180,7 +136,7 @@ class SelectTownToModify extends Component {
 // make theses variables available in the render method
         const {id } = this.state
         return (
-            <Query query={GET_ALL_REGIONS_QUERY}>
+            <Query query={getAllRegionsQuery}>
                 {({data, loading, error}) => {
                     {
                         loading && <p>Loading...</p>;
@@ -191,7 +147,7 @@ class SelectTownToModify extends Component {
                     const {regions} = data;
                     const anyRegion = regions[0];
                     //prepare data for the region select options
-                    const regionsOptions = regions.map(item => (
+                    const regionsOptions = regions && regions.map(item => (
                         <option value={item.id} key={item.id}>
                             {item.regName}
                         </option>
@@ -199,8 +155,8 @@ class SelectTownToModify extends Component {
 
                     return (
                         <Query
-                            query={GET_DIVISIONS_OF_A_REGION_QUERY}
-                            variables={this.getselectedRegion(regions) || anyRegion}>
+                            query={getDivisionsOfARegionQuery}
+                            variables={regions && this.getselectedRegion(regions) }>
                             {({data, loading, error}) => {
                                 {
                                     loading && <p>Loading...</p>;
@@ -213,7 +169,7 @@ class SelectTownToModify extends Component {
                                 const {division} = province;
                                 const anyDivision = division[0];
 
-                                const divisionsOptions = division.map(item => (
+                                const divisionsOptions = division && division.map(item => (
                                     <option value={item.id} key={item.id}>
                                         {item.divName}
                                     </option>
@@ -221,8 +177,8 @@ class SelectTownToModify extends Component {
 
                                 return (
                                     <Query
-                                        query={GET_SUBDIVISIONS_OF_A_DIVSION_QUERY}
-                                        variables={division && (this.getselectedDivision(division) || anyDivision)}>
+                                        query={getSubDivisionsOfADivisionQuery}
+                                        variables={division && this.getselectedDivision(division) }>
                                         {({data, loading, error}) => {
                                             {
                                                 loading && <p>Loading...</p>;
@@ -234,7 +190,7 @@ class SelectTownToModify extends Component {
                                             const {subDivision} = departement;
 const anySubDivision = subDivision[0]
 
-                                            const subDivisionsOptions = subDivision.map(item => (
+                                            const subDivisionsOptions =subDivision && subDivision.map(item => (
                                                 <option value={item.id} key={item.id}>
                                                     {item.subDivName}
                                                 </option>
@@ -242,8 +198,8 @@ const anySubDivision = subDivision[0]
 
                                             return (
                                                 <Query
-                                                    query={GET_TOWNS_OF_A_SUBDIVISIONS_QUERY}
-                                                    variables={subDivision && (this.getselectedSubDivision(subDivision)|| anySubDivision)}>
+                                                    query={getTownsOfASubDivisionQuery}
+                                                    variables={subDivision && this.getselectedSubDivision(subDivision)}>
                                                     {({data, loading, error}) => {
                                                         {
                                                             loading && <p>Loding...</p>;
@@ -279,7 +235,7 @@ const anySubDivision = subDivision[0]
                                                                                                     name="regionID"
                                                                                                     placeholder="select a region"
                                                                                                     value={this.state.regionID}
-                                                                                                    onChange={this.handleChange}
+                                                                                                    onChange={handleChange}
                                                                                                     required>
                                                                                                     <option>Choisissez une region</option>
                                                                                                     {regionsOptions}
@@ -290,7 +246,7 @@ const anySubDivision = subDivision[0]
                                                                                                     id="divisionID"
                                                                                                     name="divisionID"
                                                                                                     value={this.state.divisionID}
-                                                                                                    onChange={this.handleChange}
+                                                                                                    onChange={handleChange}
                                                                                                     required>
                                                                                                     <option>Choisissez un departement</option>
                                                                                                     {divisionsOptions}
@@ -300,7 +256,7 @@ const anySubDivision = subDivision[0]
                                                                                                     id="subDivisionID"
                                                                                                     name="subDivisionID"
                                                                                                     value={this.state.subDivisionID}
-                                                                                                    onChange={this.handleChange}
+                                                                                                    onChange={handleChange}
                                                                                                     required>
                                                                                                     <option>choisissez un Arrondissement</option>
                                                                                                     {subDivisionsOptions}
@@ -311,7 +267,7 @@ const anySubDivision = subDivision[0]
                                                                                                     id="id"
                                                                                                     name="id"
                                                                                                     value={this.state.id}
-                                                                                                    onChange={this.handleChange}
+                                                                                                    onChange={handleChange}
                                                                                                     required>
 
                                                                                                     <option>Choisissez une Ville</option>

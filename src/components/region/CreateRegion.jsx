@@ -1,27 +1,8 @@
 import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import Form from "../styles/Form";
-import gql from "graphql-tag";
 import Error from "../ErrorMessage";
-// import { GET_ALL_REGIONS_QUERY } from './CreateDivision';
-
-const CREATE_NEW_REGION_MUTATION = gql`
-  mutation CREATE_NEW_REGION_MUTATION($regName: String!, $regCode: String!) {
-    createRegion(regName: $regName, regCode: $regCode) {
-      id
-      regName
-    }
-  }
-`;
-
-const CREATE_REGION_MUTATION = gql`
-  mutation CREATE_REGION_MUTATION($regName: String!, $regCode: String!) {
-    createRegion(regName: $regName, regCode: $regCode) {
-      id
-      regName
-    }
-  }
-`;
+import { createNewRegionMutation } from "../queries&Mutations&Functions/Mutations";
 
 class CreateRegion extends Component {
   state = {
@@ -35,15 +16,20 @@ class CreateRegion extends Component {
     this.setState({ [name]: val });
   };
 
+  resetForm() {
+    this.setState({ regName: "", regCode: "" });
+  }
+
   render() {
     return (
-      <Mutation mutation={CREATE_NEW_REGION_MUTATION} variables={this.state}>
+      <Mutation mutation={createNewRegionMutation} variables={this.state}>
         {(createRegion, { loading, error }) => (
           <Form
             onSubmit={async e => {
               e.preventDefault();
               const res = await createRegion();
               console.log(res);
+              this.resetForm();
             }}
           >
             <h5>New Region</h5>
@@ -68,7 +54,7 @@ class CreateRegion extends Component {
                 required
               />
               <div className="submitButton">
-                <button type="submit">Submit</button>
+                <button type="submit">Valid{loading ? "ation en cours" : "er"}</button>
               </div>
             </fieldset>
           </Form>

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
-import gql from 'graphql-tag';
 import Error from '../ErrorMessage';
 import styled from 'styled-components';
-import { storeRegion, storedDivision } from '../../data';
+import { createSubDivisionMutation } from '../queries&Mutations&Functions/Mutations';
+import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
+import { getAllRegionsQuery, getDivisionsOfARegionQuery } from '../queries&Mutations&Functions/Queries';
 
 const StyledDivision = styled.div`
 	display: block;
@@ -13,96 +14,29 @@ const StyledDivision = styled.div`
 	min-width: 350px;
 `;
 
-const GET_ALL_REGIONS_QUERY = gql`
-	query GET_ALL_REGIONS_QUERY {
-		regions(orderBy: regName_DESC) {
-			id
-			regName
-			regCode
-		}
-	}
-`;
-const GET_ALL_DIVISIONS_QUERY = gql`
-	query GET_ALL_DIVISIONS_QUERY {
-		divisions(orderBy: divName_ASC) {
-			id
-			divName
-			divCode
-		}
-	}
-`;
-const GET_DIVISIONS_OF_A_REGION_QUERY = gql`
-	query GET_DIVISIONS_OF_A_REGION_QUERY($id: ID!) {
-		region(id: $id) {
-			id
-			regName
-			division(orderBy: divName_ASC) {
-				id
-				divName
-				divCode
-			}
-		}
-	}
-`;
-const CREATE_SUBDIVISION_MUTATION = gql`
-	mutation CREATE_SUBDIVISION_MUTATION(
-		$subDivName: String!
-		$subDivCode: String!
-		$division: DivisionWhereUniqueInput!
-	) {
-		createSubDivision(subDivName: $subDivName, subDivCode: $subDivCode, division: $division) {
-			id
-			subDivName
-			subDivCode
-			division {
-				divName
-			}
-		}
-	}
-`;
-
 class CreateSubDivision extends Component {
 	state = {
 		subDivName: '',
 		subDivCode: '',
 		divisionID: '12',
 		regionID: '12',
-		region: storeRegion,
-		division: storedDivision
+		region: '',
+		division: ''
 	};
 
 	handleChange = (e) => {
 		const { name, value, type } = e.target;
-		const val = type === 'number' ? parseInt(value) : value;
+		const val = type === 'number' ? parseFloat(value) : value;
 		this.setState({ [name]: val });
 	};
 
-	getselectedDivision = (dataSource) => {
-		// 1 copy the data source
-		if (dataSource.length > 0) {
-			const tempDivisions = [ ...dataSource ];
-			// get the selected division object
-			const selectedDivision = tempDivisions.find((item) => item.id === this.state.divisionID);
-			console.log(selectedDivision);
-			return selectedDivision;
-		}
-	};
-
-	getselectedRegion = (dataSource) => {
-		// 1 copy the data source
-		if (dataSource.length > 0) {
-			const tempRegions = [ ...dataSource ];
-			// get the selected region object
-			const selectedRegion = tempRegions.find((item) => item.id === this.state.regionID);
-			console.log('getting selected region');
-			console.log(selectedRegion);
-			return selectedRegion;
-		}
-	};
-
+	resetForm() {
+		this.setState({ subDivName: '', subDivCode: '' });
+	}
 	render() {
+		const { regionID, divisionID } = this.state;
 		return (
-			<Query query={GET_ALL_REGIONS_QUERY}>
+			<Query query={getAllRegionsQuery}>
 				{({ data, loading, error }) => {
 					{
 						loading && <p>Loading...</p>;
@@ -123,8 +57,8 @@ class CreateSubDivision extends Component {
 					));
 					return (
 						<Query
-							query={GET_DIVISIONS_OF_A_REGION_QUERY}
-							variables={this.getselectedRegion(regions) || anyRegion}
+							query={getDivisionsOfARegionQuery}
+							variables={regions && (getSelectedObject(regions, regionID) || anyRegion)}
 						>
 							{({ data, loading, error }) => {
 								{
@@ -148,10 +82,11 @@ class CreateSubDivision extends Component {
 
 								return (
 									<Mutation
-										mutation={CREATE_SUBDIVISION_MUTATION}
+										mutation={createSubDivisionMutation}
 										variables={{
 											...this.state,
-											division: this.getselectedDivision(divisionsOfARegion)
+											division:
+												divisionsOfARegion && getSelectedObject(divisionsOfARegion, divisionID)
 										}}
 									>
 										{(createSubDivision, { loading, error }) => (
@@ -162,6 +97,7 @@ class CreateSubDivision extends Component {
 														const res = await createSubDivision();
 														console.log(res);
 														console.log(this.state);
+														this.resetForm();
 													}}
 												>
 													<h5>New Sub-Division</h5>
@@ -208,7 +144,9 @@ class CreateSubDivision extends Component {
 															required
 														/>
 														<div className="submitButton">
-															<button type="submit">Submit{loading ? 'ting' : ''}</button>
+															<button type="submit">
+																Valid{loading ? 'ation en cours' : 'er'}
+															</button>
 														</div>
 													</fieldset>
 												</Form>

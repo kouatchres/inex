@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import Form from "../styles/Form";
 import Link from "next/link";
-import gql from "graphql-tag";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
-import { storeRegion } from "../../data";
 import DeleteRegion from "../region/DeleteRegion";
+import { getAllRegionsQuery } from "../queries&Mutations&Functions/Queries";
 
 const DeleteBlock = styled.div`
   align-content: left;
@@ -41,16 +40,6 @@ const StyledDivision = styled.div`
   width: 70vw;
 `;
 
-const GET_ALL_REGIONS_QUERY = gql`
-  query GET_ALL_REGIONS_QUERY {
-    regions(orderBy: regName_DESC) {
-      id
-      regName
-      regCode
-    }
-  }
-`;
-
 class SelectRegionToModify extends Component {
   state = {
     id: ""
@@ -65,7 +54,7 @@ class SelectRegionToModify extends Component {
   render = () => {
     const { id } = this.state;
     return (
-      <Query query={GET_ALL_REGIONS_QUERY}>
+      <Query query={getAllRegionsQuery}>
         {({ data, loading, error }) => {
           {
             loading && <p>Loading...</p>;

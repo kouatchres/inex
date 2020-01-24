@@ -1,16 +1,8 @@
-import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
-import { ALL_REGIONS_QUERY } from '../Regions';
-
-const DELETE_REGION_MUTATION = gql`
-	mutation DELETE_REGION_MUTATION($id: ID!) {
-		deleteRegion(id: $id) {
-			id
-		}
-	}
-`;
+import React, { Component } from "react";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
+import styled from "styled-components";
+import { getAllRegionsQuery } from "../queries&Mutations&Functions/Queries";
 
 const DelBtn = styled.button`
   font-weight: bold;
@@ -33,38 +25,45 @@ const DelBtn = styled.button`
   }
 `;
 
+const deleteRegionMutation = gql`
+  mutation deleteRegionMutation($id: ID!) {
+    deleteRegion(id: $id) {
+      id
+    }
+  }
+`;
 class DeleteRegion extends Component {
-	updateCache = (cache, payload) => {
-		// manually update the cache so that the data are all the same
-		// 1. read the cache for the data we want
-		const data = cache.readQuery({ query: ALL_REGIONS_QUERY });
-		// the deletedselect all the other regions except the deleted one from the cache
-		data.regions = data.regions.filter((region) => region.id !== payload.data.deleteRegion.id);
-		//  3. write the new data back to the cache
-		console.log('getting payload');
-		console.log(payload);
-		cache.writeQuery({ query: ALL_REGIONS_QUERY, data });
-	};
+  updateCache = (cache, payload) => {
+    // manually update the cache so that the data are all the same
+    // 1. read the cache for the data we want
+    const data = cache.readQuery({ query: getAllRegionsQuery });
+    // the deletedselect all the other regions except the deleted one from the cache
+    data.regions = data.regions.filter(region => region.id !== payload.data.deleteRegion.id);
+    //  3. write the new data back to the cache
+    console.log("getting payload");
+    console.log(payload);
+    cache.writeQuery({ query: getAllRegionsQuery, data });
+  };
 
-	render() {
-		return (
-			<div>
-				<Mutation mutation={DELETE_REGION_MUTATION} variables={{ id: this.props.id }} update={this.updateCache}>
-					{(deleteRegion, { error }) => (
-						<DelBtn
-							onClick={() => {
-								if (confirm('Do you want to delete this candidate ?')) {
-									deleteRegion();
-								}
-							}}
-						>
-							{this.props.children}
-						</DelBtn>
-					)}
-				</Mutation>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div>
+        <Mutation mutation={deleteRegionMutation} variables={{ id: this.props.id }} update={this.updateCache}>
+          {(deleteRegion, { error }) => (
+            <DelBtn
+              onClick={() => {
+                if (confirm("Do you want to delete this candidate ?")) {
+                  deleteRegion();
+                }
+              }}
+            >
+              {this.props.children}
+            </DelBtn>
+          )}
+        </Mutation>
+      </div>
+    );
+  }
 }
 
 export default DeleteRegion;

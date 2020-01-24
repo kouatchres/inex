@@ -1,26 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import Form from '../styles/Form';
-import gql from 'graphql-tag';
 import Error from '../ErrorMessage';
-
-const CREATE_NEW_EXAM_MUTATION = gql`
-	mutation CREATE_NEW_EXAM_MUTATION($examName: String!, $examCode: String!) {
-		createExam(examName: $examName, examCode: $examCode) {
-			id
-			examName
-		}
-	}
-`;
-
-// const CREATE_EXAM_MUTATION = gql`
-// 	mutation CREATE_EXAM_MUTATION($examName: String!, $examCode: String!) {
-// 		createExam(examName: $examName, examCode: $examCode) {
-// 			id
-// 			examName
-// 		}
-// 	}
-// `;
+import { createExamMutation } from '../queries&Mutations&Functions/Mutations';
+import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
 
 class CreateExam extends Component {
 	state = {
@@ -34,15 +17,19 @@ class CreateExam extends Component {
 		this.setState({ [name]: val });
 	};
 
+	resetForm() {
+		this.setState({ examName: '', examCode: '' });
+	}
 	render() {
 		return (
-			<Mutation mutation={CREATE_NEW_EXAM_MUTATION} variables={this.state}>
+			<Mutation mutation={createExamMutation} variables={this.state}>
 				{(createExam, { loading, error }) => (
 					<Form
 						onSubmit={async (e) => {
 							e.preventDefault();
 							const res = await createExam();
 							console.log(res);
+							this.resetForm();
 						}}
 					>
 						<h5>New Exam Type</h5>
@@ -53,7 +40,7 @@ class CreateExam extends Component {
 								id="examName"
 								name="examName"
 								placeholder="Exam Name"
-								value={this.state.regName}
+								value={this.state.examName}
 								onChange={this.handleChange}
 								required
 							/>
@@ -62,12 +49,12 @@ class CreateExam extends Component {
 								id="examCode"
 								name="examCode"
 								placeholder="Exam Code"
-								value={this.state.regCode}
+								value={this.state.examCode}
 								onChange={this.handleChange}
 								required
 							/>
 							<div className="submitButton">
-								<button type="submit">Submit{loading ? 'ting' : ''}</button>
+								<button type="submit">Valid{loading ? 'ation en cours' : 'er'}</button>
 							</div>
 						</fieldset>
 					</Form>

@@ -1,20 +1,19 @@
-import React from "react";
-import Registrations from "../../src/components/registration/Registrations";
-import styled from "styled-components";
+import React from 'react';
+import Registration from '../../src/components/registration/Registration';
+import styled from 'styled-components';
 
 const StyledRegion = styled.div`
-  display: block;
-  text-align: center;
-  margin: 0 auto;
-  min-width: 80rem;
-  width: 80vw;
+	/* display: block; */
+	text-align: center;
+	margin: 0 auto;
+	width: 60vw;
 `;
 
 const register = () => {
-  return (
-    <StyledRegion>
-      <Registrations />
-    </StyledRegion>
-  );
+	return (
+		<StyledRegion>
+			<Registration />
+		</StyledRegion>
+	);
 };
 export default register;

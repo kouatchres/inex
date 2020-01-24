@@ -5,7 +5,8 @@ import Link from "next/link";
 import gql from "graphql-tag";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
-import DeleteRegion from "../region/DeleteRegion";
+import DeleteExam from "./DeleteExam";
+import { getAllExamsQuery } from "../queries&Mutations&Functions/Queries";
 
 const DeleteBlock = styled.div`
   align-content: left;
@@ -40,16 +41,6 @@ const StyledDivision = styled.div`
   width: 70vw;
 `;
 
-const GET_ALL_EXAM_QUERY = gql`
-  query GET_ALL_EXAM_QUERY {
-    exams(orderBy: examName_ASC) {
-      id
-      examName
-      examCode
-    }
-  }
-`;
-
 class SelectExamToModify extends Component {
   state = {
     examID: "",
@@ -65,7 +56,7 @@ class SelectExamToModify extends Component {
   render = () => {
     const { id } = this.state;
     return (
-      <Query query={GET_ALL_EXAM_QUERY}>
+      <Query query={getAllExamsQuery}>
         {({ data, loading, error }) => {
           {
             loading && <p>Loading...</p>;
@@ -108,7 +99,7 @@ class SelectExamToModify extends Component {
                     </Link>
                   </UpdateBlock>
                   <DeleteBlock>
-                    <DeleteRegion id={this.state.id}>Delete</DeleteRegion>
+                    <DeleteExam id={this.state.id}>Delete</DeleteExam>
                   </DeleteBlock>
                 </StyledDivision>
               </fieldset>

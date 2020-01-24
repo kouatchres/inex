@@ -154,16 +154,36 @@ const MegaMenu = () => (
                     <a>Modifier Ville</a>
                   </Link>
                 </ul>
+                <ul>
+                  <h3 className="menu-category">New Series</h3>
+                  <hr />
+                  <Link href="/creates/newSeries">
+                    <a>register Series</a>
+                  </Link>
+                  <Link href="/modify/modifySeries">
+                    <a>Modifier Serie</a>
+                  </Link>
+                </ul>
               </div>
               <div className="menu-col-2">
                 <ul>
-                  <h3 className="menu-category">Centre</h3>
+                  <h3 className="menu-category">Type De Matiere</h3>
                   <hr />
-                  <Link href="/creates/newCenter">
-                    <a> Nouveau Centre</a>
+                  <Link href="/creates/newSubjectType">
+                    <a> Nouveau Type Matiere</a>
                   </Link>
-                  <Link href="/modify/modifyCenter">
-                    <a>Modifier Centre</a>
+                  <Link href="/modify/modifySubjectType">
+                    <a>Modifier Type Matiere</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Subject Series</h3>
+                  <hr />
+                  <Link href="/creates/newSubjectSeries">
+                    <a>Subjects Series</a>
+                  </Link>
+                  <Link href="/modify/modifySubjectSeries">
+                    <a>Modifier Type Matiere</a>
                   </Link>
                 </ul>
                 <ul>
@@ -179,7 +199,7 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Poste</h3>
                   <hr />
-                  <Link href="/creates/newPost">
+                  <Link href="/creates/newRank">
                     <a>Nouveau Poste</a>
                   </Link>
                   <Link href="/modify/modifyRank">
@@ -238,6 +258,16 @@ const MegaMenu = () => (
                     <a>Modifier Series</a>
                   </Link>
                 </ul>
+                <ul>
+                  <h3 className="menu-category">Rapports</h3>
+                  <hr />
+                  <Link href="/creates/newReport">
+                    <a>charger rapport </a>
+                  </Link>
+                  <Link href="/modify/modifyReport">
+                    <a>Modifier rapport</a>
+                  </Link>
+                </ul>
               </div>
               <div className="menu-col-4">
                 <ul>
@@ -256,6 +286,9 @@ const MegaMenu = () => (
                   <Link href="/creates/newCand">
                     <a>nouveau Candidat</a>
                   </Link>
+                  <Link href="/update/updateCand">
+                    <a>Liste Candidats</a>
+                  </Link>
                   <Link href="/modify/modifyCandidate">
                     <a>Candidats</a>
                   </Link>
@@ -263,7 +296,7 @@ const MegaMenu = () => (
                 <ul>
                   <h3 className="menu-category">Enseignement</h3>
                   <hr />
-                  <Link href="/creates/newEducationType">
+                  <Link href="/creates/newEducType">
                     <a>Nouveau Type D'enseignement</a>
                   </Link>
                   <Link href="/modify/modifyEducType">
@@ -277,15 +310,26 @@ const MegaMenu = () => (
                     <a>Nouvelle Matiere </a>
                   </Link>
                   <Link href="/modify/modifySubject">
-                    <a>New App Mui</a>
+                    <a>Modifier Matiere</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Charge de centre</h3>
+                  <hr />
+                  <Link href="/creates/newCenterAdmin">
+                    <a>Nouvelle Charge de centre </a>
+                  </Link>
+                  <Link href="/modify/modifyCenterAdmin">
+                    <a>Modifier Charge de centre</a>
+                  </Link>
+                  <Link href="/signInOut/signUp">
+                    <a>SignUp</a>
                   </Link>
                 </ul>
               </div>
             </div>
           </li>
-          <li>
-            <a href="/App">App</a>
-          </li>
+
           <li>
             <a href="/creates/newRegister">Contact</a>
           </li>

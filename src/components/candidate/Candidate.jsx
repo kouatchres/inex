@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import styled from "styled-components";
-import DeleteCandidate from "../DeleteCandidate";
+import DeleteCandidate from "./DeleteCandidate";
 
 const ItemStyled = styled.div`
   display: grid;
@@ -66,6 +66,7 @@ const RestInfo = styled.div`
   padding: 5px;
   line-height: 5px;
 `;
+
 const UpdateBtn = styled.button`
   background-color: #379;
   border-radius: 10px;
@@ -100,10 +101,8 @@ class Candidate extends Component {
       cand3rdName,
       email,
       phoneNumb,
-      placeOfBirth,
-      gender
+      placeOfBirth
     } = this.props.eachCandidate;
-    const { handleSingleCand } = this.props.data;
 
     return (
       <ItemStyled>
@@ -129,7 +128,7 @@ class Candidate extends Component {
               <p>tel: {phoneNumb}</p>
             </ItemInfo>
             <ItemInfo>
-              <p>Code: {candCode}</p>
+              <p>Email: {email}</p>
             </ItemInfo>
           </RestInfo>
         </CandAllInfo>
@@ -137,7 +136,7 @@ class Candidate extends Component {
           <UpdateBtn>
             <Link
               href={{
-                pathname: "updateCand",
+                pathname: "../updates/updateCand",
                 query: {
                   id
                 }

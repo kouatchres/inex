@@ -6,6 +6,15 @@ import Link from 'next/link';
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import DeleteDivision from './DeleteDivision';
+import {
+    getTownsOfADivisionQuery,
+    getSubDivisionsOfADivisionQuery,
+    getAllRegionsQuery,
+    getDivisionsOfARegionQuery,
+    getCentersOfATownQuery 
+
+  } from "../queries&Mutations&Functions/Queries";
+  
 
 const ButtonBlock =styled.div`
   display:grid;
@@ -48,71 +57,6 @@ const CenterSelect = styled.div `
   min-width: 40rem;
 `;
 
-const GET_ALL_REGIONS_QUERY = gql `
-  query GET_ALL_REGIONS_QUERY {
-    regions(orderBy: regName_DESC) {
-    regName
-    regCode
-    id
-  }
-  }
-`;
-
-const GET_DIVISIONS_OF_A_REGION_QUERY = gql `
-  query GET_DIVISIONS_OF_A_REGION_QUERY($id: ID!) {
-    region(id: $id) {
-      regName
-      id
-      division(orderBy: divName_ASC) {
-        divName
-        divCode
-        id
-      }
-    }
-  }
-`;
-
-const GET_SUBDIVISIONS_OF_A_DIVSION_QUERY = gql `
-  query GET_SUBDIVISIONS_OF_A_DIVSION_QUERY($id: ID!) {
-    division(id: $id) {
-      divName
-      id
-      subDivision(orderBy: subDivName_ASC) {
-        subDivName
-        subDivCode
-        id
-      }
-    }
-  }
-`;
-
-const GET_TOWNS_OF_A_SUBDIVISIONS_QUERY = gql `
-  query GET_TOWNS_OF_A_SUBDIVISIONS_QUERY($id: ID!) {
-    subDivision(id: $id) {
-      subDivName
-      id
-      town(orderBy: townName_ASC) {
-        townName
-        townCode
-        id
-      }
-    }
-  }
-`;
-
-const GET_CENTERS_OF_A_TOWN_QUERY = gql `
-  query GET_CENTERS_OF_A_TOWN_QUERY($id: ID!) {
-    town(id: $id) {
-      townName
-      id
-      center(orderBy: centerName_ASC) {
-        centerName
-        centerCode
-        id
-      }
-    }
-  }
-`;
 
 class SelectCenterToModify extends Component {
     state = { 
@@ -194,7 +138,7 @@ class SelectCenterToModify extends Component {
 // make theses variables available in the render method
         const {id } = this.state
         return (
-            <Query query={GET_ALL_REGIONS_QUERY}>
+            <Query query={getAllRegionsQuery}>
                 {({data, loading, error}) => {
                     {
                         loading && <p>Loading...</p>;
@@ -213,7 +157,7 @@ class SelectCenterToModify extends Component {
 
                     return (
                         <Query
-                            query={GET_DIVISIONS_OF_A_REGION_QUERY}
+                            query={getDivisionsOfARegionQuery}
                             variables={this.getselectedRegion(regions) || anyRegion}>
                             {({data, loading, error}) => {
                                 {
@@ -235,7 +179,7 @@ class SelectCenterToModify extends Component {
 
                                 return (
                                     <Query
-                                        query={GET_SUBDIVISIONS_OF_A_DIVSION_QUERY}
+                                        query={getSubDivisionsOfADivisionQuery}
                                         variables={division && (this.getselectedDivision(division) || anyDivision)}>
                                         {({data, loading, error}) => {
                                             {
@@ -256,7 +200,7 @@ const anySubDivision = subDivision[0]
 
                                             return (
                                                 <Query
-                                                    query={GET_TOWNS_OF_A_SUBDIVISIONS_QUERY}
+                                                    query={getTownsOfADivisionQuery}
                                                     variables={subDivision && (this.getselectedSubDivision(subDivision)|| anySubDivision)}>
                                                     {({data, loading, error}) => {
                                                         {
@@ -278,7 +222,7 @@ const anySubDivision = subDivision[0]
 
                                                         return (
                                                             <Query
-                                                                query={GET_CENTERS_OF_A_TOWN_QUERY}
+                                                                query={getCentersOfATownQuery}
                                                                 variables={town && (this.getselectedTown(town)|| anyTown)}>
                                                                 {({data, loading, error}) => {
                                                                     {

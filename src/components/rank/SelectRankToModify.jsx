@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import Form from "../styles/Form";
 import Link from "next/link";
-import gql from "graphql-tag";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
-import { storeRegion } from "../../data";
-import DeleteRegion from "../region/DeleteRegion";
+import DeleteRank from "../rank/DeleteRank";
+import { getAllRanksQuery } from "../queries&Mutations&Functions/Queries";
 
 const DeleteBlock = styled.div`
   align-content: left;
@@ -41,16 +40,6 @@ const StyledDivision = styled.div`
   width: 70vw;
 `;
 
-const GET_ALL_RANKS_QUERY = gql`
-  query GET_ALL_RANKS_QUERY {
-    ranks(orderBy: rankName_ASC) {
-      id
-      rankName
-      rankCode
-    }
-  }
-`;
-
 class SelectRankToModify extends Component {
   state = {
     id: ""
@@ -65,7 +54,7 @@ class SelectRankToModify extends Component {
   render = () => {
     const { id } = this.state;
     return (
-      <Query query={GET_ALL_RANKS_QUERY}>
+      <Query query={getAllRanksQuery}>
         {({ data, loading, error }) => {
           {
             loading && <p>Loading...</p>;
@@ -74,9 +63,7 @@ class SelectRankToModify extends Component {
             error && <Error error={error} />;
           }
           const { ranks } = data;
-          //'getting region from the state')
-          console.log(this.state.ranks);
-
+          //'getting ranks  from the state')
           const getRank = ranks.map(item => (
             <option value={item.id} key={item.id}>
               {item.rankName} - {item.rankCode}
@@ -87,11 +74,11 @@ class SelectRankToModify extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                const res = await updateRegion();
+                const res = await updateRank();
                 console.log(res);
               }}
             >
-              <h5>Modification de Region</h5>
+              <h5>Modification de Poste</h5>
               <Error error={error} />
               <fieldset disabled={loading} aria-busy={loading}>
                 <StyledDivision>
@@ -108,7 +95,7 @@ class SelectRankToModify extends Component {
                     </Link>
                   </UpdateBlock>
                   <DeleteBlock>
-                    <DeleteRegion id={this.state.id}>Delete</DeleteRegion>
+                    <DeleteRank id={this.state.id}>Delete</DeleteRank>
                   </DeleteBlock>
                 </StyledDivision>
               </fieldset>
