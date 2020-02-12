@@ -164,7 +164,18 @@ const MegaMenu = () => (
                     <a>Modifier Serie</a>
                   </Link>
                 </ul>
+                <ul>
+                  <h3 className="menu-category">Notes</h3>
+                  <hr />
+                  <Link href="/creates/newMarks">
+                    <a>Inscrire Notes</a>
+                  </Link>
+                  <Link href="/modify/modifyMarks">
+                    <a>Modifier Notes</a>
+                  </Link>
+                </ul>
               </div>
+
               <div className="menu-col-2">
                 <ul>
                   <h3 className="menu-category">Type De Matiere</h3>

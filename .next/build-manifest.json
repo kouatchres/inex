@@ -11,15 +11,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/creates/newCenter": [
+    "/show/showCandTable": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/creates/newCenterAdmin": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/creates/newTown": [
+    "/creates/newMarks": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

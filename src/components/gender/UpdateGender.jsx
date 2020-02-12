@@ -2,32 +2,13 @@ import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
 import Error from '../ErrorMessage.js';
-import gql from 'graphql-tag';
 import styled from 'styled-components';
+import { updateItemMutation } from '../queries&Mutations&Functions/Mutations';
+import { getAllGenderQuery } from '../queries&Mutations&Functions/Queries';
 
 const DataFrame = styled.div`
 	display: flex;
 	flex-direction: column;
-`;
-
-const SINGLE_GENDER_QUERY = gql`
-	query SINGLE_GENDER_QUERY($id: ID!) {
-		gender(id: $id) {
-			genderName
-			genderCode
-			id
-		}
-	}
-`;
-
-const UPDATE_GENDER_MUTATION = gql`
-	mutation UPDATE_GENDER_MUTATION($id: ID!, $genderName: String, $genderCode: String) {
-		updateGender(id: $id, genderName: $genderName, genderCode: $genderCode) {
-			id
-			genderName
-			genderCode
-		}
-	}
 `;
 
 class UpdateGender extends Component {
@@ -38,23 +19,14 @@ class UpdateGender extends Component {
 		const val = type === 'number' ? parseFloat(value) : value;
 		this.setState({ [name]: val });
 	};
-
-	updateSingleGender = async (e, updateMutation) => {
-		e.preventDefault();
-		console.log('Updating Gender!!');
-		const res = await updateMutation({
-			variables: {
-				id: this.props.id,
-				...this.state
-			}
-		});
-		console.log('Gender Updated!!');
+	resetForm = () => {
+		this.setState({ regName: '', regCode: '' });
 	};
 
 	render() {
 		return (
 			<Query
-				query={SINGLE_GENDER_QUERY}
+				query={getAllGenderQuery}
 				variables={{
 					id: this.props.id
 				}}
@@ -73,9 +45,16 @@ class UpdateGender extends Component {
 					}
 
 					return (
-						<Mutation mutation={UPDATE_GENDER_MUTATION} variables={{ id: this.props.id }}>
+						<Mutation mutation={updateGenderMutation} variables={{ id: this.props.id }}>
 							{(updateGender, { loading, error }) => (
-								<Form onSubmit={(e) => this.updateSingleGender(e, updateGender)}>
+								<Form
+									onSubmit={async (e) => {
+										e.preventDefault();
+										const res = await updateItemMutation(e, updateGender);
+										console.log(res);
+										this.resetForm();
+									}}
+								>
 									<h5>Modification d'un Sexe</h5>
 									<Error error={error} />
 									<fieldset disabled={loading} aria-busy={loading}>

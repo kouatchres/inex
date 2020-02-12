@@ -4,7 +4,7 @@ import Form from "../styles/Form";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import {createRegistrationMutation} from '../queries&Mutations&Functions/Mutations'
-import {getSelectedObject} from '../queries&Mutations&Functions/Functions'
+import {getSelectedObject, uniqueCodeGen} from '../queries&Mutations&Functions/Functions'
 import {
   getAllRegionsQuery,
   getDivisionsOfARegionQuery,
@@ -12,7 +12,7 @@ import {
   getCentersOfATownQuery,
   getTownsOfASubDivisionQuery,
   getAllExamsQuery,
-  getAllEducTypesOfAnExam,
+  getAllEducationTypesQuery,
   getAllSeriesOfAnEducationTypeQuery,
   getAllSessionsQuery,
 
@@ -48,6 +48,11 @@ const OtherSelect = styled.div `
 
 class Registration extends Component {
     state = {
+        series:"",
+        session: "",
+        exam: "",
+        candidate: "",
+        center: "",
          candCode: "12mn",
         divisionID: "12",
         subDivisionID: "12",
@@ -55,17 +60,11 @@ class Registration extends Component {
         centerID: "12",
         townID: "12",
         sessionID: "12",
+        candExamSecretCode:"",
         seriesID: "12",
         examID: "12",
         educTypeID: "12",
-        exam: "",
-        series: "",
-        session: "",
-        center: "",
-        candExamSession:"",
         candidate: "",
-        subjects: ""
-     
     };
 
     handleChange = e => {
@@ -79,142 +78,15 @@ class Registration extends Component {
     resetForm=()=>{
         this.setState({candCode: ""})
     }
-       
-    // getSelectedRegion = dataSource => {
-    //     // 1 copy the data source
-    //     if (dataSource.length > 0) {
-    //         const tempRegions = [...dataSource];
-    //         // get the selected region object
-    //         const selectedRegion = tempRegions.find(item => item.id === this.state.regionID);
-    //         console.log("getting selected region");
-    //         console.log(selectedRegion);
-    //         return selectedRegion;
-    //     }
-    // };
-    // getSelectedDivision = dataSource => {
-    //     // 1 copy the data source
-    //     if (dataSource.length > 0) {
-    //         const tempDivisions = [...dataSource];
-    //         // get the selected division object
-    //         const selectedDivision = tempDivisions.find(item => item.id === this.state.divisionID);
-    //         console.log(selectedDivision);
-    //         return selectedDivision;
-    //     }
-    // };
-
     
-    getSelectedSubDivision = (dataSource) => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempSubDivisions = [...dataSource];
-            // get the selected division object
-            const selectedSubDivision = tempSubDivisions.find(item => item.id === this.state.subDivisionID);
-
-            console.log(selectedSubDivision);
-            return selectedSubDivision;
-        }
-    };
-
-    getSelectedTown = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempTown = [...dataSource];
-            // get the selected division object
-            const selectedTown = tempTown.find(item => item.id === this.state.townID);
-
-            console.log(selectedTown);
-            return selectedTown;
-        }
-    };
-
-      getSelectedCenter = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempCenter = [...dataSource];
-            // get the selected division object
-            const selectedCenter = tempCenter.find(item => item.id === this.state.centerID);
-
-            console.log(selectedCenter);
-            return selectedCenter;
-        }
-    };
-    getSelectedExam = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempExam = [...dataSource];
-            // get the selected division object
-            const selectedExam = tempExam.find(item => item.id === this.state.examID);
-
-            console.log(selectedExam);
-            return selectedExam;
-        }
-    };
-    getSelectedSession = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempSession = [...dataSource];
-            // get the selected division object
-            const selectedSession = tempSession.find(item => item.id === this.state.sessionID);
-
-            console.log(selectedSession);
-            return selectedSession;
-        }
-    };
-
-    setSubjects=(subjectList)=>{
-        this.setState({subjects:subjectList })
-    }
-
-    getSelectedSeries = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-          const tempSeries = [...dataSource];
-          // get the selected division object
-          const selectedSeries = tempSeries.find(item => item.id === this.state.seriesID);
     
-          console.log(selectedSeries);
-          return selectedSeries;
-        }
-      };
-    
-     
-      getSelectedEducType = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-          const tempEducType = [...dataSource];
-          // get the selected division object
-          const selectedEducType = tempEducType.find(item => item.id === this.state.educTypeID);
-    
-          console.log(selectedEducType);
-          return selectedEducType;
-        }
-      };
-    //   getCandExamSession = () => {
-    //     const candExamSession = `${this.state.candCode}-${this.state.examID}-${this.state.sessionID}`
-    //     console.log(candExamSession)
-    //     return candExamSession;
-    // }
-
-    makeCandVariableObject = (candCodeValue) => {
+       makeCandVariableObject = (candCodeValue) => {
         const storedCandidate = {
             "candCode": `${candCodeValue}`
         }
         return storedCandidate
     }
 
-    getSelectedCandidate = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempCandidates = [...dataSource];
-            // get the selected region object
-            const selectedCandidate = tempCandidates.find(item => item.candCode === this.state.candCode);
-            console.log("getting selected region");
-            console.log(selectedCandidate);
-            return selectedCandidate;
-        }
-    };
-
-    
        
     render() {
 const { regionID,divisionID, subDivisionID,townID,educTypeID, centerID, examID, sessionID, seriesID, candCode}= this.state
@@ -334,10 +206,10 @@ const { regionID,divisionID, subDivisionID,townID,educTypeID, centerID, examID, 
                                                    const { exams } = data;
                                                     console.log(exams);
                                                    
-  const refinedExams = exams && exams.map(({__typename, examName, ...others})=>others)
+                                              const refinedExams = exams && exams.map(({__typename, examName, ...others})=>others)
                                                     return (
-                                                        <Query query={getAllEducTypesOfAnExam}
-                                                         variables={exams && getSelectedObject(exams, examID)}>
+                                                        <Query query={getAllEducationTypesQuery}
+                                                         >
                                                         {({ data, loading, error }) => {
                                                             {
                                                             loading && <p>loading...</p>;
@@ -346,13 +218,11 @@ const { regionID,divisionID, subDivisionID,townID,educTypeID, centerID, examID, 
                                                             error && <Error error={error} />;
                                                             }
                                                             console.log(data);
-                                                            const { exam } = data;
-                                                            const educTypeList = { ...exam };
-                                                            const { educationType } = educTypeList;
-                                                             console.log(educationType);
+                                                            const { educationTypes } = data;
+                                                            const educTypeList = { ...educationTypes };
                                                             const educTypeOptions =
-                                                            educationType &&
-                                                            educationType.map(item => (
+                                                            educationTypes &&
+                                                            educationTypes.map(item => (
                                                                 <option key={item.id} value={item.id}>
                                                                 {item.educationTypeName}
                                                                 </option>
@@ -361,7 +231,7 @@ const { regionID,divisionID, subDivisionID,townID,educTypeID, centerID, examID, 
                                                             return (
                                                             <Query
                                                                 query={getAllSeriesOfAnEducationTypeQuery}
-                                                                variables={educationType && getSelectedObject(educationType, educTypeID)}
+                                                                variables={educationTypes && getSelectedObject(educationTypes, this.state.educTypeID)}
                                                             >
                                                                 {({ data, loading, error }) => {
                                                                 {
@@ -404,18 +274,19 @@ const { regionID,divisionID, subDivisionID,townID,educTypeID, centerID, examID, 
                                                                                         mutation={createRegistrationMutation}
                                                                                         variables={{
                                                                                             ...this.state,
-                                                                                         series: series && getSelectedObject(refinedSeries,seriesID),
-                                                                                         exam: exams && getSelectedObject(refinedExams,examID),
-                                                                                         session: sessions && getSelectedObject(refinedSessions,sessionID),
-                                                                                         center: center && getSelectedObject(refinedCenter,centerID),
+                                                                                            candExamSecretCode: uniqueCodeGen(8),
+                                                                                         series: series && getSelectedObject(refinedSeries,this.state.seriesID),
+                                                                                         exam: exams && getSelectedObject(refinedExams,this.state.examID),
+                                                                                         session: sessions && getSelectedObject(refinedSessions,this.state.sessionID),
+                                                                                         center: center && getSelectedObject(refinedCenter,this.state.centerID),
                                                                                          candidate: this.makeCandVariableObject(this.state.candCode),
 
                                                                                     }}>
-                                                                                        {(createCenterAdmin, {loading, error}) => (
+                                                                                        {(createRegistration, {loading, error}) => (
                                                                                           <Form
                                                                                                     onSubmit={async e => {
                                                                                                     e.preventDefault();
-                                                                                                    const res = await createCenterAdmin();
+                                                                                                    const res = await createRegistration();
                                                                                                     console.log(res);
                                                                                                     this.resetForm()
                                                                                                 }}>

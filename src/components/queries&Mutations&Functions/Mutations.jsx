@@ -11,6 +11,16 @@ const signInCandidate = gql`
 `;
 //
 
+const updateRegionMutation = gql`
+	mutation updateRegionMutation($id: ID!, $regName: String, $regCode: String) {
+		updateRegion(id: $id, regName: $regName, regCode: $regCode) {
+			id
+			regName
+			regCode
+		}
+	}
+`;
+
 const createNewReportMutation = gql`
 	mutation createNewReportMutation(
 		$reportImage: String!
@@ -32,8 +42,16 @@ const createRegistrationMutation = gql`
 		$candidate: CandidateWhereUniqueInput!
 		$session: SessionWhereUniqueInput!
 		$center: CenterWhereUniqueInput!
+		$candExamSecretCode: String!
 	) {
-		createRegistration(exam: $exam, series: $series, session: $session, candidate: $candidate, center: $center) {
+		createRegistration(
+			candExamSecretCode: $candExamSecretCode
+			exam: $exam
+			series: $series
+			session: $session
+			candidate: $candidate
+			center: $center
+		) {
 			id
 			series {
 				seriesName
@@ -116,12 +134,8 @@ const createSeriesMutation = gql`
 	}
 `;
 const createEducationTypeMutation = gql`
-	mutation createEducationTypeMutation(
-		$educationTypeName: String!
-		$exam: ExamWhereUniqueInput!
-		$educationTypeCode: String!
-	) {
-		createEducationType(educationTypeName: $educationTypeName, exam: $exam, educationTypeCode: $educationTypeCode) {
+	mutation createEducationTypeMutation($educationTypeName: String!, $educationTypeCode: String!) {
+		createEducationType(educationTypeName: $educationTypeName, educationTypeCode: $educationTypeCode) {
 			id
 			educationTypeName
 		}
@@ -155,8 +169,14 @@ const createNewSubjectMutation = gql`
 		$subjectName: String!
 		$subjectCode: String!
 		$subjectType: SubjectTypeWhereUniqueInput!
+		$educType: EducationTypeWhereUniqueInput!
 	) {
-		createSubject(subjectName: $subjectName, subjectCode: $subjectCode, subjectType: $subjectType) {
+		createSubject(
+			subjectName: $subjectName
+			educType: $educType
+			subjectCode: $subjectCode
+			subjectType: $subjectType
+		) {
 			subjectCode
 			subjectName
 		}
@@ -216,8 +236,12 @@ const createExamMutation = gql`
 `;
 
 const registerSubjectSeriesMutation = gql`
-	mutation registerSubjectSeriesMutation($subject: SubjectWhereUniqueInput!, $series: SeriesWhereUniqueInput!) {
-		createSubjectSeries(subject: $subject, series: $series) {
+	mutation registerSubjectSeriesMutation(
+		$subject: SubjectWhereUniqueInput!
+		$series: SeriesWhereUniqueInput!
+		$coeff: Int!
+	) {
+		createSubjectSeries(subject: $subject, series: $series, coeff: $coeff) {
 			id
 			series {
 				id
@@ -228,6 +252,28 @@ const registerSubjectSeriesMutation = gql`
 						id
 						subjectName
 					}
+				}
+			}
+		}
+	}
+`;
+
+const registerNewSubjectSeriesMutation = gql`
+	mutation registerNewSubjectSeriesMutation(
+		$series: SeriesWhereUniqueInput!
+		$coeff: Int!
+		$subjectName: String!
+		$subjectCode: String!
+	) {
+		createSubjectSeries(subjectCode: $subjectCode, subjectName: $subjectName, series: $series, coeff: $coeff) {
+			id
+			series {
+				id
+				seriesName
+				subjectSeries {
+					id
+					subjectName
+					subjectCode
 				}
 			}
 		}
@@ -310,6 +356,25 @@ const updateExamMutation = gql`
 	}
 `;
 
+const updateScoreMutation = gql`
+	mutation updateScoreMutation(
+		$subjectSeries: SubjectSeriesWhereUniqueInput!
+		$subjectAve: Float!
+		$candExamSecretCode: String!
+	) {
+		updateScore(subjectSeries: $subjectSeries, subjectAve: $subjectAve, candExamSecretCode: $candExamSecretCode) {
+			subjectAve
+			coeff
+			id
+			subjectSeries {
+				id
+				subjectCode
+				subjectName
+			}
+		}
+	}
+`;
+
 const updateCandidateMutation = gql`
 	mutation updateCandidateMutation(
 		$id: ID!
@@ -342,6 +407,28 @@ const updateCandidateMutation = gql`
 	}
 `;
 
+const updateGenderMutation = gql`
+	mutation updateGenderMutation($id: ID!, $genderName: String, $genderCode: String) {
+		updateGender(id: $id, genderName: $genderName, genderCode: $genderCode) {
+			id
+			genderName
+			genderCode
+		}
+	}
+`;
+
+const updateItemMutation = async (e, updateMutation) => {
+	e.preventDefault();
+	console.log('Updating Region!!');
+	const res = await updateMutation({
+		variables: {
+			id: this.props.id,
+			...this.state
+		}
+	});
+	console.log('Region Updated!!');
+};
+
 ////**************Update mutations */
 
 export {
@@ -362,10 +449,15 @@ export {
 	createNewRegionMutation,
 	createExamMutation,
 	registerSubjectSeriesMutation,
+	registerNewSubjectSeriesMutation,
 	updateCenterMutation,
 	updateTownMutation,
+	updateRegionMutation,
 	updateExamMutation,
 	updateSubDivisionMutation,
+	updateGenderMutation,
 	updateCandidateMutation,
+	updateScoreMutation,
+	updateItemMutation,
 	signInCandidate
 };
