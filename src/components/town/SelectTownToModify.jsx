@@ -1,28 +1,27 @@
-import React, {Component} from "react";
-import { Query} from "react-apollo";
-import Form from "../styles/Form";
-import gql from "graphql-tag";
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
 import Link from 'next/link';
-import Error from "../ErrorMessage";
-import styled from "styled-components";
+import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
+import Error from '../ErrorMessage';
+import styled from 'styled-components';
 import DeleteDivision from './DeleteDivision';
-import {handleChange } from "../queries&Mutations&Functions/Functions";
+import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
 
 import {
-    getAllRegionsQuery,
-    getDivisionsOfARegionQuery,
-    getSubDivisionsOfADivisionQuery,
-    getTownsOfASubDivisionQuery
-  } from "../queries&Mutations&Functions/Queries";
-  
+	getAllRegionsQuery,
+	getDivisionsOfARegionQuery,
+	getSubDivisionsOfADivisionQuery,
+	getTownsOfASubDivisionQuery
+} from '../queries&Mutations&Functions/Queries';
 
-const ButtonBlock =styled.div`
-  display:grid;
-  grid-template-columns:1fr 1fr 6fr;
-  grid-gap:2rem;
+const ButtonBlock = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr 6fr;
+	grid-gap: 2rem;
 `;
-const DeleteBlock = styled.div `align-content: left;`;
-const UpdateBlock = styled.button `
+const DeleteBlock = styled.div`align-content: left;`;
+const UpdateBlock = styled.button`
 	font-weight: bold;
 	border-radius: 8px;
 	font-size: 1.3rem;
@@ -40,272 +39,244 @@ const UpdateBlock = styled.button `
 	}
 `;
 
-const StyledDivision = styled.div `
-  display: grid;
-  grid-template-columns:repeat(2, 1fr);
-  grid-gap:2rem;
-  text-align: center;
-  margin: 0 auto;
-  min-width: 82rem;
-
+const StyledDivision = styled.div`
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 2rem;
+	text-align: center;
+	margin: 0 auto;
+	min-width: 82rem;
 `;
 
-const CenterSelect = styled.div `
-  display: block;
-  text-align: center;
-  margin: 0 auto;
-  min-width: 40rem;
+const CenterSelect = styled.div`
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+	min-width: 40rem;
 `;
 class SelectTownToModify extends Component {
-    state = { 
-        regionID: '125',
-        divisionID: '125',
-        subDivisionID: '125',
-        townID: '125',
-        centerID: '125',
-        id: '125'
-    };
-    
-    // handleChange = e => {
-    //     const {name, value, type} = e.target;
-    //     const val = type === "number"? parseInt(value): value;
-    //     this.setState({[name]: val});
-    // };
+	state = {
+		regionID: '125',
+		divisionID: '125',
+		subDivisionID: '125',
+		id: '125'
+	};
 
-    getselectedRegion = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempRegions = [...dataSource];
-            // get the selected region object
-            const selectedRegion = tempRegions.find(item => item.id === this.state.regionID);
-            console.log("getting selected region");
-            console.log(selectedRegion);
-            return selectedRegion;
-        }
-    };
+	handleChange = (e) => {
+		const { name, value, type } = e.target;
+		const val = type === 'number' ? parseInt(value) : value;
+		this.setState({ [name]: val });
+	};
 
-    getselectedDivision = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempDivisions = [...dataSource];
-            // get the selected division object
-            const selectedDivision = tempDivisions.find(item => item.id === this.state.divisionID);
-            console.log(selectedDivision);
-            return selectedDivision;
-        }
-    };
+	render() {
+		// make theses variables available in the render method
+		const { id, regionID, divisionID, subDivisionID } = this.state;
+		return (
+			<Query query={getAllRegionsQuery}>
+				{({ data, loading, error }) => {
+					{
+						loading && <p>Loading...</p>;
+					}
+					{
+						error && <Error error={error} />;
+					}
+					const { regions } = data;
+					const refinedRegion = regions && regions.map(({ __typename, ...others }) => others);
+					//prepare data for the region select options
+					const regionsOptions =
+						regions &&
+						regions.map((item) => (
+							<option value={item.id} key={item.id}>
+								{item.regName}
+							</option>
+						));
+					return (
+						<Query
+							query={getDivisionsOfARegionQuery}
+							variables={regions && getSelectedObject(regions, this.state.regionID)}
+						>
+							{({ data, loading, error }) => {
+								{
+									loading && <p>Loading...</p>;
+								}
+								{
+									error && <Error error={error} />;
+								}
+								const { region } = data;
+								const allDivs = { ...region };
+								const { division } = allDivs;
 
-    getselectedSubDivision = (dataSource) => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempSubDivisions = [...dataSource];
-            // get the selected division object
-            const selectedSubDivision = tempSubDivisions.find(item => item.id === this.state.subDivisionID);
+								const refinedDivision = division && division.map(({ __typename, ...others }) => others);
 
-            console.log(selectedSubDivision);
-            return selectedSubDivision;
-        }
-    };
+								const divisionsOptions =
+									division &&
+									division.map((item) => (
+										<option value={item.id} key={item.id}>
+											{item.divName}
+										</option>
+									));
 
-    getselectedTown = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempTown = [...dataSource];
-            // get the selected division object
-            const selectedTown = tempTown.find(item => item.id === this.state.townID);
+								return (
+									<Query
+										query={getSubDivisionsOfADivisionQuery}
+										variables={division && getSelectedObject(division, divisionID)}
+									>
+										{({ data, loading, error }) => {
+											{
+												loading && <p>Loading...</p>;
+											}
+											{
+												error && <Error error={error} />;
+											}
+											const { division: departement } = data;
 
-            console.log(selectedTown);
-            return selectedTown;
-        }
-    };
+											const allSubDivs = { ...departement };
+											const { subDivision } = allSubDivs;
+											const refinedSubDivision =
+												subDivision && subDivision.map(({ __typename, ...others }) => others);
 
-    getselectedCenter = dataSource => {
-        // 1 copy the data source
-        if (dataSource.length > 0) {
-            const tempCenter = [...dataSource];
-            // get the selected division object
-            const selectedCenter = tempCenter.find(item => item.id === this.state.id);
+											const subDivisionsOptions =
+												subDivision &&
+												subDivision.map((item) => (
+													<option value={item.id} key={item.id}>
+														{item.subDivName}
+													</option>
+												));
 
-            console.log(selectedCenter);
-            return selectedCenter;
-        }
-    };
+											return (
+												<Query
+													query={getTownsOfASubDivisionQuery}
+													variables={
+														subDivision && getSelectedObject(subDivision, subDivisionID)
+													}
+												>
+													{({ data, loading, error }) => {
+														{
+															loading && <p>Loading...</p>;
+														}
+														{
+															error && <Error>error={error}</Error>;
+														}
 
-    
-    render() {
-// make theses variables available in the render method
-        const {id } = this.state
-        return (
-            <Query query={getAllRegionsQuery}>
-                {({data, loading, error}) => {
-                    {
-                        loading && <p>Loading...</p>;
-                    }
-                    {
-                        error && <Error error={error}/>;
-                    }
-                    const {regions} = data;
-                    const anyRegion = regions[0];
-                    //prepare data for the region select options
-                    const regionsOptions = regions && regions.map(item => (
-                        <option value={item.id} key={item.id}>
-                            {item.regName}
-                        </option>
-                    ));
+														const village = data.subDivision;
 
-                    return (
-                        <Query
-                            query={getDivisionsOfARegionQuery}
-                            variables={regions && this.getselectedRegion(regions) }>
-                            {({data, loading, error}) => {
-                                {
-                                    loading && <p>Loading...</p>;
-                                }
-                                {
-                                    error && <Error error={error}/>;
-                                }
+														const allTowns = { ...village };
 
-                                const {region: province} = data;
-                                const {division} = province;
-                                const anyDivision = division[0];
+														const { town } = allTowns;
+														const refinedTown =
+															town &&
+															town.map(
+																({ __typename, townName, townCode, ...others }) =>
+																	others
+															);
+														const townsOption =
+															town &&
+															town.map((item) => (
+																<option key={item.id} value={item.id}>
+																	{item.townName}
+																</option>
+															));
+														return (
+															<StyledPage>
+																<Form
+																	onSubmit={async (e) => {
+																		e.preventDefault();
+																		const res = await updateTown();
+																		console.log(res);
+																	}}
+																>
+																	<h4>Modification d'info Ville</h4>
+																	<Error error={error} />
+																	<fieldset disabled={loading} aria-busy={loading}>
+																		<CenterSelect>
+																			<select
+																				type="select"
+																				id="regionID"
+																				name="regionID"
+																				value={regionID}
+																				onChange={this.handleChange}
+																				required
+																			>
+																				<option>Choisissez une région</option>
+																				{regionsOptions}
+																			</select>
 
-                                const divisionsOptions = division && division.map(item => (
-                                    <option value={item.id} key={item.id}>
-                                        {item.divName}
-                                    </option>
-                                ));
+																			<select
+																				type="select"
+																				id="divisionID"
+																				name="divisionID"
+																				value={divisionID}
+																				onChange={this.handleChange}
+																				required
+																			>
+																				<option>
+																					Choisissez un département
+																				</option>
+																				{divisionsOptions}
+																			</select>
+																			<select
+																				type="select"
+																				id="subDivisionID"
+																				name="subDivisionID"
+																				value={subDivisionID}
+																				onChange={this.handleChange}
+																				required
+																			>
+																				<option>
+																					choisissez un Arrondissement
+																				</option>
+																				{subDivisionsOptions}
+																			</select>
 
-                                return (
-                                    <Query
-                                        query={getSubDivisionsOfADivisionQuery}
-                                        variables={division && this.getselectedDivision(division) }>
-                                        {({data, loading, error}) => {
-                                            {
-                                                loading && <p>Loading...</p>;
-                                            }
-                                            {
-                                                error && <Error error={error}/>;
-                                            }
-                                            const {division: departement} = data;
-                                            const {subDivision} = departement;
-const anySubDivision = subDivision[0]
+																			<select
+																				type="select"
+																				id="id"
+																				name="id"
+																				value={id}
+																				onChange={this.handleChange}
+																				required
+																			>
+																				<option>Choisir la Ville</option>
+																				{townsOption}
+																			</select>
+																		</CenterSelect>
 
-                                            const subDivisionsOptions =subDivision && subDivision.map(item => (
-                                                <option value={item.id} key={item.id}>
-                                                    {item.subDivName}
-                                                </option>
-                                            ));
-
-                                            return (
-                                                <Query
-                                                    query={getTownsOfASubDivisionQuery}
-                                                    variables={subDivision && this.getselectedSubDivision(subDivision)}>
-                                                    {({data, loading, error}) => {
-                                                        {
-                                                            loading && <p>Loding...</p>;
-                                                        }
-                                                        {
-                                                            error && <Error error={error}/>;
-                                                        }
-
-                                                        console.log("these are the towns of the selected Sub division");
-
-                                                        const {subDivision} = data;
-                                                        console.log(data)
-                                                        const newTowns = {...subDivision}
-                                                        const {town} = newTowns
-                                                        const anyTown = town[0]
-                                                        console.log(newTowns)
-                                                        console.log(town)
-                                                                    return (
-
-                                                                            <Form
-                                                                                    onSubmit={async e => {
-                                                                                    e.preventDefault();
-                                                                                    const res = await updateCenter();
-                                                                                    console.log(res);
-                                                                                }}>
-                                                                                    <h4>Moddifie une Ville</h4>
-                                                                                    <Error error={error}/>
-                                                                                    <fieldset disabled={loading} aria-busy={loading}>
-                                                                                            <CenterSelect>
-                                                                                                <select
-                                                                                                    type="select"
-                                                                                                    id="regionID"
-                                                                                                    name="regionID"
-                                                                                                    placeholder="select a region"
-                                                                                                    value={this.state.regionID}
-                                                                                                    onChange={handleChange}
-                                                                                                    required>
-                                                                                                    <option>Choisissez une region</option>
-                                                                                                    {regionsOptions}
-                                                                                                </select>
-
-                                                                                                <select
-                                                                                                    type="select"
-                                                                                                    id="divisionID"
-                                                                                                    name="divisionID"
-                                                                                                    value={this.state.divisionID}
-                                                                                                    onChange={handleChange}
-                                                                                                    required>
-                                                                                                    <option>Choisissez un departement</option>
-                                                                                                    {divisionsOptions}
-                                                                                                </select>
-                                                                                                <select
-                                                                                                    type="select"
-                                                                                                    id="subDivisionID"
-                                                                                                    name="subDivisionID"
-                                                                                                    value={this.state.subDivisionID}
-                                                                                                    onChange={handleChange}
-                                                                                                    required>
-                                                                                                    <option>choisissez un Arrondissement</option>
-                                                                                                    {subDivisionsOptions}
-                                                                                                </select>
-
-                                                                                                <select
-                                                                                                    type="select"
-                                                                                                    id="id"
-                                                                                                    name="id"
-                                                                                                    value={this.state.id}
-                                                                                                    onChange={handleChange}
-                                                                                                    required>
-
-                                                                                                    <option>Choisissez une Ville</option>
-                                                                                                    {town && (town.map(item => (
-                                                                                                        <option key={item.id} value={item.id}>
-                                                                                                {item.townName} </option>
-                                                                                                    )))}
-                                                                                                </select>
-
-                                                                                            </CenterSelect>
-
-                                                                                         <ButtonBlock>
-
-                                                                                            <UpdateBlock>
-                                                                                                <Link href={{ pathname: "../updates/updateTown", query: { id } }}>
-                                                                                                    <a>Valider</a>
-                                                                                                </Link>
-                                                                                            </UpdateBlock>
-                                                                                            <DeleteBlock>
-                                                                                                <DeleteDivision id={this.state.id}>Delete</DeleteDivision>
-                                                                                            </DeleteBlock>
-                                                                                         </ButtonBlock>
-                                                                                    </fieldset>
-                                                                                </Form>
-                                                                    );
-                                                                }}
-                                                            </Query>
-                                                        );
-                                                    }}
-                                                </Query>
-                                            );
-                                        }}
-                                    </Query>
-                                );
-                            }}
-                        </Query>
-                   
-        );
-    }
+																		<ButtonBlock>
+																			<UpdateBlock>
+																				<Link
+																					href={{
+																						pathname:
+																							'../updates/updateTown',
+																						query: {
+																							id
+																						}
+																					}}
+																				>
+																					<a>Modifier</a>
+																				</Link>
+																			</UpdateBlock>
+																			<DeleteBlock>
+																				<DeleteDivision id={id}>
+																					Supprimer
+																				</DeleteDivision>
+																			</DeleteBlock>
+																		</ButtonBlock>
+																	</fieldset>
+																</Form>
+															</StyledPage>
+														);
+													}}
+												</Query>
+											);
+										}}
+									</Query>
+								);
+							}}
+						</Query>
+					);
+				}}
+			</Query>
+		);
+	}
 }
 export default SelectTownToModify;

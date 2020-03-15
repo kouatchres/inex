@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage.js';
-import styled from 'styled-components';
-import { updateItemMutation } from '../queries&Mutations&Functions/Mutations';
-import { getAllGenderQuery } from '../queries&Mutations&Functions/Queries';
-
-const DataFrame = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+import { updateGenderMutation } from '../queries&Mutations&Functions/Mutations';
+import { singleGenderQuery } from '../queries&Mutations&Functions/Queries';
 
 class UpdateGender extends Component {
 	state = {};
@@ -20,20 +15,33 @@ class UpdateGender extends Component {
 		this.setState({ [name]: val });
 	};
 	resetForm = () => {
-		this.setState({ regName: '', regCode: '' });
+		this.setState({ genderName: '', genderCode: '' });
+	};
+
+	updateItemMutation = async (e, updateMutation) => {
+		e.preventDefault();
+		console.log('Updating gender!!');
+		const res = await updateMutation({
+			variables: {
+				id: this.props.id,
+				...this.state
+			}
+		});
+		console.log('gender Updated!!');
 	};
 
 	render() {
 		return (
 			<Query
-				query={getAllGenderQuery}
+				query={singleGenderQuery}
 				variables={{
 					id: this.props.id
 				}}
 			>
 				{({ data, loading, error }) => {
 					console.log(data);
-					const { genderName, genderCode } = data.gender;
+					const { gender } = data;
+					const { genderName, genderCode } = gender;
 					{
 						loading && <p>Loading...</p>;
 					}
@@ -41,24 +49,24 @@ class UpdateGender extends Component {
 						error && <Error error={error} />;
 					}
 					{
-						!data.gender && <p>No Gender Found for ID {this.props.id}</p>;
+						gender && <p>The gender for ID {this.props.id}</p>;
 					}
 
 					return (
 						<Mutation mutation={updateGenderMutation} variables={{ id: this.props.id }}>
 							{(updateGender, { loading, error }) => (
-								<Form
-									onSubmit={async (e) => {
-										e.preventDefault();
-										const res = await updateItemMutation(e, updateGender);
-										console.log(res);
-										this.resetForm();
-									}}
-								>
-									<h5>Modification d'un Sexe</h5>
-									<Error error={error} />
-									<fieldset disabled={loading} aria-busy={loading}>
-										<DataFrame>
+								<StyledPage>
+									<Form
+										onSubmit={(e) => {
+											e.preventDefault();
+											const res = this.updateItemMutation(e, updateGender);
+											console.log(res);
+											this.resetForm();
+										}}
+									>
+										<h4>Modification de Sexe</h4>
+										<Error error={error} />
+										<fieldset disabled={loading} aria-busy={loading}>
 											<input
 												type="text"
 												id="genderName"
@@ -78,11 +86,13 @@ class UpdateGender extends Component {
 												required
 											/>
 											<div className="submitButton">
-												<button type="submit">Valid{loading ? 'ation en cours' : 'er'}</button>
+												<button type="submit">
+													Modifi{loading ? 'cation en cours' : 'er'}
+												</button>
 											</div>
-										</DataFrame>
-									</fieldset>
-								</Form>
+										</fieldset>
+									</Form>
+								</StyledPage>
 							)}
 						</Mutation>
 					);

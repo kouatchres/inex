@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage';
-import styled from 'styled-components';
 import { getAllRegionsQuery } from '../queries&Mutations&Functions/Queries';
 import { createDivisionMutation } from '../queries&Mutations&Functions/Mutations';
 import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
-
-const StyledDivision = styled.div`
-	display: block;
-	text-align: center;
-	margin: 0 auto;
-	min-width: 350px;
-`;
 
 class CreateDivision extends Component {
 	state = {
@@ -31,17 +24,6 @@ class CreateDivision extends Component {
 	resetForm() {
 		this.setState({ divName: '', divCode: '' });
 	}
-	getSelectedRegion = (dataSource) => {
-		// 1 copy the data source
-		if (dataSource.length > 0) {
-			const tempRegions = [ ...dataSource ];
-			// get the region object
-			const selectedRegion = tempRegions.find((item) => item.id === this.state.regionID);
-			console.log('getting selected region');
-			console.log(selectedRegion);
-			return selectedRegion;
-		}
-	};
 
 	render() {
 		const { regionID } = this.state;
@@ -55,8 +37,6 @@ class CreateDivision extends Component {
 						error && <Error error={error} />;
 					}
 					const { regions } = data;
-					//'getting region from the state')
-					console.log(this.state.region);
 
 					const getRegions =
 						regions &&
@@ -67,18 +47,19 @@ class CreateDivision extends Component {
 						));
 
 					//*******important function'stripping off __typename')
-					const refinedRegions = regions.map(({ __typename, ...others }) => others);
+					const refinedRegions = regions && regions.map(({ __typename, ...others }) => others);
 					return (
 						<Mutation
 							mutation={createDivisionMutation}
 							variables={{
 								...this.state,
-								region: getSelectedObject(refinedRegions, regionID)
+								region: refinedRegions && getSelectedObject(refinedRegions, regionID)
 							}}
 						>
 							{(createDivision, { loading, error }) => (
-								<StyledDivision>
+								<StyledPage>
 									<Form
+										method="POST"
 										onSubmit={async (e) => {
 											e.preventDefault();
 											const res = await createDivision();
@@ -86,7 +67,7 @@ class CreateDivision extends Component {
 											this.resetForm();
 										}}
 									>
-										<h5>New Division</h5>
+										<h4>Nouveau Departement</h4>
 										<Error error={error} />
 										<fieldset disabled={loading} aria-busy={loading}>
 											<select
@@ -124,7 +105,7 @@ class CreateDivision extends Component {
 											</div>
 										</fieldset>
 									</Form>
-								</StyledDivision>
+								</StyledPage>
 							)}
 						</Mutation>
 					);

@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Error from '../ErrorMessage';
 import Link from 'next/link';
-
+import Form from '../styles/Form';
+import { format } from 'date-fns';
+import { BigStyledPage } from '../styles/StyledPage';
 import styled from 'styled-components';
 import { singleCandidateQuery } from '../queries&Mutations&Functions/Queries';
 
 const UpdateBtn = styled.button`
 	background-color: #379;
 	border-radius: 10px;
-	font-size: 1.1rem;
-	font-weight: bold;
-	height: 30px;
+	font-size: .3rem;
 	border: none;
 	outline: none;
 	a {
@@ -19,61 +19,57 @@ const UpdateBtn = styled.button`
 	}
 `;
 
-const OtherInfo = styled.div`
-	padding: 5px;
+const DivBtn = styled.div`
 	display: grid;
-	grid-template-columns: column;
-	margin: 2rem auto;
-
-	p {
-		font-size: 1.3rem;
-		line-height: 2px;
-	}
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 1rem;
 `;
+
 const ImageInfo = styled.div`
-	margin: 2rem auto;
+	margin: 0 auto;
 	max-width: 90vw;
 	display: grid;
-	grid-template-columns: 1fr 20fr 20fr;
-	box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.08);
+	grid-gap: 1rem;
+	grid-template-columns: 1fr 1fr;
+	/* box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.08); */
 	border-radius: 15px;
 `;
 
 const BottomInfo = styled.div`
-	padding: 5px;
-	margin: 2rem auto;
-
-	p {
-		font-size: 1.3rem;
-		line-height: 2px;
-	}
+	padding: .5px;
+	margin: .5rem auto;
+	/* 
+  p {
+    font-size: 1.3rem;
+    line-height: 2px;
+  } */
 `;
 
 const CandImg = styled.div`
-	padding: 2rem;
-
+	padding-left: 3.5rem;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: .5rem;
 	img {
-		height: 40rem;
-		width: 20rem;
-		border-radius: 15px;
+		margin-top: .5rem;
+		margin-left: .5rem;
+		height: 15rem;
+		width: 15rem;
+		border-radius: 10px;
+		background-size: contain;
+		background-position: center;
 	}
 `;
 
 class SingleCandidate extends Component {
 	render() {
 		return (
-			<Query
-				query={singleCandidateQuery}
-				variables={{
-					id: this.props.id
-				}}
-			>
+			<Query query={singleCandidateQuery} variables={{ id: this.props.id }}>
 				{({ data, loading, error }) => {
-					console.log(data);
 					const { candidate } = data;
-					console.log(candidate);
-
 					const {
+						momName,
+						dadName,
 						candCode,
 						image,
 						cand1stName,
@@ -82,9 +78,10 @@ class SingleCandidate extends Component {
 						email,
 						phoneNumb,
 						placeOfBirth,
-						gender
-					} = data.candidate;
-
+						gender: { genderName },
+						dateOfBirth,
+						birthCertNumber
+					} = candidate;
 					{
 						loading && <p>Loading...</p>;
 					}
@@ -92,51 +89,90 @@ class SingleCandidate extends Component {
 						error && <Error error={error} />;
 					}
 					return (
-						<ImageInfo>
-							<CandImg>
-								<img src={image} alt={candCode} />
-							</CandImg>
+						<BigStyledPage>
+							<Form>
+								<h4>Info Candidat</h4>
+								<fieldset>
+									<ImageInfo>
+										<BottomInfo>
+											<p>
+												<strong>Nom:</strong> <span>{cand1stName}</span>
+											</p>
+											<p>
+												<strong>Prenoms: </strong>
+												<span> {cand2ndName}</span>
+											</p>
+											<p>
+												<strong>Autres Noms:</strong>
+												<span> {cand3rdName}</span>
+											</p>
+											<p>
+												<strong>Date Naissance:</strong>
+												<span> {format(dateOfBirth, 'd MMMM, YYYY')}</span>
+											</p>
+											<p>
+												<strong>Lieu Naissance:</strong> <span>{placeOfBirth}</span>
+											</p>
+											<p>
+												<strong>Sexe: </strong>
+												<span> {genderName}</span>
+											</p>
 
-							<OtherInfo>
-								<p>Nom: {cand1stName}</p>
-								<p>Prenoms: {cand2ndName}</p>
-								<p>Autres Noms: {cand3rdName}</p>
-								<p>Date Naissance: {phoneNumb}</p>
-								<p>Lieu Naissance: {placeOfBirth}</p>
-								<p>Tel: {phoneNumb}</p>
-								<p>Nom Pere: {cand1stName}</p>
-								<p>Nom Mere: {cand2ndName}</p>
-								<p>NO Acte Naissance: {cand3rdName}</p>
-								<p>Date Naissance: {phoneNumb}</p>
-								<p>Code: {candCode}</p>
-							</OtherInfo>
-							<BottomInfo>
-								<p>Birth Place: {placeOfBirth}</p>
-								<p>Code: {candCode}</p>
-								<p>Email: {email}</p>
-								<p>Sexe: {gender.genderName}</p>
+											<p>
+												<strong>Nom du Père:</strong>
+												<span> {dadName}</span>
+											</p>
+											<p>
+												<strong>Nom De la Mère:</strong>
+												<span> {momName}</span>
+											</p>
 
-								<UpdateBtn>
-									<Link
-										href={{
-											pathname: '../updates/updateCand',
-											query: { id: this.props.id }
-										}}
-									>
-										<a>Modifier </a>
-									</Link>
-								</UpdateBtn>
-								<UpdateBtn>
-									<Link
-										href={{
-											pathname: '../creates/newCand'
-										}}
-									>
-										<a>Candidat Suivant</a>
-									</Link>
-								</UpdateBtn>
-							</BottomInfo>
-						</ImageInfo>
+											<p>
+												<strong>No Acte Naissance:</strong>
+												<span> {birthCertNumber}</span>
+											</p>
+											<p>
+												<strong>Tel: </strong> <span>{phoneNumb}</span>
+											</p>
+										</BottomInfo>
+										<BottomInfo>
+											<p>
+												<strong>Email:</strong>
+												<span> {email}</span>
+											</p>
+
+											<p>
+												<strong>Code Candidat:</strong> <span> {candCode}</span>
+											</p>
+											<CandImg>
+												<div>{candidate.image && <img src={image} alt="Upload image" />}</div>
+											</CandImg>
+											<DivBtn>
+												<UpdateBtn>
+													<Link
+														href={{
+															pathname: '../updates/updateCand',
+															query: { id: this.props.id }
+														}}
+													>
+														<a>Modifier </a>
+													</Link>
+												</UpdateBtn>
+												<UpdateBtn>
+													<Link
+														href={{
+															pathname: '../creates/newCand'
+														}}
+													>
+														<a>Candidat Suivant</a>
+													</Link>
+												</UpdateBtn>
+											</DivBtn>
+										</BottomInfo>
+									</ImageInfo>
+								</fieldset>
+							</Form>
+						</BigStyledPage>
 					);
 				}}
 			</Query>
@@ -145,3 +181,11 @@ class SingleCandidate extends Component {
 }
 
 export default SingleCandidate;
+//bacc 2017 chinois specialty
+//candCodes              //  examCandSecretCode
+//fdzpk&Coh65Z          //Xp5I#RnK
+//HUQDgdZRt6H1          //%zxXvYUU
+//LK#fryyoI57           //RSNtIjPE
+//swMwBJtT1ct           // oWMOcC2T
+//6UnsPVM%#Ibl  //
+//mWrmVPpcf9C2     //

@@ -1,8 +1,17 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
-import styled from "styled-components";
-import { getAllDivisionsQuery } from "../queries&Mutations&Functions/Queries/getAllDivisionsQuery";
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import styled from 'styled-components';
+import { getAllDivisionsQuery } from '../queries&Mutations&Functions/Queries';
+// import { ALL_REGIONS_QUERY } from "../Regions";
+
+const deleteDivisionMutation = gql`
+	mutation deleteDivisionMutation($id: ID!) {
+		deleteDivision(id: $id) {
+			id
+		}
+	}
+`;
 
 const DelBtn = styled.button`
   font-weight: bold;
@@ -25,46 +34,38 @@ const DelBtn = styled.button`
   }
 `;
 
-const deleteDivisionMutation = gql`
-      id
-  mutation deleteDivisionMutation($id: ID!) {
-    deleteDivision(id: $id) {
-    }
-  }
-`;
-
 class DeleteDivision extends Component {
-  updateCache = (cache, payload) => {
-    // manually update the cache so that the data are all the same
-    // 1. read the cache for the data we want
-    const data = cache.readQuery({ query: getAllDivisionsQuery });
-    // the deletedselect all the other regions except the deleted one from the cache
-    data.divisions = data.divisions.filter(item => item.id !== payload.data.deleteDivision.id);
-    //  3. write the new data back to the cache
-    console.log("getting payload");
-    console.log(payload);
-    cache.writeQuery({ query: getAllDivisionsQuery, data });
-  };
+	updateCache = (cache, payload) => {
+		// manually update the cache so that the data are all the same
+		// 1. read the cache for the data we want
+		const data = cache.readQuery({ query: getAllDivisionsQuery });
+		// the deletedselect all the other regions except the deleted one from the cache
+		data.divisions = data.divisions.filter((item) => item.id !== payload.data.deleteDivision.id);
+		//  3. write the new data back to the cache
+		console.log('getting payload');
+		console.log(payload);
+		cache.writeQuery({ query: getAllDivisionsQuery, data });
+	};
 
-  render() {
-    return (
-      <div>
-        <Mutation mutation={deleteDivisionMutation} variables={{ id: this.props.id }} update={this.updateCache}>
-          {(deleteDivision, { error }) => (
-            <DelBtn
-              onClick={() => {
-                if (confirm("Do you want to delete this candidate ?")) {
-                  deleteDivision();
-                }
-              }}
-            >
-              {this.props.children}
-            </DelBtn>
-          )}
-        </Mutation>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<Mutation mutation={deleteDivisionMutation} variables={{ id: this.props.id }} update={this.updateCache}>
+					{(deleteDivision, { error }) => (
+						<DelBtn
+							onClick={() => {
+								if (confirm('Do you want to delete this candidate ?')) {
+									deleteDivision();
+								}
+							}}
+						>
+							{this.props.children}
+						</DelBtn>
+					)}
+				</Mutation>
+			</div>
+		);
+	}
 }
 
 export default DeleteDivision;

@@ -1,124 +1,106 @@
-import React, { Component } from "react";
-import { Mutation, Query } from "react-apollo";
-import Form from "../styles/Form";
-import Error from "../ErrorMessage.js";
-import gql from "graphql-tag";
-import styled from "styled-components";
-
-const DataFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const SINGLE_DIVISION_QUERY = gql`
-  query SINGLE_DIVISION_QUERY($id: ID!) {
-    division(id: $id) {
-      divName
-      divCode
-      id
-    }
-  }
-`;
-
-const UPDATE_DIVISION_MUTATION = gql`
-  mutation UPDATE_DIVISION_MUTATION($id: ID!, $divName: String, $divCode: String) {
-    updateDivision(id: $id, divName: $divName, divCode: $divCode) {
-      id
-      divName
-      divCode
-    }
-  }
-`;
+import React, { Component } from 'react';
+import { Mutation, Query } from 'react-apollo';
+import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
+import Error from '../ErrorMessage.js';
+import { updateDivisionMutation } from '../queries&Mutations&Functions/Mutations';
+import { singleDivisionQuery } from '../queries&Mutations&Functions/Queries';
 
 class UpdateDivision extends Component {
-  state = {};
+	state = {};
 
-  handleChange = e => {
-    const { name, value, type } = e.target;
-    const val = type === "number" ? parseFloat(value) : value;
-    this.setState({ [name]: val });
-  };
+	handleChange = (e) => {
+		const { name, value, type } = e.target;
+		const val = type === 'number' ? parseFloat(value) : value;
+		this.setState({ [name]: val });
+	};
 
-  resetForm() {
-    this.setState({ divCode: "", divName: "" });
-  }
+	updateItemMutation = async (e, updateMutation) => {
+		e.preventDefault();
+		console.log('Updating Region!!');
+		const res = await updateMutation({
+			variables: {
+				id: this.props.id,
+				...this.state
+			}
+		});
+		console.log('Region Updated!!');
+	};
 
-  updateSingleDivision = async (e, updateMutation) => {
-    e.preventDefault();
-    const res = await updateMutation({
-      variables: {
-        id: this.props.id,
-        ...this.state
-      }
-    });
-  };
+	resetForm() {
+		this.setState({ divCode: '', divName: '' });
+	}
 
-  render() {
-    return (
-      <Query
-        query={SINGLE_DIVISION_QUERY}
-        variables={{
-          id: this.props.id
-        }}
-      >
-        {({ data, loading, error }) => {
-          console.log(data);
-          const { divName, divCode } = data.division;
-          {
-            loading && <p>Loading...</p>;
-          }
-          {
-            error && <Error error={error} />;
-          }
-          {
-            !data.division && <p>Pas de departement pout le ID {this.props.id}</p>;
-          }
+	render() {
+		return (
+			<Query
+				query={singleDivisionQuery}
+				variables={{
+					id: this.props.id
+				}}
+			>
+				{({ data, loading, error }) => {
+					console.log(data);
+					const { division } = data;
+					const { divName, divCode } = division;
+					{
+						loading && <p>Loading...</p>;
+					}
+					{
+						error && <Error error={error} />;
+					}
+					{
+						!data.division && <p>Pas de département pout le ID {this.props.id}</p>;
+					}
 
-          return (
-            <Mutation mutation={UPDATE_DIVISION_MUTATION} variables={{ id: this.props.id }}>
-              {(updateDivision, { loading, error }) => (
-                <Form
-                  onSubmit={e => {
-                    this.updateSingleDivision(e, updateDivision);
-                    this.resetForm();
-                  }}
-                >
-                  <h5>Modifier le departement</h5>
-                  <Error error={error} />
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    <DataFrame>
-                      <input
-                        type="text"
-                        id="divName"
-                        name="divName"
-                        placeholder="Nom du Departement"
-                        defaultVal
-                        ue={divName}
-                        onChange={this.handleChange}
-                        required
-                      />
-                      <input
-                        type="text"
-                        id="divCode"
-                        name="divCode"
-                        placeholder="Code du Departement"
-                        defaultValue={divCode}
-                        onChange={this.handleChange}
-                        required
-                      />
-                      <div className="submitButton">
-                        <button type="submit">Valid{loading ? "ation en cours" : "er"}</button>
-                      </div>
-                    </DataFrame>
-                  </fieldset>
-                </Form>
-              )}
-            </Mutation>
-          );
-        }}
-      </Query>
-    );
-  }
+					return (
+						<Mutation mutation={updateDivisionMutation} variables={{ id: this.props.id }}>
+							{(updateDivision, { loading, error }) => (
+								<StyledPage>
+									<Form
+										onSubmit={async (e) => {
+											const res = await this.updateItemMutation(e, updateDivision);
+
+											console.log(res);
+											this.resetForm();
+										}}
+									>
+										<h4>Modification de département</h4>
+										<Error error={error} />
+										<fieldset disabled={loading} aria-busy={loading}>
+											<input
+												type="text"
+												id="divName"
+												name="divName"
+												placeholder="Nom du Département"
+												defaultValue={divName}
+												onChange={this.handleChange}
+												required
+											/>
+											<input
+												type="text"
+												id="divCode"
+												name="divCode"
+												placeholder="Code du Département"
+												defaultValue={divCode}
+												onChange={this.handleChange}
+												required
+											/>
+											<div className="submitButton">
+												<button type="submit">
+													Modifi{loading ? 'cation en cours' : 'er'}
+												</button>
+											</div>
+										</fieldset>
+									</Form>
+								</StyledPage>
+							)}
+						</Mutation>
+					);
+				}}
+			</Query>
+		);
+	}
 }
 
 export default UpdateDivision;

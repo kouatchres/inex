@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
 import Form from "../styles/Form";
+import { StyledPage } from "../styles/StyledPage";
 import Error from "../ErrorMessage";
-import styled from "styled-components";
 import { createCenterMutation } from "../queries&Mutations&Functions/Mutations";
 import { getSelectedObject } from "../queries&Mutations&Functions/Functions";
 
@@ -12,13 +12,6 @@ import {
   getSubDivisionsOfADivisionQuery,
   getTownsOfASubDivisionQuery
 } from "../queries&Mutations&Functions/Queries";
-
-const StyledDivision = styled.div`
-  display: block;
-  text-align: center;
-  margin: 0 auto;
-  min-width: 350px;
-`;
 
 class CreateCenter extends Component {
   state = {
@@ -43,9 +36,9 @@ class CreateCenter extends Component {
   resetForm() {
     this.setState({ centerName: "", centerCode: "", centerNumber: "" });
   }
-  
+
   render() {
-    const { regionID, divisionID, subDivisionID, townID}= this.state
+    const { regionID, divisionID, subDivisionID, townID } = this.state;
     return (
       <Query query={getAllRegionsQuery}>
         {({ data, loading, error }) => {
@@ -56,17 +49,18 @@ class CreateCenter extends Component {
             error && <Error error={error} />;
           }
           const { regions } = data;
-          const anyRegion = regions[0];
+          const refinedRegion = regions && regions.map(({ __typename, ...others }) => others);
 
           //prepare data for the region select options
-          const regionsOptions = regions.map(item => (
-            <option value={item.id} key={item.id}>
-              {item.regName}
-            </option>
-          ));
+          const regionsOptions =
+            refinedRegion &&
+            refinedRegion.map(item => (
+              <option value={item.id} key={item.id}>
+                {item.regName}
+              </option>
+            ));
           return (
-            <Query query={getDivisionsOfARegionQuery}
-             variables={regions && (getSelectedObject(regions,regionID) || anyRegion)}>
+            <Query query={getDivisionsOfARegionQuery} variables={refinedRegion && getSelectedObject(refinedRegion, regionID)}>
               {({ data, loading, error }) => {
                 {
                   loading && <p>Loading...</p>;
@@ -76,17 +70,25 @@ class CreateCenter extends Component {
                 }
 
                 const { region } = data;
-                const { division } = region;
-                const anyDivision = division[0];
+                const allDivs = { ...region };
+                const { division } = allDivs;
+                console.log(allDivs);
+                console.log(division);
+                const refinedDivision = division && division.map(({ __typename, ...others }) => others);
 
-                const divisionsOptions = division.map(item => (
-                  <option value={item.id} key={item.id}>
-                    {item.divName}
-                  </option>
-                ));
+                const divisionsOptions =
+                  refinedDivision &&
+                  refinedDivision.map(item => (
+                    <option value={item.id} key={item.id}>
+                      {item.divName}
+                    </option>
+                  ));
+
                 return (
-                  <Query query={getSubDivisionsOfADivisionQuery}
-                   variables={division && (getSelectedObject(division,divisionID) || anyDivision)}>
+                  <Query
+                    query={getSubDivisionsOfADivisionQuery}
+                    variables={refinedDivision && getSelectedObject(refinedDivision, divisionID)}
+                  >
                     {({ data, loading, error }) => {
                       {
                         loading && <p>Loading...</p>;
@@ -95,21 +97,24 @@ class CreateCenter extends Component {
                         error && <Error error={error} />;
                       }
                       const { division: departement } = data;
-                      const { subDivision: arrondissement } = departement;
 
-                      {/* const anySubDivision = arrondissement[0]; */}
-                      console.log(departement);
+                      const allSubDivs = { ...departement };
+                      const { subDivision } = allSubDivs;
+                      console.log(subDivision);
+                      const refinedDepartement = subDivision && subDivision.map(({ __typename, ...others }) => others);
 
-                      const subDivisionsOptions = arrondissement.map(item => (
-                        <option value={item.id} key={item.id}>
-                          {item.subDivName}
-                        </option>
-                      ));
+                      const subDivisionsOptions =
+                        refinedDepartement &&
+                        refinedDepartement.map(item => (
+                          <option value={item.id} key={item.id}>
+                            {item.subDivName}
+                          </option>
+                        ));
 
                       return (
                         <Query
                           query={getTownsOfASubDivisionQuery}
-                          variables={arrondissement && getSelectedObject(arrondissement, subDivisionID) }
+                          variables={refinedDepartement && getSelectedObject(refinedDepartement, subDivisionID)}
                         >
                           {({ data, loading, error }) => {
                             {
@@ -125,7 +130,6 @@ class CreateCenter extends Component {
 
                             const { town } = allTowns;
                             const refinedTown = town && town.map(({ __typename, townName, townCode, ...others }) => others);
-
                             return (
                               <Mutation
                                 mutation={createCenterMutation}
@@ -135,8 +139,9 @@ class CreateCenter extends Component {
                                 }}
                               >
                                 {(createCenter, { loading, error }) => (
-                                  <StyledDivision>
+                                  <StyledPage>
                                     <Form
+                                      method="POST"
                                       onSubmit={async e => {
                                         e.preventDefault();
                                         const res = await createCenter();
@@ -144,7 +149,7 @@ class CreateCenter extends Component {
                                         this.resetForm();
                                       }}
                                     >
-                                      <h5>Nouveau Centre d'Examen</h5>
+                                      <h4>Nouveau Centre d'Examen</h4>
                                       <Error error={error} />
                                       <fieldset disabled={loading} aria-busy={loading}>
                                         <select
@@ -190,13 +195,12 @@ class CreateCenter extends Component {
                                           required
                                         >
                                           <option>Choisissez une ville</option>
-                                          {town
-                                            && town.map(item => (
-                                                <option value={item.id} key={item.id}>
-                                                  {item.townName}
-                                                </option>
-                                              ))
-                                           }
+                                          {town &&
+                                            town.map(item => (
+                                              <option value={item.id} key={item.id}>
+                                                {item.townName}
+                                              </option>
+                                            ))}
                                         </select>
                                         <input
                                           type="text"
@@ -230,7 +234,7 @@ class CreateCenter extends Component {
                                         </div>
                                       </fieldset>
                                     </Form>
-                                  </StyledDivision>
+                                  </StyledPage>
                                 )}
                               </Mutation>
                             );

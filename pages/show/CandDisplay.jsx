@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
+import Error from "../../src/components/ErrorMessage";
 import { Query } from "react-apollo";
 import CandLine from "../../src/components/candidate/Candidate";
 import styled from "styled-components";
@@ -71,16 +71,17 @@ class CandDisplay extends Component {
 
         <Query query={getAllCandidatesQuery}>
           {({ loading, error, data }) => {
-            console.log(data.candidates);
+            const { candidates } = { data };
+            console.log(candidates);
             {
               loading && <p>Loading...</p>;
             }
             {
-              error && <p>Error: {error.message}</p>;
+              error && <Error error={error} />;
             }
             return (
               <CandidateList>
-                {data.candidates.map(candidate => (
+                {candidates.map(candidate => (
                   <CandLine eachCandidate={candidate} key={candidate.id} />
                 ))}
               </CandidateList>

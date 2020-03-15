@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage.js';
-import styled from 'styled-components';
-import { updateRegionMutation } from '../queries&Mutations&Functions/Mutations';
+import { updateRegionMutation, updateItemMutation } from '../queries&Mutations&Functions/Mutations';
 import { getSingleRegionQuery } from '../queries&Mutations&Functions/Queries';
-import { updateItemMutation } from '../queries&Mutations&Functions/Functions';
-
-const DataFrame = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
 
 class UpdateRegion extends Component {
 	state = {};
@@ -19,6 +13,18 @@ class UpdateRegion extends Component {
 		const { name, value, type } = e.target;
 		const val = type === 'number' ? parseFloat(value) : value;
 		this.setState({ [name]: val });
+	};
+
+	updateItemMutation = async (e, updateMutation) => {
+		e.preventDefault();
+		console.log('Updating Region!!');
+		const res = await updateMutation({
+			variables: {
+				id: this.props.id,
+				...this.state
+			}
+		});
+		console.log('Region Updated!!');
 	};
 
 	resetForm() {
@@ -43,28 +49,28 @@ class UpdateRegion extends Component {
 						error && <Error error={error} />;
 					}
 					{
-						!data.region && <p>No Region Found for ID {this.props.id}</p>;
+						!data.region && <p>Pas de Région avec ID: {this.props.id}</p>;
 					}
 
 					return (
 						<Mutation mutation={updateRegionMutation} variables={{ id: this.props.id }}>
 							{(updateRegion, { loading, error }) => (
-								<Form
-									onSubmit={async (e) => {
-										e.preventDefault();
-										await this.updateItemMutation(e, updateRegion);
-										this.resetForm();
-									}}
-								>
-									<h5>Update a Region</h5>
-									<Error error={error} />
-									<fieldset disabled={loading} aria-busy={loading}>
-										<DataFrame>
+								<StyledPage>
+									<Form
+										onSubmit={async (e) => {
+											e.preventDefault();
+											await this.updateItemMutation(e, updateRegion);
+											this.resetForm();
+										}}
+									>
+										<h4>Modification de Région</h4>
+										<Error error={error} />
+										<fieldset disabled={loading} aria-busy={loading}>
 											<input
 												type="text"
 												id="regName"
 												name="regName"
-												placeholder="Nom Region"
+												placeholder="Nom Région"
 												defaultValue={regName}
 												onChange={this.handleChange}
 												required
@@ -73,17 +79,17 @@ class UpdateRegion extends Component {
 												type="text"
 												id="regCode"
 												name="regCode"
-												placeholder="Code Region"
+												placeholder="Code Région"
 												defaultValue={regCode}
 												onChange={this.handleChange}
 												required
 											/>
 											<div className="submitButton">
-												<button type="submit">Updat{loading ? 'ing' : 'e'}</button>
+												<button type="submit">Modifi{loading ? 'cation' : 'er'}</button>
 											</div>
-										</DataFrame>
-									</fieldset>
-								</Form>
+										</fieldset>
+									</Form>
+								</StyledPage>
 							)}
 						</Mutation>
 					);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import Form from "../styles/Form";
+import { StyledPage } from "../styles/StyledPage";
 import Link from "next/link";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
@@ -18,13 +19,13 @@ const UpdateBlock = styled.button`
   border: none;
   padding: 5px;
   align-items: center;
-  background-color: white;
-  color: black;
-  border: 2px solid #4caf50; /* Green */
+  color: white;
   :hover {
     cursor: pointer;
-    background-color: #4c50;
-    color: #4caf50;
+  }
+  a {
+    background-color: ${props => props.theme.googleBlue};
+    color: white;
   }
 `;
 
@@ -37,7 +38,6 @@ const StyledDivision = styled.div`
   grid-gap: 20px;
   text-align: center;
   margin: 0 auto;
-  width: 70vw;
 `;
 
 class SelectRegionToModify extends Component {
@@ -64,44 +64,45 @@ class SelectRegionToModify extends Component {
           }
           const { regions } = data;
           //'getting region from the state')
-          console.log(this.state.regions);
 
-          const getRegions = regions.map(item => (
-            <option value={item.id} key={item.id}>
-              {item.regName} - {item.regCode}
-            </option>
-          ));
+          const getRegions =
+            regions &&
+            regions.map(item => (
+              <option value={item.id} key={item.id}>
+                {item.regName} - {item.regCode}
+              </option>
+            ));
 
           return (
-            <Form
-              onSubmit={async e => {
-                e.preventDefault();
-                const res = await updateRegion();
-                console.log(res);
-              }}
-            >
-              <h5>Modification de Region</h5>
-              <Error error={error} />
-              <fieldset disabled={loading} aria-busy={loading}>
-                <StyledDivision>
-                  <SelectBlock>
-                    <select type="select" id="id" name="id" value={this.state.id} onChange={this.handleChange} required>
-                      <option> Choisissez la region a modifier </option>
-                      {getRegions}
-                    </select>
-                  </SelectBlock>
+            <StyledPage>
+              <Form
+                onSubmit={e => {
+                  e.preventDefault();
+                }}
+              >
+                <h4>Modification de Région</h4>
+                <Error error={error} />
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <StyledDivision>
+                    <SelectBlock>
+                      <select type="select" id="id" name="id" value={id} onChange={this.handleChange} required>
+                        <option> Choisir région a modifier </option>
+                        {getRegions}
+                      </select>
+                    </SelectBlock>
 
-                  <UpdateBlock>
-                    <Link href={{ pathname: "../updates/updateRegion", query: { id } }}>
-                      <a>Update</a>
-                    </Link>
-                  </UpdateBlock>
-                  <DeleteBlock>
-                    <DeleteRegion id={this.state.id}>Delete</DeleteRegion>
-                  </DeleteBlock>
-                </StyledDivision>
-              </fieldset>
-            </Form>
+                    <UpdateBlock>
+                      <Link href={{ pathname: "../updates/updateRegion", query: { id } }}>
+                        <a>Modifier</a>
+                      </Link>
+                    </UpdateBlock>
+                    <DeleteBlock>
+                      <DeleteRegion id={id}>Supprimer</DeleteRegion>
+                    </DeleteBlock>
+                  </StyledDivision>
+                </fieldset>
+              </Form>
+            </StyledPage>
           );
         }}
       </Query>

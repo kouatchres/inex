@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Form from "../styles/Form";
-import gql from "graphql-tag";
+import { StyledPage } from "../styles/StyledPage";
+import { createNewGenderMutation } from "../queries&Mutations&Functions/Mutations";
 import Error from "../ErrorMessage";
-
-const CREATE_NEW_GENDER_MUTATION = gql`
-  mutation CREATE_NEW_GENDER_MUTATION($genderName: String!, $genderCode: String!) {
-    createGender(genderName: $genderName, genderCode: $genderCode) {
-      id
-      genderCode
-      genderName
-    }
-  }
-`;
 
 class CreateGender extends Component {
   state = {
@@ -31,42 +22,45 @@ class CreateGender extends Component {
 
   render() {
     return (
-      <Mutation mutation={CREATE_NEW_GENDER_MUTATION} variables={this.state}>
+      <Mutation mutation={createNewGenderMutation} variables={this.state}>
         {(createGender, { loading, error }) => (
-          <Form
-            onSubmit={async e => {
-              e.preventDefault();
-              const res = await createGender();
-              console.log(res);
-              this.resetForm();
-            }}
-          >
-            <h5>Create a new Gender</h5>
-            <Error error={error} />
-            <fieldset disabled={loading} aria-busy={loading}>
-              <input
-                type="text"
-                id="genderName"
-                name="genderName"
-                placeholder="gender Name"
-                value={this.state.genderName}
-                onChange={this.handleChange}
-                required
-              />
-              <input
-                type="text"
-                id="genderCode"
-                name="genderCode"
-                placeholder="gender Code"
-                value={this.state.genderCode}
-                onChange={this.handleChange}
-                required
-              />
-              <div className="submitButton">
-                <button type="submit">Valid{loading ? "ation en cours" : "er"}</button>
-              </div>
-            </fieldset>
-          </Form>
+          <StyledPage>
+            <Form
+              method="POST"
+              onSubmit={async e => {
+                e.preventDefault();
+                const res = await createGender();
+                console.log(res);
+                this.resetForm();
+              }}
+            >
+              <h4>Nouveau Sexe</h4>
+              <Error error={error} />
+              <fieldset disabled={loading} aria-busy={loading}>
+                <input
+                  type="text"
+                  id="genderName"
+                  name="genderName"
+                  placeholder="Nom Sexe "
+                  value={this.state.genderName}
+                  onChange={this.handleChange}
+                  required
+                />
+                <input
+                  type="text"
+                  id="genderCode"
+                  name="genderCode"
+                  placeholder="Code Sexe"
+                  value={this.state.genderCode}
+                  onChange={this.handleChange}
+                  required
+                />
+                <div className="submitButton">
+                  <button type="submit">Valid{loading ? "ation en cours" : "er"}</button>
+                </div>
+              </fieldset>
+            </Form>
+          </StyledPage>
         )}
       </Mutation>
     );

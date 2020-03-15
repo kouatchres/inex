@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import { getAllSubjectTypesQuery } from '../queries&Mutations&Functions/Queries';
 import styled from 'styled-components';
 
-const DELETE_SUBJECT_TYPE_MUTATION = gql`
-	mutation DELETE_SUBJECT_TYPE_MUTATION($id: ID!) {
+const deleteSubjectTypeMutation = gql`
+	mutation deleteSubjectTypeMutation($id: ID!) {
 		deleteSubjectType(id: $id) {
 			id
 		}
@@ -36,24 +37,28 @@ class DeleteSubjectType extends Component {
 	updateCache = (cache, payload) => {
 		// manually update the cache so that the data are all the same
 		// 1. read the cache for the data we want
-		const data = cache.readQuery({ query: ALL_SUBJECT_TYPES_QUERY });
+		const data = cache.readQuery({ query: getAllSubjectTypesQuery });
 		// the deletedselect all the other subjectTypes except the deleted one from the cache
-		data.subjectTypes = data.subjectTypes.filter((region) => region.id !== payload.data.DeleteSubjectType.id);
+		data.subjectTypes = data.subjectTypes.filter((region) => region.id !== payload.data.deleteSubjectType.id);
 		//  3. write the new data back to the cache
 		console.log('getting payload');
 		console.log(payload);
-		cache.writeQuery({ query: ALL_SUBJECT_TYPES_QUERY, data });
+		cache.writeQuery({ query: getAllSubjectTypesQuery, data });
 	};
 
 	render() {
 		return (
 			<div>
-				<Mutation mutation={DELETE_SUBJECT_TYPE_MUTATION} variables={{ id: this.props.id }} update={this.updateCache}>
-					{(DeleteSubjectType, { error }) => (
+				<Mutation
+					mutation={deleteSubjectTypeMutation}
+					variables={{ id: this.props.id }}
+					update={this.updateCache}
+				>
+					{(deleteSubjectType, { error }) => (
 						<DelBtn
 							onClick={() => {
 								if (confirm('Do you want to delete this Subject Type ?')) {
-									DeleteSubjectType();
+									deleteSubjectType();
 								}
 							}}
 						>

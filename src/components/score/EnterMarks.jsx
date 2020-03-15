@@ -3,21 +3,14 @@ import { Mutation, Query } from "react-apollo";
 import Form from "../styles/Form";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
+import { StyledPage } from "../styles/StyledPage";
 import { updateScoreMutation } from "../queries&Mutations&Functions/Mutations";
-import { getSelectedObject, calcCandAve } from "../queries&Mutations&Functions/Functions";
+import { getSelectedObject } from "../queries&Mutations&Functions/Functions";
 import {
   getAllEducationTypesQuery,
-  dataForAverage,
   getAllSubjectsOfASeriesQuery,
   getAllSeriesOfAnEducationTypeQuery
 } from "../queries&Mutations&Functions/Queries";
-const StyledDivision = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  text-align: center;
-  margin: 0 auto;
-  min-width: 52rem;
-`;
 
 const CenterSelect = styled.div`
   display: block;
@@ -41,7 +34,7 @@ class EnterMarks extends Component {
     educTypeID: "12",
     sessionID: "",
     candExamSecretCode: "",
-    subjectSeriesID: "ck5thzgfrwmow09352gytkff6"
+    subjectSeriesID: ""
   };
 
   handleChange = e => {
@@ -72,6 +65,7 @@ class EnterMarks extends Component {
   };
 
   render() {
+    const { seriesID, educTypeID, subjectSeriesID } = this.state;
     return (
       <Query query={getAllEducationTypesQuery}>
         {({ data, loading, error }) => {
@@ -96,7 +90,7 @@ class EnterMarks extends Component {
           return (
             <Query
               query={getAllSeriesOfAnEducationTypeQuery}
-              variables={educationTypes && getSelectedObject(educationTypes, this.state.educTypeID)}
+              variables={educationTypes && getSelectedObject(educationTypes, educTypeID)}
             >
               {({ data, loading, error }) => {
                 {
@@ -115,7 +109,7 @@ class EnterMarks extends Component {
 
                 const refinedSeries = series && series.map(({ __typename, seriesName, ...others }) => others);
                 const seriesOptions =
-                  series &&
+                  refinedSeries &&
                   series.map(item => (
                     <option key={item.id} value={item.id}>
                       {item.seriesName}
@@ -124,7 +118,7 @@ class EnterMarks extends Component {
                 return (
                   <Query
                     query={getAllSubjectsOfASeriesQuery}
-                    variables={series && getSelectedObject(series, this.state.seriesID)}
+                    variables={refinedSeries && getSelectedObject(refinedSeries, seriesID)}
                   >
                     {({ data, loading, error }) => {
                       {
@@ -155,23 +149,23 @@ class EnterMarks extends Component {
                           mutation={updateScoreMutation}
                           variables={{
                             ...this.state,
-                            subjectSeries:
-                              refinedSubjectSeries && getSelectedObject(refinedSubjectSeries, this.state.subjectSeriesID)
+                            subjectSeries: refinedSubjectSeries && getSelectedObject(refinedSubjectSeries, subjectSeriesID)
                           }}
                         >
                           {(updateScore, { loading, error }) => (
-                            <Form
-                              onSubmit={async e => {
-                                e.preventDefault();
-                                const res = await this.updateItemMutation(e, updateScore);
-                                this.resetForm();
-                                console.log(res);
-                              }}
-                            >
-                              <h4>Inscrire les notes des candidats</h4>
-                              <Error error={error} />
-                              <fieldset disabled={loading} aria-busy={loading}>
-                                <StyledDivision>
+                            <StyledPage>
+                              <Form
+                                method="POST"
+                                onSubmit={async e => {
+                                  e.preventDefault();
+                                  const res = await this.updateItemMutation(e, updateScore);
+                                  this.resetForm();
+                                  console.log(res);
+                                }}
+                              >
+                                <h4>Inscrire les notes des candidats</h4>
+                                <Error error={error} />
+                                <fieldset disabled={loading} aria-busy={loading}>
                                   <select
                                     type="select"
                                     id="educTypeID"
@@ -180,7 +174,7 @@ class EnterMarks extends Component {
                                     onChange={this.handleChange}
                                     required
                                   >
-                                    <option>Choisir un Type d'enseignement</option>
+                                    <option>Choisir un Type d'Enseignement</option>
                                     {educTypeOptions}
                                   </select>
                                   <select
@@ -191,7 +185,7 @@ class EnterMarks extends Component {
                                     onChange={this.handleChange}
                                     required
                                   >
-                                    <option>Choisir une Serie</option>
+                                    <option>Choisir la Série</option>
                                     {seriesOptions}
                                   </select>
                                   <select
@@ -202,7 +196,7 @@ class EnterMarks extends Component {
                                     onChange={this.handleChange}
                                     required
                                   >
-                                    <option>Choisir la matiere</option>
+                                    <option>Choisir la matière </option>
                                     {subjectOptions}
                                   </select>
                                   <input
@@ -221,7 +215,7 @@ class EnterMarks extends Component {
                                     max="20.0"
                                     id="subjectAve"
                                     name="subjectAve"
-                                    placeholder="Note de la matiere"
+                                    placeholder="Note du candidat en la matière "
                                     value={this.state.subjectAve}
                                     onChange={this.handleChange}
                                     required
@@ -230,9 +224,9 @@ class EnterMarks extends Component {
                                   <div className="submitButton">
                                     <button type="submit">Valid{loading ? "ation en cours" : "er"}</button>
                                   </div>
-                                </StyledDivision>
-                              </fieldset>
-                            </Form>
+                                </fieldset>
+                              </Form>
+                            </StyledPage>
                           )}
                         </Mutation>
                       );

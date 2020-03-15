@@ -1,10 +1,10 @@
 {
-  "name": "inex-front",
+  "name": "sygex-front",
   "version": "1.0.0",
-  "description": "inex frontend modern exam system, GraphQL, Next and Apollo",
+  "description": "Sygex frontend modern exam system, GraphQL, Next and Apollo",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 7777",
+    "dev": "next -p 8888",
     "build": "next build",
     "start": "next start",
     "test": "NODE_ENV=test jest --watch",

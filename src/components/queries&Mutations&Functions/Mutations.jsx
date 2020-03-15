@@ -11,6 +11,75 @@ const signInCandidate = gql`
 `;
 //
 
+const updateSessionMutation = gql`
+	mutation updateSessionMutation($id: ID!, $sessionName: String, $sessionCode: String) {
+		updateSession(id: $id, sessionName: $sessionName, sessionCode: $sessionCode) {
+			sessionName
+			sessionCode
+			id
+		}
+	}
+`;
+
+const updateEducationTypeMutation = gql`
+	mutation updateEducationTypeMutation($id: ID!, $educationTypeName: String, $educationTypeCode: String) {
+		updateEducationType(id: $id, educationTypeName: $educationTypeName, educationTypeCode: $educationTypeCode) {
+			id
+			educationTypeName
+			educationTypeCode
+		}
+	}
+`;
+const updateSubjectTypeMutation = gql`
+	mutation updateSubjectTypeMutation($id: ID!, $subjectTypeName: String, $subjectTypeCode: String) {
+		updateSubjectType(id: $id, subjectTypeName: $subjectTypeName, subjectTypeCode: $subjectTypeCode) {
+			id
+			subjectTypeName
+			subjectTypeCode
+		}
+	}
+`;
+
+const updateSubjectMutation = gql`
+	mutation updateSubjectMutation($id: ID!, $subjectName: String, $subjectCode: String) {
+		updateSubject(id: $id, subjectName: $subjectName, subjectCode: $subjectCode) {
+			subjectName
+			subjectCode
+			id
+		}
+	}
+`;
+
+const updateRankMutation = gql`
+	mutation updateRankMutation($id: ID!, $rankName: String, $rankCode: String) {
+		updateRank(id: $id, rankName: $rankName, rankCode: $rankCode) {
+			id
+			rankName
+			rankCode
+		}
+	}
+`;
+
+const updateSeriesMutation = gql`
+	mutation updateSeriesMutation($id: ID!, $seriesName: String, $seriesCode: String) {
+		updateSeries(id: $id, seriesName: $seriesName, seriesCode: $seriesCode) {
+			seriesName
+			seriesCode
+			id
+		}
+	}
+`;
+
+const updateDivisionMutation = gql`
+	mutation updateDivisionMutation($id: ID!, $divName: String, $divCode: String) {
+		updateDivision(id: $id, divName: $divName, divCode: $divCode) {
+			id
+			divName
+			divCode
+		}
+	}
+`;
+
 const updateRegionMutation = gql`
 	mutation updateRegionMutation($id: ID!, $regName: String, $regCode: String) {
 		updateRegion(id: $id, regName: $regName, regCode: $regCode) {
@@ -35,22 +104,30 @@ const createNewReportMutation = gql`
 	}
 `;
 
+const createNewGenderMutation = gql`
+	mutation createNewGenderMutation($genderName: String!, $genderCode: String!) {
+		createGender(genderName: $genderName, genderCode: $genderCode) {
+			id
+			genderCode
+			genderName
+		}
+	}
+`;
+
 const createRegistrationMutation = gql`
 	mutation createRegistrationMutation(
-		$exam: ExamWhereUniqueInput!
-		$series: SeriesWhereUniqueInput!
 		$candidate: CandidateWhereUniqueInput!
-		$session: SessionWhereUniqueInput!
-		$center: CenterWhereUniqueInput!
+		$series: SeriesWhereUniqueInput!
 		$candExamSecretCode: String!
+		$candExamSession: String!
+		$centerExamSessionSeries: CenterExamSessionSeriesWhereUniqueInput!
 	) {
 		createRegistration(
 			candExamSecretCode: $candExamSecretCode
-			exam: $exam
 			series: $series
-			session: $session
 			candidate: $candidate
-			center: $center
+			centerExamSessionSeries: $centerExamSessionSeries
+			candExamSession: $candExamSession
 		) {
 			id
 			series {
@@ -64,12 +141,22 @@ const createRegistrationMutation = gql`
 	}
 `;
 
-const createCenterAdminMutation = gql`
-	mutation createCenterAdminMutation(
+const createCenterExamSessionMutation = gql`
+	mutation createCenterExamSessionMutation(
 		$exam: ExamWhereUniqueInput!
-		$rank: RankWhereUniqueInput!
 		$session: SessionWhereUniqueInput!
 		$center: CenterWhereUniqueInput!
+	) {
+		createCenterExamSession(exam: $exam, session: $session, center: $center) {
+			id
+		}
+	}
+`;
+
+const createCenterAdminMutation = gql`
+	mutation createCenterAdminMutation(
+		$rank: RankWhereUniqueInput!
+		$centerExamSession: CenterExamSessionWhereUniqueInput!
 		$authName: String!
 		$authCode: String!
 		$authCNI: String!
@@ -77,10 +164,8 @@ const createCenterAdminMutation = gql`
 		$authMatricule: String!
 	) {
 		createCenterAdmin(
-			exam: $exam
 			rank: $rank
-			session: $session
-			center: $center
+			centerExamSession: $centerExamSession
 			authCNI: $authCNI
 			authName: $authName
 			authCode: $authCode
@@ -285,28 +370,41 @@ const createCandidateMutation = gql`
 		$cand1stName: String!
 		$cand2ndName: String
 		$cand3rdName: String
+		$dadName: String
+		$momName: String
 		$candCode: String
 		$email: String!
 		$image: String!
 		$phoneNumb: Int
+		$dateOfBirth: DateTime
+		$birthCertNumber: String
 		$placeOfBirth: String
-		$gender: GenderCreateWithoutCandidateInput!
+		$gender: GenderWhereUniqueInput!
 	) {
 		createCandidate(
 			cand1stName: $cand1stName
 			cand2ndName: $cand2ndName
+			dadName: $dadName
+			momName: $momName
 			cand3rdName: $cand3rdName
 			candCode: $candCode
 			email: $email
 			image: $image
 			phoneNumb: $phoneNumb
+			dateOfBirth: $dateOfBirth
+			birthCertNumber: $birthCertNumber
 			placeOfBirth: $placeOfBirth
 			gender: $gender
 		) {
 			id
 			cand1stName
 			cand2ndName
+			cand3rdName
+			momName
+			dadName
 			candCode
+			birthCertNumber
+			dateOfBirth
 			image
 		}
 	}
@@ -327,10 +425,11 @@ const updateSubDivisionMutation = gql`
 `;
 
 const updateCenterMutation = gql`
-	mutation updateCenterMutation($id: ID!, $centerName: String, $centerCode: String) {
-		updateCenter(id: $id, centerName: $centerName, centerCode: $centerCode) {
+	mutation updateCenterMutation($id: ID!, $centerName: String, $centerCode: String, $centerNumber: Int) {
+		updateCenter(id: $id, centerName: $centerName, centerCode: $centerCode, centerNumber: $centerNumber) {
 			id
 			centerName
+			centerNumber
 			centerCode
 		}
 	}
@@ -381,28 +480,39 @@ const updateCandidateMutation = gql`
 		$cand1stName: String
 		$cand2ndName: String
 		$cand3rdName: String
-		$candCode: String
+		$momName: String
+		$dadName: String
 		$email: String
 		$image: String
 		$phoneNumb: Int
 		$placeOfBirth: String
+		$dateOfBirth: DateTime
+		$birthCertNumber: String
+		$gender: GenderWhereUniqueInput
 	) {
 		updateCandidate(
 			id: $id
 			cand1stName: $cand1stName
 			cand2ndName: $cand2ndName
 			cand3rdName: $cand3rdName
-			candCode: $candCode
+			momName: $momName
+			dadName: $dadName
 			email: $email
 			image: $image
 			phoneNumb: $phoneNumb
 			placeOfBirth: $placeOfBirth
+			dateOfBirth: $dateOfBirth
+			birthCertNumber: $birthCertNumber
+			gender: $gender
 		) {
 			id
 			cand1stName
 			cand2ndName
 			cand3rdName
 			image
+			gender {
+				id
+			}
 		}
 	}
 `;
@@ -447,17 +557,26 @@ export {
 	createNewRankMutation,
 	createNewReportMutation,
 	createNewRegionMutation,
+	createNewGenderMutation,
 	createExamMutation,
 	registerSubjectSeriesMutation,
 	registerNewSubjectSeriesMutation,
 	updateCenterMutation,
 	updateTownMutation,
+	updateSessionMutation,
 	updateRegionMutation,
 	updateExamMutation,
 	updateSubDivisionMutation,
 	updateGenderMutation,
 	updateCandidateMutation,
 	updateScoreMutation,
+	updateDivisionMutation,
 	updateItemMutation,
+	updateSeriesMutation,
+	updateRankMutation,
+	updateSubjectMutation,
+	updateSubjectTypeMutation,
+	createCenterExamSessionMutation,
+	updateEducationTypeMutation,
 	signInCandidate
 };

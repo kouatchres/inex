@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Mutation, Query } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage';
 import { createNewRegionMutation } from '../queries&Mutations&Functions/Mutations';
-import { getAllRegionsQuery } from '../queries&Mutations&Functions/Queries';
 
 class CreateRegion extends Component {
 	state = {
@@ -25,40 +25,43 @@ class CreateRegion extends Component {
 		return (
 			<Mutation mutation={createNewRegionMutation} variables={this.state}>
 				{(createRegion, { loading, error }) => (
-					<Form
-						onSubmit={async (e) => {
-							e.preventDefault();
-							const res = await createRegion();
-							console.log(res);
-							this.resetForm();
-						}}
-					>
-						<h5>New Region</h5>
-						<Error error={error} />
-						<fieldset disabled={loading} aria-busy={loading}>
-							<input
-								type="text"
-								id="regName"
-								name="regName"
-								placeholder="Region Name"
-								value={this.state.regName}
-								onChange={this.handleChange}
-								required
-							/>
-							<input
-								type="text"
-								id="regCode"
-								name="regCode"
-								placeholder="Region Code"
-								value={this.state.regCode}
-								onChange={this.handleChange}
-								required
-							/>
-							<div className="submitButton">
-								<button type="submit">Valid{loading ? 'ation en cours' : 'er'}</button>
-							</div>
-						</fieldset>
-					</Form>
+					<StyledPage>
+						<Form
+							method="POST"
+							onSubmit={async (e) => {
+								e.preventDefault();
+								const res = await createRegion();
+								console.log(res);
+								this.resetForm();
+							}}
+						>
+							<h4>Créer Nouvelle Région</h4>
+							<Error error={error} />
+							<fieldset disabled={loading} aria-busy={loading}>
+								<input
+									type="text"
+									id="regName"
+									name="regName"
+									placeholder="Nom Région"
+									value={this.state.regName}
+									onChange={this.handleChange}
+									required
+								/>
+								<input
+									type="text"
+									id="regCode"
+									name="regCode"
+									placeholder="Code Région"
+									value={this.state.regCode}
+									onChange={this.handleChange}
+									required
+								/>
+								<div className="submitButton">
+									<button type="submit">Valid{loading ? 'ation en cours' : 'er'}</button>
+								</div>
+							</fieldset>
+						</Form>
+					</StyledPage>
 				)}
 			</Mutation>
 		);

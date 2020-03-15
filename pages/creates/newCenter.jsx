@@ -1,17 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 import CreateCenter from "../../src/components/center/CreateCenter";
+// import div from '../../src/components/styles/div';
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  max-width: 40vw;
-`;
 const newCenter = props => {
   return (
-    <DivStyled>
+    <div>
       <CreateCenter />
-    </DivStyled>
+    </div>
   );
 };
 export default newCenter;

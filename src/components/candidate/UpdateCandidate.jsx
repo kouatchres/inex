@@ -1,33 +1,43 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage.js';
+import { format } from 'date-fns';
 import styled from 'styled-components';
 import { updateCandidateMutation } from '../queries&Mutations&Functions/Mutations';
 import { singleCandidateQuery, getAllGendersQuery } from '../queries&Mutations&Functions/Queries';
 
 const CreateCandForm = styled.div`
 	display: grid;
-	grid-template-columns: 10fr 18fr;
+	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 10px;
-	min-width: 40vw;
 `;
 const PicFrame = styled.div`
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 1rem;
 	img {
-		width: 250px;
-		height: 350px;
-		border-radius: 12px;
+		margin-top: 1rem;
+		margin-left: 5rem;
+		height: 15rem;
+		width: 15rem;
+		border-radius: 15px;
+		background-size: contain;
+		background-position: center;
 	}
 `;
 const DataFrame = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
+const FirstDataFrame = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
 
 class UpdateCandidate extends Component {
-	state = {genderID: "235"};
+	state = { genderID: '' };
 
 	handleChange = (e) => {
 		const { name, value, type } = e.target;
@@ -41,11 +51,12 @@ class UpdateCandidate extends Component {
 		const res = await updateMutation({
 			variables: {
 				id: this.props.id,
-				gender:this.getSelectedGender(this.state.genderID),
+				gender: this.getSelectedGender(gender.id),
 				...this.state
 			}
 		});
 		console.log('Candidate Updated!!');
+		console.log(res);
 	};
 
 	uploadFile = async (e) => {
@@ -68,17 +79,17 @@ class UpdateCandidate extends Component {
 		}
 	};
 
-	getSelectedGender = dataSource => {
+	getSelectedGender = (dataSource) => {
 		// 1 copy the data source
 		// if (dataSource.length > 0) {
-		const tempGender = [...dataSource];
+		const tempGender = [ ...dataSource ];
 		// get the region object
-		const selectedGender = tempGender.find(item => item.id === this.state.genderID);
-		console.log("getting selected gender");
+		const selectedGender = tempGender.find((item) => item.id === this.state.genderID);
+		console.log('getting selected gender');
 		console.log(selectedGender);
 		return selectedGender;
 		// }
-	  };
+	};
 
 	render() {
 		return (
@@ -108,12 +119,13 @@ class UpdateCandidate extends Component {
 									loading && <p>Loading...</p>;
 								}
 								const { candidate } = data;
-								console.log(data);
-								console.log(candidate);
+
 								{
-									!data.candidate && <p>No Candidate Found for ID {this.props.id}</p>;
+									!candidate && <p>No Candidate Found for ID {this.props.id}</p>;
 								}
 								const {
+									dateOfBirth,
+									birthCertNumber,
 									cand1stName,
 									cand2ndName,
 									cand3rdName,
@@ -121,111 +133,172 @@ class UpdateCandidate extends Component {
 									image,
 									phoneNumb,
 									placeOfBirth,
-								} = data.candidate;
+									gender,
+									momName,
+									dadName
+								} = candidate;
 
 								return (
-									<Mutation mutation={updateCandidateMutation}
-									 variables={{ id: this.props.id }}>
+									<Mutation mutation={updateCandidateMutation} variables={{ id: this.props.id }}>
 										{(updateCandidate, { loading, error }) => (
-											<Form onSubmit={(e) => this.updateSingleCandidate(e, updateCandidate)}>
-												<h5>Update a Candidate</h5>
-												<Error error={error} />
-												<fieldset disabled={loading} aria-busy={loading}>
-													<CreateCandForm>
-														<PicFrame>
-															<input
-																type="file"
-																id="file"
-																name="file"
-																placeholder="Your picture"
-																onChange={this.uploadFile}
-																required
-															/>
-															<div>
-																{this.state.image ? (
-																	<img src={this.state.image} alt="Upload image" />
-																) : (
-																	<img src={image} alt="Upload image" />
-																)}
-															</div>
-														</PicFrame>
-														<DataFrame>
-															 <select
-																type="select"
-																id="genderID"
-																name="genderID"
-																placeholder="Sexe"
-																value={this.state.genderID}
-																onChange={this.handleChange}
-																required
-															>
-																{genderOptions}
-															</select> 
+											<StyledPage>
+												<Form
+													onSubmit={async (e) => {
+														e.preventDefault();
+														console.log('Updating Candidate!!');
+														const res = await updateCandidate({
+															variables: {
+																id: this.props.id,
+																gender: this.getSelectedGender(gender.id),
+																...this.state
+															}
+														});
+														console.log('Candidate Updated!!');
+														console.log(res);
+													}}
+												>
+													<h4>Correction d'Info Candidat</h4>
+													<Error error={error} />
+													<fieldset disabled={loading} aria-busy={loading}>
+														<CreateCandForm>
+															<PicFrame>
+																<input
+																	type="file"
+																	id="file"
+																	name="file"
+																	placeholder="Your picture"
+																	onChange={this.uploadFile}
+																	required
+																/>
+																<div>
+																	{this.state.image ? (
+																		<img
+																			src={this.state.image}
+																			alt="Upload image"
+																		/>
+																	) : (
+																		<img src={image} alt="Upload image" />
+																	)}
+																</div>
+																<FirstDataFrame>
+																	<input
+																		type="text"
+																		id="cand1stName"
+																		name="cand1stName"
+																		placeholder="Nom"
+																		defaultValue={cand1stName}
+																		onChange={this.handleChange}
+																		required
+																	/>
+																	<input
+																		type="text"
+																		id="cand2ndName"
+																		name="cand2ndName"
+																		placeholder="Prenoms"
+																		defaultValue={cand2ndName}
+																		onChange={this.handleChange}
+																		required
+																	/>
+																	<input
+																		type="text"
+																		id="cand3rdName"
+																		name="cand3rdName"
+																		placeholder="Autres noms"
+																		defaultValue={cand3rdName}
+																		onChange={this.handleChange}
+																		required
+																	/>
+																</FirstDataFrame>
+															</PicFrame>
+															<DataFrame>
+																<select
+																	type="select"
+																	id="genderID"
+																	name="genderID"
+																	defaultValue={gender.id}
+																	onChange={this.handleChange}
+																	required
+																>
+																	<option>Sexe du candidat</option>
+																	{genderOptions}
+																</select>
+																<input
+																	type="email"
+																	id="email"
+																	name="email"
+																	placeholder="Email"
+																	defaultValue={email}
+																	onChange={this.handleChange}
+																	required
+																/>
+																<input
+																	type="number"
+																	id="phoneNumb"
+																	name="phoneNumb"
+																	placeholder="No Tel"
+																	defaultValue={phoneNumb}
+																	onChange={this.handleChange}
+																	required
+																/>
+																<input
+																	type="text"
+																	id="placeOfBirth"
+																	name="placeOfBirth"
+																	placeholder="Lieu de Naissance"
+																	defaultValue={placeOfBirth}
+																	onChange={this.handleChange}
+																	required
+																/>
 
-															<input
-																type="text"
-																id="cand1stName"
-																name="cand1stName"
-																placeholder="First Name"
-																defaultValue={cand1stName}
-																onChange={this.handleChange}
-																required
-															/>
-															<input
-																type="text"
-																id="cand2ndName"
-																name="cand2ndName"
-																placeholder="Second Name"
-																defaultValue={cand2ndName}
-																onChange={this.handleChange}
-																required
-															/>
-															<input
-																type="text"
-																id="cand3rdName"
-																name="cand3rdName"
-																placeholder="Last Name"
-																defaultValue={cand3rdName}
-																onChange={this.handleChange}
-																required
-															/>
-															<input
-																type="email"
-																id="email"
-																name="email"
-																placeholder="Email"
-																defaultValue={email}
-																onChange={this.handleChange}
-																required
-															/>
-															<input
-																type="number"
-																id="phoneNumb"
-																name="phoneNumb"
-																placeholder="Phone Number"
-																defaultValue={phoneNumb}
-																onChange={this.handleChange}
-																required
-															/>
-															<input
-																type="text"
-																id="placeOfBirth"
-																name="placeOfBirth"
-																placeholder="Birth Place"
-																defaultValue={placeOfBirth}
-																onChange={this.handleChange}
-																required
-															/>
+																<input
+																	type="text"
+																	id="birhtCertNumber"
+																	name="birhtCertNumber"
+																	placeholder="No Acte de Naissance"
+																	defaultValue={birthCertNumber}
+																	onChange={this.handleChange}
+																	required
+																/>
 
-															<div className="submitButton">
-																<button type="submit">
-																	Valid{loading ? 'ation en cours' : 'er '}
-																</button>
-															</div>
-														</DataFrame>
-													</CreateCandForm>
-												</fieldset>
-											</Form>
+																<input
+																	type="Date"
+																	id="dateOfBirth"
+																	name="dateOfBirth"
+																	placeholder="Date de Naissance"
+																	defaultValue={format(dateOfBirth, 'd MMMM YYYY')}
+																	onChange={this.handleChange}
+																	required
+																/>
+
+																<input
+																	type="text"
+																	id="dadName"
+																	name="dadName"
+																	placeholder="Noms du Père"
+																	defaultValue={dadName}
+																	onChange={this.handleChange}
+																	required
+																/>
+																<input
+																	type="text"
+																	id="momName"
+																	name="momName"
+																	placeholder="Noms de la Mère"
+																	defaultValue={momName}
+																	onChange={this.handleChange}
+																	required
+																/>
+
+																<div className="submitButton">
+																	<button type="submit">
+																		Valid{loading ? 'ation en cours' : 'er'}
+																	</button>
+																</div>
+															</DataFrame>
+														</CreateCandForm>
+													</fieldset>
+												</Form>
+											</StyledPage>
 										)}
 									</Mutation>
 								);

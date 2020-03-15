@@ -22,10 +22,16 @@ const objectFromCode = (codeValue) => {
 	return storedObject;
 };
 
+const candExamSessionCode = (candID, examID, sessionID) => {
+
+	return `${candID + examID + sessionID}`
+
+};
+
 const getSelectedObject = (dataSource, objectID) => {
 	// 1 copy the data source
 	if (dataSource.length > 0) {
-		const tempObjects = [ ...dataSource ];
+		const tempObjects = [...dataSource];
 		// get the object
 		const selectedObject = tempObjects.find((item) => item.id === objectID);
 		return selectedObject;
@@ -35,10 +41,28 @@ const calcCandAve = (candScores) => {
 	const aveTotal = candScores.reduce((tally, item) => tally + item.subjectAve * item.coeff, 0);
 	const coeffTotal = candScores.reduce((tally, item) => (item.subjectAve === null ? tally : tally + item.coeff), 0);
 	const candAve = aveTotal / coeffTotal;
-	console.log(`aveTotal is = ${aveTotal}`);
-	console.log(`coeffTotal is = ${coeffTotal}`);
-	console.log(`ave is = ${candAve}`);
 	return candAve;
 };
+const calcCandTotalScore = (candScores) => {
+	const aveTotal = candScores.reduce((tally, item) => tally + item.subjectAve * item.coeff, 0);
+	return aveTotal;
+};
+const calcCandTotalCoeff = (candScores) => {
+	const coeffTotal = candScores.reduce((tally, item) => (item.subjectAve === null ? tally : tally + item.coeff), 0);
+	return coeffTotal;
+};
+const roundFloatNumber = (value, decimals) => {
+	return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+};
 
-export { calcCandAve, objectFromCode, updateItemMutation, uniqueCodeGen, getSelectedObject };
+export {
+	candExamSessionCode,
+	roundFloatNumber,
+	calcCandTotalScore,
+	calcCandTotalCoeff,
+	calcCandAve,
+	objectFromCode,
+	updateItemMutation,
+	uniqueCodeGen,
+	getSelectedObject
+};

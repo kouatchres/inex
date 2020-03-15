@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import { getAllSeriesQuery } from '../queries&Mutations&Functions/Queries';
 // import { ALL_REGIONS_QUERY } from "../Regions";
 
-const DELETE_DIVISION_MUTATION = gql`
-	mutation DELETE_DIVISION_MUTATION($id: ID!) {
-		deleteDivision(id: $id) {
+const deleteSeriesMutation = gql`
+	mutation deleteSeriesMutation($id: ID!) {
+		deleteSeries(id: $id) {
 			id
 		}
 	}
@@ -37,28 +38,24 @@ class DeleteDivision extends Component {
 	updateCache = (cache, payload) => {
 		// manually update the cache so that the data are all the same
 		// 1. read the cache for the data we want
-		const data = cache.readQuery({ query: ALL_DIVISIONS_QUERY });
+		const data = cache.readQuery({ query: getAllSeriesQuery });
 		// the deletedselect all the other regions except the deleted one from the cache
 		data.divisions = data.divisions.filter((item) => item.id !== payload.data.deleteDivision.id);
 		//  3. write the new data back to the cache
 		console.log('getting payload');
 		console.log(payload);
-		cache.writeQuery({ query: ALL_DIVISIONS_QUERY, data });
+		cache.writeQuery({ query: getAllSeriesQuery, data });
 	};
 
 	render() {
 		return (
 			<div>
-				<Mutation
-					mutation={DELETE_DIVISION_MUTATION}
-					variables={{ id: this.props.id }}
-					update={this.updateCache}
-				>
+				<Mutation mutation={deleteSeriesMutation} variables={{ id: this.props.id }} update={this.updateCache}>
 					{(deleteDivision, { error }) => (
 						<DelBtn
 							onClick={() => {
 								if (confirm('Do you want to delete this candidate ?')) {
-									deleteDivision();
+									deleteSeries();
 								}
 							}}
 						>

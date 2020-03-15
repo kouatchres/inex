@@ -69,6 +69,7 @@ class CreateSeries extends Component {
 							{(createSeries, { loading, error }) => (
 								<StyledDivision>
 									<Form
+										method="POST"
 										onSubmit={async (e) => {
 											e.preventDefault();
 											const res = await createSeries();
@@ -76,7 +77,7 @@ class CreateSeries extends Component {
 											this.resetForm();
 										}}
 									>
-										<h5>New Series</h5>
+										<h4>Nouvelle Séries</h4>
 										<Error error={error} />
 										<fieldset disabled={loading} aria-busy={loading}>
 											<select
@@ -95,7 +96,7 @@ class CreateSeries extends Component {
 												type="text"
 												id="seriesName"
 												name="seriesName"
-												placeholder="Series Name"
+												placeholder="Nom Séries"
 												value={this.state.seriesName}
 												onChange={this.handleChange}
 												required
@@ -104,7 +105,7 @@ class CreateSeries extends Component {
 												type="text"
 												id="seriesCode"
 												name="seriesCode"
-												placeholder="Series Code"
+												placeholder="Code Séries"
 												value={this.state.seriesCode}
 												onChange={this.handleChange}
 												required

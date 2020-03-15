@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
+import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage.js';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
-
-const DataFrame = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
-
-const SINGLE_EDUC_TYPE_QUERY = gql`
-	query SINGLE_EDUC_TYPE_QUERY($id: ID!) {
-		educationType(id: $id) {
-			educationTypeName
-			educationTypeCode
-			id
-		}
-	}
-`;
-
-const UPDATE_EDUC_TYPE_MUTATION = gql`
-	mutation UPDATE_EDUC_TYPE_MUTATION($id: ID!, $educationTypeName: String, $educationTypeCode: String) {
-		updateEducationType(id: $id, educationTypeName: $educationTypeName, educationTypeCode: $educationTypeCode) {
-			id
-			educationTypeName
-			educationTypeCode
-		}
-	}
-`;
+import { singleEducationTypeQuery } from '../queries&Mutations&Functions/Queries';
+import { updateEducationTypeMutation } from '../queries&Mutations&Functions/Mutations';
 
 class UpdateEducationType extends Component {
 	state = {};
@@ -39,7 +15,7 @@ class UpdateEducationType extends Component {
 		this.setState({ [name]: val });
 	};
 
-	updateSingleEducationType = async (e, updateMutation) => {
+	singleEducationTypeQuery = async (e, updateMutation) => {
 		e.preventDefault();
 		const res = await updateMutation({
 			variables: {
@@ -52,7 +28,7 @@ class UpdateEducationType extends Component {
 	render() {
 		return (
 			<Query
-				query={SINGLE_EDUC_TYPE_QUERY}
+				query={singleEducationTypeQuery}
 				variables={{
 					id: this.props.id
 				}}
@@ -72,13 +48,13 @@ class UpdateEducationType extends Component {
 					}
 
 					return (
-						<Mutation mutation={UPDATE_EDUC_TYPE_MUTATION} variables={{ id: this.props.id }}>
+						<Mutation mutation={updateEducationTypeMutation} variables={{ id: this.props.id }}>
 							{(updateEducationType, { loading, error }) => (
-								<Form onSubmit={(e) => this.updateSingleEducationType(e, updateEducationType)}>
-									<h5>Modifier le type d'enseignement</h5>
-									<Error error={error} />
-									<fieldset disabled={loading} aria-busy={loading}>
-										<DataFrame>
+								<StyledPage>
+									<Form onSubmit={(e) => this.singleEducationTypeQuery(e, updateEducationType)}>
+										<h4>Modification du type d'enseignement</h4>
+										<Error error={error} />
+										<fieldset disabled={loading} aria-busy={loading}>
 											<input
 												type="text"
 												id="educationTypeName"
@@ -102,9 +78,9 @@ class UpdateEducationType extends Component {
 													Modifi{loading ? 'cation en cours' : 'er'}
 												</button>
 											</div>
-										</DataFrame>
-									</fieldset>
-								</Form>
+										</fieldset>
+									</Form>
+								</StyledPage>
 							)}
 						</Mutation>
 					);
