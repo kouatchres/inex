@@ -13,8 +13,6 @@ class CreateSubDivision extends Component {
     subDivCode: "",
     divisionID: "12",
     regionID: "12",
-    region: "",
-    division: ""
   };
 
   handleChange = e => {
@@ -27,7 +25,7 @@ class CreateSubDivision extends Component {
     this.setState({ subDivName: "", subDivCode: "" });
   }
   render() {
-    const { regionID, divisionID } = this.state;
+    const { regionID, divisionID, subDivName, subDivCode } = this.state;
     return (
       <Query query={getAllRegionsQuery}>
         {({ data, loading, error }) => {
@@ -61,15 +59,12 @@ class CreateSubDivision extends Component {
                 const allDivs = { ...region };
                 const { division } = allDivs;
 
-                const refinedDivision = division && division.map(({ __typename, ...others }) => others);
+                const refinedDivision = division && division.map(({ __typename, divName, ...others }) => others);
 
                 const divisionsOptions =
-                  refinedDivision &&
-                  refinedDivision.map(item => (
-                    <option value={item.id} key={item.id}>
-                      {item.divName}
-                    </option>
-                  ));
+                  division &&
+                  division.map(item => (
+                    <option value={item.id} key={item.id}>{item.divName}</option>));
 
                 return (
                   <Mutation
@@ -98,22 +93,22 @@ class CreateSubDivision extends Component {
                               type="select"
                               id="regionID"
                               name="regionID"
-                              value={this.state.regionID}
+                              value={regionID}
                               onChange={this.handleChange}
                               required
                             >
-                              <option>Choisissez une region</option>
+                              <option>La region</option>
                               {regionsOptions}
                             </select>
                             <select
                               type="select"
                               id="divisionID"
                               name="divisionID"
-                              value={this.state.divisionID}
+                              value={divisionID}
                               onChange={this.handleChange}
                               required
                             >
-                              <option>Choisissez un departement</option>
+                              <option>Le departement</option>
                               {divisionsOptions}
                             </select>
                             <input
@@ -121,7 +116,7 @@ class CreateSubDivision extends Component {
                               id="subDivName"
                               name="subDivName"
                               placeholder="Nom Arrondissement"
-                              value={this.state.subDivName}
+                              value={subDivName}
                               onChange={this.handleChange}
                               required
                             />
@@ -130,7 +125,7 @@ class CreateSubDivision extends Component {
                               id="subDivCode"
                               name="subDivCode"
                               placeholder="Code Arrondissement"
-                              value={this.state.subDivCode}
+                              value={subDivCode}
                               onChange={this.handleChange}
                               required
                             />

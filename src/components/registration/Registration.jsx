@@ -366,6 +366,7 @@ class Registration extends Component {
                                                                                                                                                         series: refinedSeries && getSelectedObject(refinedSeries, seriesID),
                                                                                                                                                         candidate: this.makeCandVariableObject(candCode),
                                                                                                                                                         centerExamSessionSeries: getCESSObj && getCESSObj,
+                                                                                                                                                        centerExamSession: getObj && getObj,
                                                                                                                                                         candExamSession: candExamSessionCode(candCode, examID, sessionID)
 
                                                                                                                                                     }}>

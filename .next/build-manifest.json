@@ -1,0 +1,23 @@
+{
+  "devFiles": [
+    "static/development/dll/dll_a2101089cef155c33957.js"
+  ],
+  "pages": {
+    "/_app": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/_error": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/show/results/centerResults": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/show/results/candResults": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ]
+  }
+}

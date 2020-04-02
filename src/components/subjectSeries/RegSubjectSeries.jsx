@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
 import Form from "../styles/Form";
-import { StyledPage } from "../styles/StyledPage";
+import { MiniStyledPage } from "../styles/StyledPage";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import { registerNewSubjectSeriesMutation } from "../queries&Mutations&Functions/Mutations";
@@ -127,7 +127,7 @@ class RegSubjectSeries extends Component {
                           }}
                         >
                           {(createSubjectSeries, { loading, error }) => (
-                            <StyledPage>
+                            <MiniStyledPage>
                               <Form
                                 method="POST"
                                 onSubmit={async e => {
@@ -189,7 +189,7 @@ class RegSubjectSeries extends Component {
                                   </StyledDivision>
                                 </fieldset>
                               </Form>
-                            </StyledPage>
+                            </MiniStyledPage>
                           )}
                         </Mutation>
                       );

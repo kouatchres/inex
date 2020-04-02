@@ -82,7 +82,7 @@ class UpdateCandidate extends Component {
 	getSelectedGender = (dataSource) => {
 		// 1 copy the data source
 		// if (dataSource.length > 0) {
-		const tempGender = [ ...dataSource ];
+		const tempGender = [...dataSource];
 		// get the region object
 		const selectedGender = tempGender.find((item) => item.id === this.state.genderID);
 		console.log('getting selected gender');
@@ -121,7 +121,7 @@ class UpdateCandidate extends Component {
 								const { candidate } = data;
 
 								{
-									!candidate && <p>No Candidate Found for ID {this.props.id}</p>;
+									!candidate && <p>Pas de candidat avec le ID {this.props.id}</p>;
 								}
 								const {
 									dateOfBirth,
@@ -177,8 +177,8 @@ class UpdateCandidate extends Component {
 																			alt="Upload image"
 																		/>
 																	) : (
-																		<img src={image} alt="Upload image" />
-																	)}
+																			<img src={image} alt="Upload image" />
+																		)}
 																</div>
 																<FirstDataFrame>
 																	<input

@@ -5,13 +5,16 @@ import { roundFloatNumber } from '../queries&Mutations&Functions/Functions';
 
 const RegionRow = styled.div`
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-gap: 15px;
-	background-color: ${(props) => props.theme.lightGrey};
+	grid-template-columns: 4fr 1fr 1fr 1fr;
+	grid-gap: 0.2rem;
+	background-color: ${(props) => props.theme.pureWhite};
 	align-items: left;
 	justify-items: left;
 	border-bottom: 1px solid black;
 	padding-left: 15px;
+	font-size:1.3rem;
+	font-weight: bold;
+
 `;
 
 const CellBlock = styled.div`
@@ -28,6 +31,7 @@ class ResultDetails extends Component {
 		const { subjectAve, coeff, subjectSeries } = { ...this.props.score };
 		return (
 			<RegionRow>
+
 				<CellBlock>
 					<span>{subjectSeries.subjectName}</span>
 				</CellBlock>
@@ -38,7 +42,7 @@ class ResultDetails extends Component {
 					<span>{subjectAve}</span>
 				</CellBlock>
 				<CellBlock>
-					<span>{roundFloatNumber(coeff * subjectAve, 	4)}</span>
+					<span>{roundFloatNumber(coeff * subjectAve, 4)}</span>
 				</CellBlock>
 			</RegionRow>
 		);

@@ -38,11 +38,9 @@ const ImageInfo = styled.div`
 const BottomInfo = styled.div`
 	padding: .5px;
 	margin: .5rem auto;
-	/* 
-  p {
-    font-size: 1.3rem;
-    line-height: 2px;
-  } */
+    font-size: 1.6rem;
+    line-height: 0.3rem;
+  
 `;
 
 const CandImg = styled.div`

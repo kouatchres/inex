@@ -1,7 +1,7 @@
 {
   "name": "sygex-front",
   "version": "1.0.0",
-  "description": "Sygex frontend modern exam system, GraphQL, Next and Apollo",
+  "description": "Sygex frontend modern exam system, GraphQL, Next and Apollo (SYGEX  FRONT-END)",
   "main": "index.js",
   "scripts": {
     "dev": "next -p 8888",

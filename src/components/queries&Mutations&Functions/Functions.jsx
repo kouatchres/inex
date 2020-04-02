@@ -1,4 +1,5 @@
 import React from 'react';
+import { concat } from 'apollo-link';
 
 const uniqueCodeGen = (keyLength) => {
 	var i,
@@ -22,11 +23,20 @@ const objectFromCode = (codeValue) => {
 	return storedObject;
 };
 
+const centerExamSessionObjectFromCode = (codeValue) => {
+	const storedObject = {
+		centerExamSession: `${codeValue}`
+	};
+	return storedObject;
+};
+
 const candExamSessionCode = (candID, examID, sessionID) => {
 
 	return `${candID + examID + sessionID}`
 
 };
+
+
 
 const getSelectedObject = (dataSource, objectID) => {
 	// 1 copy the data source
@@ -37,6 +47,13 @@ const getSelectedObject = (dataSource, objectID) => {
 		return selectedObject;
 	}
 };
+
+Number.prototype.pad = function (size) {
+	var s = String(this);
+	while (s.length < (size || 2)) { s = "0" + s; }
+	return s;
+}
+
 const calcCandAve = (candScores) => {
 	const aveTotal = candScores.reduce((tally, item) => tally + item.subjectAve * item.coeff, 0);
 	const coeffTotal = candScores.reduce((tally, item) => (item.subjectAve === null ? tally : tally + item.coeff), 0);
@@ -64,5 +81,7 @@ export {
 	objectFromCode,
 	updateItemMutation,
 	uniqueCodeGen,
-	getSelectedObject
+	getSelectedObject,
+	registrationSerialNumber,
+	centerExamSessionObjectFromCode
 };

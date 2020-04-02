@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Form from '../styles/Form';
-import Form from '../styles/Form';
 import { StyledPage } from '../styles/StyledPage';
 import Link from 'next/link';
-import gql from 'graphql-tag';
 import Error from '../ErrorMessage';
 import styled from 'styled-components';
 import DeleteSubjectType from './DeleteSubjectType';
@@ -73,7 +71,7 @@ class SelectSubjectTypeToModify extends Component {
 									console.log(res);
 								}}
 							>
-								<h4>Modification de type d'Enseignement</h4>
+								<h4>Correction de type d'Enseignement</h4>
 								<Error error={error} />
 								<fieldset disabled={loading} aria-busy={loading}>
 									<StyledDivision>

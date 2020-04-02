@@ -21,8 +21,9 @@ class ViewSingleCand extends Component {
   }
 
   render() {
+    const { candCode } = this.state
     return (
-      <Query query={viewSingleCandidateQuery} variables={this.state.candCode}>
+      <Query query={viewSingleCandidateQuery} variables={candCode}>
         {({ data, loading, error }) => {
           return (
             <Form
@@ -34,15 +35,15 @@ class ViewSingleCand extends Component {
                 this.resetForm();
               }}
             >
-              <h5>Candidat Individuel</h5>
+              <h5>Candidat </h5>
               <Error error={error} />
               <fieldset disabled={loading} aria-busy={loading}>
                 <input
                   type="text"
                   id="candCode"
                   name="candCode"
-                  placeholder="Entrez votre code candidat"
-                  value={this.state.candCode}
+                  placeholder="Code candidat"
+                  value={candCode}
                   onChange={this.handleChange}
                   required
                 />

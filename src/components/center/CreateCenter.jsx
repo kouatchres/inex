@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Mutation, Query } from "react-apollo";
 import Form from "../styles/Form";
-import { StyledPage } from "../styles/StyledPage";
+import { MiniStyledPage } from "../styles/StyledPage";
 import Error from "../ErrorMessage";
 import { createCenterMutation } from "../queries&Mutations&Functions/Mutations";
-import { getSelectedObject } from "../queries&Mutations&Functions/Functions";
+import { getSelectedObject, uniqueCodeGen } from "../queries&Mutations&Functions/Functions";
 
 import {
   getAllRegionsQuery,
@@ -38,7 +38,7 @@ class CreateCenter extends Component {
   }
 
   render() {
-    const { regionID, divisionID, subDivisionID, townID } = this.state;
+    const { regionID, centerNumber, centerCode, centerSecretCode, divisionID, subDivisionID, townID, centerName } = this.state;
     return (
       <Query query={getAllRegionsQuery}>
         {({ data, loading, error }) => {
@@ -135,11 +135,12 @@ class CreateCenter extends Component {
                                 mutation={createCenterMutation}
                                 variables={{
                                   ...this.state,
-                                  town: town && getSelectedObject(refinedTown, townID)
+                                  town: town && getSelectedObject(refinedTown, townID),
+                                  centerSecretCode: uniqueCodeGen(18)
                                 }}
                               >
                                 {(createCenter, { loading, error }) => (
-                                  <StyledPage>
+                                  <MiniStyledPage>
                                     <Form
                                       method="POST"
                                       onSubmit={async e => {
@@ -156,11 +157,11 @@ class CreateCenter extends Component {
                                           type="select"
                                           id="regionID"
                                           name="regionID"
-                                          value={this.state.regionID}
+                                          value={regionID}
                                           onChange={this.handleChange}
                                           required
                                         >
-                                          <option>Choisissez une region</option>
+                                          <option>La région</option>
                                           {regionsOptions}
                                         </select>
 
@@ -168,33 +169,33 @@ class CreateCenter extends Component {
                                           type="select"
                                           id="divisionID"
                                           name="divisionID"
-                                          value={this.state.divisionID}
+                                          value={divisionID}
                                           onChange={this.handleChange}
                                           required
                                         >
-                                          <option>Choisissez un departement</option>
+                                          <option>Le département</option>
                                           {divisionsOptions}
                                         </select>
                                         <select
                                           type="select"
                                           id="subDivisionID"
                                           name="subDivisionID"
-                                          value={this.state.subDivisionID}
+                                          value={subDivisionID}
                                           onChange={this.handleChange}
                                           required
                                         >
-                                          <option>Choisissez un arrondissement</option>
+                                          <option>L'arrondissement</option>
                                           {subDivisionsOptions}
                                         </select>
                                         <select
                                           type="select"
                                           id="townID"
                                           name="townID"
-                                          value={this.state.townID}
+                                          value={townID}
                                           onChange={this.handleChange}
                                           required
                                         >
-                                          <option>Choisissez une ville</option>
+                                          <option>Le ville</option>
                                           {town &&
                                             town.map(item => (
                                               <option value={item.id} key={item.id}>
@@ -207,7 +208,7 @@ class CreateCenter extends Component {
                                           id="centerName"
                                           name="centerName"
                                           placeholder="Nom du Centre d'examen"
-                                          value={this.state.centerName}
+                                          value={centerName}
                                           onChange={this.handleChange}
                                           required
                                         />
@@ -216,7 +217,7 @@ class CreateCenter extends Component {
                                           id="centerCode"
                                           name="centerCode"
                                           placeholder="Code centre d'examen"
-                                          value={this.state.centerCode}
+                                          value={centerCode}
                                           onChange={this.handleChange}
                                           required
                                         />
@@ -225,7 +226,7 @@ class CreateCenter extends Component {
                                           id="centerNumber"
                                           name="centerNumber"
                                           placeholder="No du Centre"
-                                          value={this.state.centerNumber}
+                                          value={centerNumber}
                                           onChange={this.handleChange}
                                           required
                                         />
@@ -234,7 +235,7 @@ class CreateCenter extends Component {
                                         </div>
                                       </fieldset>
                                     </Form>
-                                  </StyledPage>
+                                  </MiniStyledPage>
                                 )}
                               </Mutation>
                             );

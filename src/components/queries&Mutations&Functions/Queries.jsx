@@ -104,6 +104,9 @@ const getCandidateResultsQuery = gql`
   query getCandidateResultsQuery($id: ID!) {
     registration(id: $id) {
       id
+      createdAt
+      candRegistrationNumber
+      
       candidate {
         cand1stName
         cand2ndName
@@ -118,17 +121,23 @@ const getCandidateResultsQuery = gql`
           genderName
         }
       }
-      centerExamSession {
-      center{
+      centerExamSessionSeries {
+      centerExamSession{
         id 
-         centerName}
-      exam {
+      examSession {
        id
-        examName
+        exam{
+          id 
+          examName
+        }
+        session{
+          id
+          sessionName
+        }
       }
-      session {
+      center {
         id
-        sessionName
+        centerName
       }}
       series {
         id
@@ -138,12 +147,12 @@ const getCandidateResultsQuery = gql`
           subjectName
         }
       }
-     
+      }
       scores {
         id
         subjectAve
         coeff
-        subjectSeries {
+        subjectSeries  {
           id
           subjectName
         }
@@ -224,6 +233,95 @@ const getCandidateRegistrationIDQuery = gql`
   ) {
     candidateRegistrationID(centerExamSession: $centerExamSession, candidate: $candidate) {
       id
+      
+    }
+  }
+`;
+
+const getCandidateRegistrationIDsQuery = gql`
+  query getCandidateRegistrationIDsQuery($candidate: RegistrationWhereInput!  ) {
+    candidateRegistrationIDs(candidate: $candidate) {
+      id
+      
+    }
+  }
+`;
+
+const getAllCandidateRegistrationIDsQuery = gql`
+  query getAllCandidateRegistrationIDsQuery($id: ID!  ) {
+    candidate( id: $id) {
+      id
+      cand1stName
+      cand2ndName
+      cand3rdName
+      placeOfBirth
+      dateOfBirth
+      image
+      momName
+      dadName
+      email
+      gender{
+id
+genderName
+      }
+      registration{
+        id
+     
+        centerExamSessionSeries{
+          id
+         series{
+           id
+           seriesName
+         }
+         centerExamSession{
+          center{
+            id
+            centerName
+          }
+          examSession{
+            id
+            exam{
+              id
+              examName
+            }
+            session{
+              id
+              sessionName
+            }
+          }
+        }
+       
+        }
+        scores {
+        id
+        subjectAve
+        coeff
+        subjectSeries {
+          id
+          subjectName
+        }
+      }
+        }
+      id
+      
+    }
+  }
+`;
+
+const getCandidateIDQuery = gql`
+  query getCandidateIDQuery(
+    $candCode: String!
+  ) {
+    candidateCode(candCode: $candCode) {
+      id
+    }
+  }
+`;
+
+const getCenterIDFromCenterCodeQuery = gql`
+  query getCenterIDFromCenterCodeQuery($centerCode: String!) {
+    centerByCode(centerCode: $centerCode) {
+      id
     }
   }
 `;
@@ -249,6 +347,61 @@ const centerExamSessionSeriesForResultsQuery = gql`
         seriesName
       }
       
+    }
+  }
+`;
+
+const centerExamSessionForResultsQuery = gql`
+  query centerExamSessionForResultsQuery($id: ID !) {
+    centerExamSession(id: $id) {
+      id
+      center{
+                 id
+                 centerName
+                 centerCode
+               }
+               examSession{
+               exam{
+                 id
+                 examName
+               }
+               session{
+                 id
+                 sessionName
+               }}
+           centerExamSessionSeries{
+             id
+            series{
+              id
+              seriesName
+              seriesCode
+            }
+             registration{
+               id
+               candExamSecretCode
+               candidate{
+            id
+            cand1stName
+            cand2ndName
+            cand3rdName
+            dateOfBirth
+            placeOfBirth
+            email
+            phoneNumb
+            gender{
+              id
+              genderName
+            }
+
+               }
+               scores{
+                 id
+                 subjectAve
+
+               }
+             }
+           }
+       
     }
   }
 `;
@@ -308,6 +461,22 @@ const getAllSeriesOfAnEducationTypeQuery = gql`
     }
   }
 `;
+
+const getAllSeriesOfACenterExamSessionQuery = gql`
+  query getAllSeriesOfACenterExamSessionQuery($id: ID!) {
+    centerExamSession(id: $id) {
+      id
+      centerExamSessionSeries{
+      series {
+        id
+        seriesName
+        seriesCode
+      }
+    }}
+  }
+`;
+
+
 
 const getAllSeriesQuery = gql`
   query getAllSeriesQuery {
@@ -439,6 +608,22 @@ const getCentersOfATownQuery = gql`
   }
 `;
 
+const centersPerTownQuery = gql`
+  query centersPerTownQuery($id: ID!) {
+    town(id: $id) {
+      townName
+      id
+      center(orderBy: centerName_ASC) {
+        centerName
+        centerNumber
+        centerSecretCode
+        centerCode
+        id
+      }
+    }
+  }
+`;
+
 const getAllSubjectTypesQuery = gql`
   query getAllSubjectTypesQuery {
     subjectTypes(orderBy: subjectTypeName_DESC) {
@@ -487,6 +672,29 @@ const singleCenterQuery = gql`
   }
 `;
 
+const getSingleCenterQuery = gql`
+  query getSingleCenterQuery($centerNumber: Int!) {
+    centerByNumber(centerNumber:  $centerNumber) {
+      id
+      centerNumber
+      centerCode
+      id
+    }
+  }
+`;
+
+const getASingleCenterQuery = gql`
+  query getASingleCenterQuery($centerNumber: Int!) {
+    centerByNumber(centerNumber:  $centerNumber) {
+      id
+      centerNumber
+      centerName
+      centerCode
+      id
+    }
+  }
+`;
+
 const singleTownQuery = gql`
   query singleTownQuery($id: ID!) {
     town(id: $id) {
@@ -500,12 +708,22 @@ const singleTownQuery = gql`
 const getSingleCenterExamSessionQuery = gql`
   query getSingleCenterExamSessionQuery(
     $center: CenterWhereUniqueInput!
-    $exam: ExamWhereUniqueInput!
-    $session: SessionWhereUniqueInput!
+    $examSession: ExamSessionWhereUniqueInput!
   ) {
-    centerExamSessions(exam: $exam, center: $center, session: $session) {
+    centerExamSessions(examSession: $examSession, center: $center) {
       id
 
+    }
+  }
+`;
+
+const getRegisteredCandidateCountQuery = gql`
+  query getRegisteredCandidateCountQuery($id: ID!)
+ {
+    registrationsConnection(id: $id) {
+     aggregate{
+       count
+     }
     }
   }
 `;
@@ -516,6 +734,18 @@ const getCenterExamSessionSeriesQuery = gql`
     $series: SeriesWhereUniqueInput!
   ) {
     centerExamSessionSerieses(series: $series, centerExamSession: $centerExamSession) {
+      id
+
+    }
+  }
+`;
+
+const getExamSessionQuery = gql`
+  query getExamSessionQuery(
+    $exam: ExamWhereUniqueInput!
+    $session: SessionWhereUniqueInput!
+  ) {
+    examSessions(session: $session, exam: $exam) {
       id
 
     }
@@ -767,14 +997,25 @@ export {
   singleEducationTypeQuery,
   singleRankQuery,
   centerExamSessionSeriesForResultsQuery,
+  getAllCandidateRegistrationIDsQuery,
   getCenterExamSessionSeriesQuery,
   singleGenderQuery,
+  getExamSessionQuery,
+  getAllSeriesOfACenterExamSessionQuery,
   getCenterResultsQuery,
   getCandidateRegistrationIDQuery,
+  getCandidateRegistrationIDsQuery,
+  centerExamSessionForResultsQuery,
+  getCandidateIDQuery,
+  getASingleCenterQuery,
+  getRegisteredCandidateCountQuery,
+  centersPerTownQuery,
+  getSingleCenterQuery,
   getCandidateResultsQuery,
   getCenterRegistrationIDsQuery,
   getCandidateByCandCodeQuery,
   getSingleCenterExamSessionQuery,
   getEachCandidateResultsQuery,
+  getCenterIDFromCenterCodeQuery,
   dataForAverage,
 };

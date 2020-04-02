@@ -178,13 +178,13 @@ const MegaMenu = () => (
 
 							<div className="menu-col-2">
 								<ul>
-									<h3 className="menu-category">Type De Matiere</h3>
+									<h3 className="menu-category">Type De Matière</h3>
 									<hr />
 									<Link href="/creates/newSubjectType">
-										<a> Nouveau Type Matiere</a>
+										<a> Nouveau Type Matière</a>
 									</Link>
 									<Link href="/modify/modifySubjectType">
-										<a>Modifier Type Matiere</a>
+										<a>Modifier Type Matière</a>
 									</Link>
 								</ul>
 								<ul>
@@ -194,7 +194,7 @@ const MegaMenu = () => (
 										<a>Subjects Series</a>
 									</Link>
 									<Link href="/modify/modifySubjectSeries">
-										<a>Modifier Type Matiere</a>
+										<a>Modifier Type Matière</a>
 									</Link>
 								</ul>
 								<ul>
@@ -230,12 +230,33 @@ const MegaMenu = () => (
 								<ul>
 									<h3 className="menu-category">Resultats</h3>
 									<hr />
-									<Link href="/show/showCandResults">
-										<a>Resultat Candidat</a>
-									</Link>
-									<Link href="/show/showCenterResults">
+									<Link href="/show/genCenterResults">
 										<a>Resultats Centre</a>
 									</Link>
+									<Link href="/show/results/candCodeResults">
+										<a>Resultat Candidat</a>
+									</Link>
+									<hr />
+								</ul>
+								<ul>
+									<h3 className="menu-category">Listes</h3>
+									<hr />
+									<Link href="/show/lists/centersPerTown">
+										<a>Centres par Ville</a>
+									</Link>
+									<Link href="/show/lists/subjPerSeries">
+										<a>Matieres par Serie</a>
+									</Link>
+									<Link href="/show/lists/subjPerSeries">
+										<a>Matieres par Serie</a>
+									</Link>
+									<Link href="/show/lists/subjPerSeries">
+										<a>Matieres par Serie</a>
+									</Link>
+									<Link href="/show/lists/subjPerSeries">
+										<a>Matieres par Serie</a>
+									</Link>
+									<hr />
 								</ul>
 							</div>
 							<div className="menu-col-3">
@@ -255,7 +276,7 @@ const MegaMenu = () => (
 									<Link href="/creates/newCenter">
 										<a>Nouveau Centre</a>
 									</Link>
-									<Link href="/regionList">
+									<Link href="/modify/modifyCenter">
 										<a>Modifier Centre</a>
 									</Link>
 								</ul>
@@ -311,7 +332,7 @@ const MegaMenu = () => (
 										<a>Liste Candidats</a>
 									</Link>
 									<Link href="/modify/modifyCandidate">
-										<a>Candidats</a>
+										<a>Modifier Candidat</a>
 									</Link>
 								</ul>
 								<ul>
@@ -325,20 +346,20 @@ const MegaMenu = () => (
 									</Link>
 								</ul>
 								<ul>
-									<h3 className="menu-category">Matiere</h3>
+									<h3 className="menu-category">Matière</h3>
 									<hr />
 									<Link href="/creates/newSubject">
-										<a>Nouvelle Matiere </a>
+										<a>Nouvelle Matière </a>
 									</Link>
 									<Link href="/modify/modifySubject">
-										<a>Modifier Matiere</a>
+										<a>Modifier Matière</a>
 									</Link>
 								</ul>
 								<ul>
 									<h3 className="menu-category">Charge de centre</h3>
 									<hr />
 									<Link href="/creates/newCenterAdmin">
-										<a>Nouvelle Charge de centre </a>
+										<a>Nouveau Charge de centre </a>
 									</Link>
 									<Link href="/modify/modifyCenterAdmin">
 										<a>Modifier Charge de centre</a>
@@ -353,9 +374,15 @@ const MegaMenu = () => (
 									<Link href="/creates/newCenterExamSession">
 										<a>Inscrire Centre a l'Examen </a>
 									</Link>
-									<Link href="/modify/modifyCenterAdmin">
-										<a>Modifier Charge de centre</a>
+
+								</ul>
+								<ul>
+									<h3 className="menu-category">Series par Centre</h3>
+									<hr />
+									<Link href="/creates/newCenterExamSessionSeries">
+										<a>Inscrire Series aux centres </a>
 									</Link>
+
 								</ul>
 							</div>
 						</div>

@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Form from "../styles/Form";
-import gql from "graphql-tag";
+import { MinimStyledPage } from "../styles/StyledPage";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import Link from "next/link";
+import { logInUserMutation } from '../queries&Mutations&Functions/Mutations'
 
 const Actions = styled.div`
   padding-top: 1rem;
   padding-left: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 50px;
-  align-content: center;
+  grid-gap:1rem;
+  align-content: left;
   a:hover {
     font-size: 1.5rem;
     color: #357;
@@ -25,7 +26,6 @@ const StyledDivision = styled.div`
   grid-auto-flow: row;
   text-align: center;
   margin: 0 auto;
-  width: 40vw;
   a:hover {
     pointer: cursor;
     transition: all 2s ease-in-out;
@@ -33,15 +33,6 @@ const StyledDivision = styled.div`
   }
 `;
 
-const LOGIN_USER_MUTATION = gql`
-  mutation LOGIN_USER_MUTATION($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      id
-      email
-      password
-    }
-  }
-`;
 
 class Login extends Component {
   state = {
@@ -60,63 +51,58 @@ class Login extends Component {
   }
   render = () => {
     return (
-      <Mutation mutation={LOGIN_USER_MUTATION} variables={this.state}>
+      <Mutation mutation={logInUserMutation} variables={this.state}>
         {(login, { error, loading }) => {
           return (
-            <Form
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault();
-                const res = await login();
-                console.log(res);
-                this.resetForm();
-              }}
-            >
-              <h3>Se Connecter</h3>
+            <MinimStyledPage>
 
-              <fieldset disabled={loading} aria-busy={loading}>
-                <Error error={error} />
-                <StyledDivision>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    id="name"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    id="email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </StyledDivision>
-                <Actions>
-                  <div className="submitButton">
-                    <button type="submit">Valid{loading ? "ation en cours" : "er"} </button>
-                  </div>
-                  <ul>
-                    <Link href="/signInOut/signUp">
-                      <a>S'Inscrire</a>
-                    </Link>
-                  </ul>
-                </Actions>
-              </fieldset>
-            </Form>
+              <Form
+                method="post"
+                onSubmit={async e => {
+                  e.preventDefault();
+                  const res = await login();
+                  console.log(res);
+                  this.resetForm();
+                }}
+              >
+                <h4>Se Connecter</h4>
+
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <Error error={error}/>
+                  <StyledDivision>
+
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      id="email"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      required
+                    />
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </StyledDivision>
+                  <Actions>
+                    <div className="submitButton">
+                      <button type="submit">Valid{loading ? "ation en cours" : "er"} </button>
+                    </div>
+                    <ul>
+                      <Link href="/signInOut/signUp">
+                        <a>S'Inscrire</a>
+                      </Link>
+                    </ul>
+                  </Actions>
+                </fieldset>
+              </Form>
+            </MinimStyledPage>
           );
         }}
       </Mutation>

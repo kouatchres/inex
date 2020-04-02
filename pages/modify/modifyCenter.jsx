@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import SelectCenterToModify from "../../src/components/center/SelectCenterToModify";
+import NewCenterToModify from "../../src/components/center/NewCenterToModify";
 
 const DivStyled = styled.div`
   display: block;
@@ -11,7 +11,7 @@ const DivStyled = styled.div`
 const modifyCenter = props => {
   return (
     <DivStyled>
-      <SelectCenterToModify />
+      <NewCenterToModify />
     </DivStyled>
   );
 };

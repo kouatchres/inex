@@ -1,5 +1,5 @@
 import React from "react";
-import CandidateDetailedResults from "../../src/components/score/CandidateDetailedResults";
+import CandidateDetailedResults from "../../src/components/score/candidate/CandidateDetailedResults";
 
 function showCandResults() {
   return (

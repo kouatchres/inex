@@ -4,6 +4,8 @@ import { Query } from "react-apollo";
 import Form from "../styles/Form";
 import { BigStyledPage } from "../styles/StyledPage";
 import { format } from "date-fns";
+import Error from "../ErrorMessage";
+import styled from "styled-components";
 import ResultDetails from "./ResultDetails";
 import { getEachCandidateResultsQuery } from "../queries&Mutations&Functions/Queries";
 import {
@@ -12,10 +14,6 @@ import {
   calcCandTotalCoeff,
   calcCandAve
 } from "../queries&Mutations&Functions/Functions";
-
-import Error from "../ErrorMessage";
-
-import styled from "styled-components";
 
 const AveTotals = styled.div`
   display: grid;

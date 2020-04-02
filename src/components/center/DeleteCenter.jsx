@@ -53,7 +53,7 @@ class DeleteCenter extends Component {
           {(deleteCenter, { error }) => (
             <DelBtn
               onClick={() => {
-                if (confirm("Do you want to delete this candidate ?")) {
+                if (confirm("Voulez-vous supprimer ce centre ?")) {
                   deleteCenter();
                 }
               }}

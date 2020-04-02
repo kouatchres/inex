@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Form from "../styles/Form";
-import { StyledPage } from "../styles/StyledPage";
+import { MinimStyledPage } from "../styles/StyledPage";
 import Error from "../ErrorMessage";
 import { createNewReportMutation } from "../queries&Mutations&Functions/Mutations";
 
@@ -58,7 +58,7 @@ class CreateReport extends Component {
         }}
       >
         {(createReport, { loading, error }) => (
-          <StyledPage>
+          <MinimStyledPage>
             <Form
               method="POST"
               onSubmit={async e => {
@@ -104,7 +104,7 @@ class CreateReport extends Component {
                 </div>
               </fieldset>
             </Form>
-          </StyledPage>
+          </MinimStyledPage>
         )}
       </Mutation>
     );

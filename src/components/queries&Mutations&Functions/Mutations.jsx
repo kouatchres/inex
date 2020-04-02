@@ -117,21 +117,29 @@ const createNewGenderMutation = gql`
 const createRegistrationMutation = gql`
 	mutation createRegistrationMutation(
 		$candidate: CandidateWhereUniqueInput!
-		$series: SeriesWhereUniqueInput!
 		$candExamSecretCode: String!
 		$candExamSession: String!
+		$candRegistrationNumber: String!
+		$centerExamSession: CenterExamSessionWhereUniqueInput!
 		$centerExamSessionSeries: CenterExamSessionSeriesWhereUniqueInput!
+		$series: SeriesWhereUniqueInput!
 	) {
 		createRegistration(
-			candExamSecretCode: $candExamSecretCode
-			series: $series
 			candidate: $candidate
-			centerExamSessionSeries: $centerExamSessionSeries
+			candExamSecretCode: $candExamSecretCode
 			candExamSession: $candExamSession
+			candRegistrationNumber: $candRegistrationNumber
+			centerExamSession: $centerExamSession
+			centerExamSessionSeries: $centerExamSessionSeries
+			series: $series
 		) {
 			id
-			series {
-				seriesName
+			centerExamSession{
+				id
+				center{
+					id
+					centerName
+				}
 			}
 			candidate {
 				id
@@ -143,18 +151,30 @@ const createRegistrationMutation = gql`
 
 const createCenterExamSessionMutation = gql`
 	mutation createCenterExamSessionMutation(
-		$exam: ExamWhereUniqueInput!
-		$session: SessionWhereUniqueInput!
+		$examSession: ExamSessionWhereUniqueInput!
 		$center: CenterWhereUniqueInput!
 	) {
-		createCenterExamSession(exam: $exam, session: $session, center: $center) {
+		createCenterExamSession(examSession: $examSession,  center: $center) {
 			id
 		}
 	}
 `;
 
-const createCenterAdminMutation = gql`
-	mutation createCenterAdminMutation(
+const createCenterExamSessionSeriesMutation = gql`
+	mutation createCenterExamSessionSeriesMutation(
+		$series: SeriesWhereUniqueInput!
+		$centerExamSession: CenterExamSessionWhereUniqueInput!
+	) {
+		createCenterExamSessionSeries(
+			series: $series,
+			centerExamSession: $centerExamSession) {
+			id
+		}
+	}
+`;
+
+const createCenterExamSessionAuthorityMutation = gql`
+	mutation createCenterExamSessionAuthorityMutation(
 		$rank: RankWhereUniqueInput!
 		$centerExamSession: CenterExamSessionWhereUniqueInput!
 		$authName: String!
@@ -163,7 +183,7 @@ const createCenterAdminMutation = gql`
 		$authPhone: Int!
 		$authMatricule: String!
 	) {
-		createCenterAdmin(
+		createCenterExamSessionAuthority(
 			rank: $rank
 			centerExamSession: $centerExamSession
 			authCNI: $authCNI
@@ -193,11 +213,13 @@ const createCenterMutation = gql`
 		$centerName: String!
 		$centerNumber: Int
 		$centerCode: String!
+		$centerSecretCode: String!
 		$town: TownWhereUniqueInput!
 	) {
-		createCenter(centerName: $centerName, centerNumber: $centerNumber, centerCode: $centerCode, town: $town) {
+		createCenter(centerSecretCode: $centerSecretCode, centerName: $centerName, centerNumber: $centerNumber, centerCode: $centerCode, town: $town) {
 			id
 			centerName
+			centerSecretCode
 			centerCode
 			town {
 				townName
@@ -474,6 +496,16 @@ const updateScoreMutation = gql`
 	}
 `;
 
+const logInUserMutation = gql`
+  mutation logInUserMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      email
+      password
+    }
+  }
+`;
+
 const updateCandidateMutation = gql`
 	mutation updateCandidateMutation(
 		$id: ID!
@@ -527,6 +559,20 @@ const updateGenderMutation = gql`
 	}
 `;
 
+
+
+const signUpMutation = gql`
+  mutation signUpMutation($email: String!, $name: String!, $password: String!) {
+    signUp(email: $email, name: $name, password: $password) {
+      id
+      email
+      resetToken
+      password
+    }
+  }
+`;
+
+
 const updateItemMutation = async (e, updateMutation) => {
 	e.preventDefault();
 	console.log('Updating Region!!');
@@ -546,7 +592,7 @@ export {
 	createNewSubjectMutation,
 	createNewSubjectTypeMutation,
 	createTownMutation,
-	createCenterAdminMutation,
+	createCenterExamSessionAuthorityMutation,
 	createDivisionMutation,
 	createRegistrationMutation,
 	createCenterMutation,
@@ -568,12 +614,15 @@ export {
 	updateExamMutation,
 	updateSubDivisionMutation,
 	updateGenderMutation,
+	logInUserMutation,
 	updateCandidateMutation,
 	updateScoreMutation,
 	updateDivisionMutation,
 	updateItemMutation,
+	createCenterExamSessionSeriesMutation,
 	updateSeriesMutation,
 	updateRankMutation,
+	signUpMutation,
 	updateSubjectMutation,
 	updateSubjectTypeMutation,
 	createCenterExamSessionMutation,

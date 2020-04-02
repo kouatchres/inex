@@ -99,12 +99,12 @@ class CreateTown extends Component {
 											const refinedSubDiv =
 												subDivision &&
 												subDivision.map(({ __typename, subDivName, ...others }) => others);
+											console.log(refinedSubDiv)
 
 											const subDivisionsOptions =
-												refinedSubDiv &&
-												refinedSubDiv.map((item) => (
-													<option value={item.id} key={item.id}>
-														{item.subDivName}
+												subDivision &&
+												subDivision.map((item) => (
+													<option value={item.id} key={item.id}>{item.subDivName}
 													</option>
 												));
 
@@ -113,9 +113,7 @@ class CreateTown extends Component {
 													mutation={createTownMutation}
 													variables={{
 														...this.state,
-														subDiv:
-															refinedSubDiv &&
-															getSelectedObject(refinedSubDiv, subDivisionID)
+														subDiv: refinedSubDiv && getSelectedObject(refinedSubDiv, subDivisionID)
 													}}
 												>
 													{(createTown, { loading, error }) => (

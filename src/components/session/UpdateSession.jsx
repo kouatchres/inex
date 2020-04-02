@@ -49,7 +49,7 @@ class UpdateSession extends Component {
 					{
 						!session && <p>No session Found for ID {this.props.id}</p>;
 					}
-
+					console.log(this.state)
 					return (
 						<Mutation mutation={updateSessionMutation} variables={{ id: this.props.id }}>
 							{(updateSession, { loading, error }) => (

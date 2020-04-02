@@ -1,5 +1,5 @@
 import React from 'react';
-import Registration from '../../src/components/registration/Registration';
+import RecentRegistration from '../../src/components/registration/RecentRegistration';
 import styled from 'styled-components';
 
 const StyledRegion = styled.div`
@@ -20,7 +20,7 @@ const StyledRegion = styled.div`
 const register = () => {
 	return (
 		<StyledRegion>
-			<Registration />
+			<RecentRegistration />
 		</StyledRegion>
 	);
 };

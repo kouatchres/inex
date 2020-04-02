@@ -46,14 +46,14 @@ const Form = styled.form`
     background: ${(props) => props.theme.googleBlue};
     color: white;
     border: 0;
-    height: 2.2rem;
+    height: 2.5rem;
     width:auto;
     font-size: 1.5rem;
     font-weight: 500;
     border-radius:.6rem;
-    margin-top: .3rem;
-    margin-bottom: .3rem;
-    padding: .5rem, .5rem .5rem .5rem ;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem, 1rem 1rem 1re1;
   }
   fieldset {
     max-width: 80vw;

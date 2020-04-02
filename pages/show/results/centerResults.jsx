@@ -1,5 +1,5 @@
 import React from "react";
-import CenterAllDetailedResults from "../../../src/components/score/CenterAllDetailedResults";
+import CenterAllDetailedResults from "../../../src/components/score/center/CenterAllDetailedResults";
 
 function centerResults({ query }) {
     return (

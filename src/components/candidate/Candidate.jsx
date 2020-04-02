@@ -95,7 +95,6 @@ class Candidate extends Component {
     const {
       image,
       id,
-      candCode,
       cand1stName,
       cand2ndName,
       cand3rdName,

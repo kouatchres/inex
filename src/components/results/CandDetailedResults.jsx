@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import Form from "../styles/Form";
-import { BigStyledPage } from "../styles/StyledPage";
+import { StyledPage } from "../styles/StyledPage";
 import { format } from "date-fns";
 import ResultDetails from "./ResultDetails";
 import { getCandidateResultsQuery } from "../queries&Mutations&Functions/Queries";
@@ -20,44 +20,69 @@ import styled from "styled-components";
 const AveTotals = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
-  background-color: ${props => props.theme.lightGrey};
-  align-items: left;
-  justify-items: left;
-  border-bottom: 1px solid black;
-  padding-left: 15px;
+  font-size:1.5rem;
+  grid-gap: 1rem;
+  color: white;
+  background: ${props => props.theme.goldenBrown};
+  align-items: center;
+  justify-items: center;
+  border-bottom: .1rem solid black;
+  padding-left: .2rem;
 `;
 
 const SubjectTitles = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr 1fr;
+  grid-gap:0.2rem;
   color: white;
   font-size: 1.5rem;
   justify-content: left;
   background: ${props => props.theme.googleBlue};
-  border-radius: 0.5rem;
 `;
 
 const TitleItem = styled.div`
   margin: 0 20px;
   border-right: 1px solid black;
-  width: 25%;
   text-align: left;
   /* padding-left: 15px; */
 `;
 
 const ResultsHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
-  grid-gap: 0.1rem;
-  font-weight: 500;
+  grid-template-columns: 0.5fr 18fr ;
+  justify-items: center;
+  align-items: center;
 `;
 
 const SchoolInfo = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  /* margin: 0 auto; */
   justify-items: center;
   align-items: center;
+  font-size:1.5rem;
+margin: 0 0.3rem;
+`;
+
+const SchoolInfo2 = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  justify-items: center;
+  align-items: center;
+  font-size:1.5rem;
+margin: 0 0.3rem;
+`;
+
+const SchoolInfoBlock = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow:colums;
+  background: ${props => props.theme.lightGrey};
+  justify-content: center;
+  align-items: center;
+  font-size:1.5rem;
+  padding:0.2rem;
+border-bottom: .1rem solid ${props => props.theme.black};
+
 `;
 const CandPic = styled.div`
   margin-top: 1rem;
@@ -66,7 +91,7 @@ const CandPic = styled.div`
 
   img {
     height: 30vh;
-    width: 10vw;
+    width: 15vw;
     border-radius: 0.5rem;
   }
 `;
@@ -74,10 +99,8 @@ const CandPic = styled.div`
 const FirstInfo = styled.div`
   display: block;
   flex-direction: column;
-`;
-const SecInfo = styled.div`
-  display: block;
-  flex-direction: column;
+  font-size:1.5rem;
+  line-height:0.3rem;
 `;
 
 class CandDetailedResults extends Component {
@@ -87,12 +110,13 @@ class CandDetailedResults extends Component {
       <Query query={getCandidateResultsQuery} variables={{ id: this.props.id }}>
         {({ data, error, loading }) => {
           const { registration } = data;
-          const { candidate, centerExamSession, series, scores } = { ...registration };
-          const { exam, session, center } = { ...centerExamSession }
+          const { candidate, centerExamSessionSeries, scores, candRegistrationNumber, createdAt } = { ...registration };
+          const { centerExamSession, series } = { ...centerExamSessionSeries }
+          const { examSession, center } = { ...centerExamSession }
+          const { exam, session } = { ...examSession }
 
-          const { subjectSeries } = { ...scores };
           return (
-            <BigStyledPage>
+            <StyledPage>
               <Form
                 onSubmit={e => {
                   e.preventDefault();
@@ -104,23 +128,34 @@ class CandDetailedResults extends Component {
                 </h4>
                 <Error error={error} />
                 <fieldset disabled={loading} aria-busy={loading}>
-                  <SchoolInfo>
-                    <p>
+                  <SchoolInfoBlock>
+                    <SchoolInfo>
+
                       <span>
                         <strong> Centre D'Examen: </strong> {center.centerName}
                       </span>
-                      <span> ...</span>
+                    </SchoolInfo>
+                    <SchoolInfo2>
+                      <span>
+                        <strong> Examen: </strong> {exam.examName}
+                      </span>
                       <span>
                         <strong> Session: </strong> {session.sessionName}
                       </span>
-                    </p>
-                    <p>
+
+                    </SchoolInfo2>
+                    <SchoolInfo>
+
+                      <span>
+                        <strong> Numero d'Inscription: </strong>
+                        {candRegistrationNumber}
+                      </span>
                       <span>
                         <strong> Specialization: </strong>
                         {series.seriesName}
                       </span>
-                    </p>
-                  </SchoolInfo>
+                    </SchoolInfo>
+                  </SchoolInfoBlock>
                   <ResultsHeader>
                     <CandPic>
                       <img src={candidate.image} alt={candidate.cand1stName} />
@@ -155,8 +190,7 @@ class CandDetailedResults extends Component {
                           <strong> Lieu de Naissance: </strong> {candidate.placeOfBirth}
                         </span>
                       </p>
-                    </FirstInfo>
-                    <SecInfo>
+
                       <p>
                         <span>
                           <strong> Sexe: </strong> {candidate.gender.genderName}
@@ -179,7 +213,7 @@ class CandDetailedResults extends Component {
                           <strong> Noms de la Mère: </strong> {candidate.momName}
                         </span>
                       </p>
-                    </SecInfo>
+                    </FirstInfo>
                   </ResultsHeader>
                   <SubjectTitles>
                     <TitleItem>
@@ -200,21 +234,21 @@ class CandDetailedResults extends Component {
                   ))}
                   <AveTotals>
                     <span>
-                      <strong>Total Matieres:</strong>
-                      {roundFloatNumber(calcCandTotalScore(scores), 4)}
+                      <strong>Total Matieres:
+                      {roundFloatNumber(calcCandTotalScore(scores), 4)}</strong>
                     </span>
                     <span>
-                      <strong>Somme Coefficients: </strong>
-                      {roundFloatNumber(calcCandTotalCoeff(scores), 4)}
+                      <strong>Somme Coefficients:
+                      {roundFloatNumber(calcCandTotalCoeff(scores), 4)}</strong>
                     </span>
                     <span>
-                      <strong>Moyenne: </strong>
-                      {roundFloatNumber(calcCandAve(scores), 4)}
+                      <strong>Moyenne:
+                      {roundFloatNumber(calcCandAve(scores), 4)}</strong>
                     </span>
                   </AveTotals>
                 </fieldset>
               </Form>
-            </BigStyledPage>
+            </StyledPage>
           );
         }}
       </Query>

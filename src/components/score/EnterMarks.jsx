@@ -3,7 +3,7 @@ import { Mutation, Query } from "react-apollo";
 import Form from "../styles/Form";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
-import { StyledPage } from "../styles/StyledPage";
+import { MiniStyledPage } from "../styles/StyledPage";
 import { updateScoreMutation } from "../queries&Mutations&Functions/Mutations";
 import { getSelectedObject } from "../queries&Mutations&Functions/Functions";
 import {
@@ -34,7 +34,9 @@ class EnterMarks extends Component {
     educTypeID: "12",
     sessionID: "",
     candExamSecretCode: "",
-    subjectSeriesID: ""
+    subjectSeriesID: "",
+
+
   };
 
   handleChange = e => {
@@ -65,7 +67,7 @@ class EnterMarks extends Component {
   };
 
   render() {
-    const { seriesID, educTypeID, subjectSeriesID } = this.state;
+    const { candExamSecretCode, subjectAve, seriesID, educTypeID, subjectSeriesID } = this.state;
     return (
       <Query query={getAllEducationTypesQuery}>
         {({ data, loading, error }) => {
@@ -153,7 +155,7 @@ class EnterMarks extends Component {
                           }}
                         >
                           {(updateScore, { loading, error }) => (
-                            <StyledPage>
+                            <MiniStyledPage>
                               <Form
                                 method="POST"
                                 onSubmit={async e => {
@@ -163,40 +165,40 @@ class EnterMarks extends Component {
                                   console.log(res);
                                 }}
                               >
-                                <h4>Inscrire les notes des candidats</h4>
+                                <h4>Notes aux candidats</h4>
                                 <Error error={error} />
                                 <fieldset disabled={loading} aria-busy={loading}>
                                   <select
                                     type="select"
                                     id="educTypeID"
                                     name="educTypeID"
-                                    value={this.state.educTypeID}
+                                    value={educTypeID}
                                     onChange={this.handleChange}
                                     required
                                   >
-                                    <option>Choisir un Type d'Enseignement</option>
+                                    <option>Type d'Enseignement</option>
                                     {educTypeOptions}
                                   </select>
                                   <select
                                     type="select"
                                     id="seriesID"
                                     name="seriesID"
-                                    value={this.state.seriesID}
+                                    value={seriesID}
                                     onChange={this.handleChange}
                                     required
                                   >
-                                    <option>Choisir la Série</option>
+                                    <option>La Série</option>
                                     {seriesOptions}
                                   </select>
                                   <select
                                     type="select"
                                     id="subjectSeriesID"
                                     name="subjectSeriesID"
-                                    value={this.state.subjectSeriesID}
+                                    value={subjectSeriesID}
                                     onChange={this.handleChange}
                                     required
                                   >
-                                    <option>Choisir la matière </option>
+                                    <option>Choisir La matière </option>
                                     {subjectOptions}
                                   </select>
                                   <input
@@ -204,7 +206,7 @@ class EnterMarks extends Component {
                                     id="candExamSecretCode"
                                     name="candExamSecretCode"
                                     placeholder="Code secret du candidat"
-                                    value={this.state.candExamSecretCode}
+                                    value={candExamSecretCode}
                                     onChange={this.handleChange}
                                     required
                                   />
@@ -216,7 +218,7 @@ class EnterMarks extends Component {
                                     id="subjectAve"
                                     name="subjectAve"
                                     placeholder="Note du candidat en la matière "
-                                    value={this.state.subjectAve}
+                                    value={subjectAve}
                                     onChange={this.handleChange}
                                     required
                                   />
@@ -226,7 +228,7 @@ class EnterMarks extends Component {
                                   </div>
                                 </fieldset>
                               </Form>
-                            </StyledPage>
+                            </MiniStyledPage>
                           )}
                         </Mutation>
                       );

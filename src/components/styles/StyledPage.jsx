@@ -36,6 +36,24 @@ const MiniStyledPage = styled.div`
   }
 `;
 
+const MinimStyledPage = styled.div`
+  display: block;
+  margin: 0 auto;
+  max-width: 30vw;
+  border-radius: 3rem;
+  border-color: ${props => props.theme.googleBlue};
+  h4 {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: normal;
+  }
+  form {
+    justify-items: center;
+    align-items: center;
+  }
+`;
+
 const BigStyledPage = styled.div`
   display: block;
   margin: 0 auto;
@@ -78,4 +96,4 @@ const BiggestStyledPage = styled.div`
   }
 `;
 
-export { MiniStyledPage, StyledPage, BigStyledPage, BiggestStyledPage };
+export { MinimStyledPage, MiniStyledPage, StyledPage, BigStyledPage, BiggestStyledPage };

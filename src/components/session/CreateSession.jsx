@@ -21,6 +21,8 @@ class CreateSession extends Component {
     this.setState({ sessionName: "", sessionCode: "" });
   }
   render() {
+    this.state
+    const { sessionName, sessionCode } = this.state
     return (
       <Mutation mutation={createNewSessionMutation} variables={this.state}>
         {(createSession, { loading, error }) => (
@@ -42,7 +44,7 @@ class CreateSession extends Component {
                   id="sessionName"
                   name="sessionName"
                   placeholder="Nom Session"
-                  value={this.state.sessionName}
+                  value={sessionName}
                   onChange={this.handleChange}
                   required
                 />
@@ -51,7 +53,7 @@ class CreateSession extends Component {
                   id="sessionCode"
                   name="sessionCode"
                   placeholder="Code Session "
-                  value={this.state.sessionCode}
+                  value={sessionCode}
                   onChange={this.handleChange}
                   required
                 />

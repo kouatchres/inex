@@ -29,9 +29,7 @@ class UpdateCenter extends Component {
     return (
       <Query
         query={singleCenterQuery}
-        variables={{
-          id: this.props.id
-        }}
+        variables={{ id: this.props.id }}
       >
         {({ data, loading, error }) => {
           console.log(data);
@@ -51,6 +49,7 @@ class UpdateCenter extends Component {
           return (
             <Mutation mutation={updateCenterMutation} variables={{ id: this.props.id }}>
               {(updateCenter, { loading, error }) => (
+
                 <StyledPage>
                   <Form onSubmit={e => this.updateSingleCenter(e, updateCenter)}>
                     <h4>Modification d'Info Centre</h4>

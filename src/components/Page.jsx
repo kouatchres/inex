@@ -7,7 +7,7 @@ const theme = {
   maxWidth: "1000px",
   red: "#FF0000",
   googleBlue: "#359",
-  goldenBorwn: "#d17f05",
+  goldenBrown: "#d17f05",
   black: "#393939",
   grey: "#aaabaa",
   slightGrey: "rgb(243, 241, 241)",
@@ -49,8 +49,8 @@ injectGlobal`
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
-  src:  url('../../static/roboto-slab-v11-latin-regular.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */
   src: url('../../static/roboto-slab-v11-latin-regular.woff2') format('woff2') /* Super Modern Browsers */
+  src:  url('../../static/roboto-slab-v11-latin-regular.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */
   src: url('../../static/roboto-slab-v11-latin-regular.woff') format('woff') /* Modern Browsers */
   src: url('../../static/roboto-slab-v11-latin-regular.ttf') format('truetype') /* Safari, Android, iOS */
   src: url('../../static/roboto-slab-v11-latin-regular.svg#RobotoSlab') format('svg'); /* Legacy iOS */
@@ -83,8 +83,8 @@ injectGlobal`
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Slab";
-    font-size:2.5rem;
-    font-weight: 700;
+    font-size:1.8rem;
+    font-weight: 500;
     font-style: normal;
 }
 
@@ -92,9 +92,10 @@ a
 {
     font-family: "Roboto Slab";
     font-weight: 400;
+    font-size:1.5rem;
     font-style: italic;
     text-decoration: none;
-    color: ${props => props.theme.black};
+    color: ${theme.black};
 }
 `;
 
