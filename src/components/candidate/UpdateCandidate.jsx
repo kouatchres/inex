@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
-import { StyledPage } from '../styles/StyledPage';
+import { BiggestStyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage.js';
 import { format } from 'date-fns';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import { singleCandidateQuery, getAllGendersQuery } from '../queries&Mutations&F
 
 const CreateCandForm = styled.div`
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
 	grid-gap: 10px;
 `;
 const PicFrame = styled.div`
@@ -141,7 +141,7 @@ class UpdateCandidate extends Component {
 								return (
 									<Mutation mutation={updateCandidateMutation} variables={{ id: this.props.id }}>
 										{(updateCandidate, { loading, error }) => (
-											<StyledPage>
+											<BiggestStyledPage>
 												<Form
 													onSubmit={async (e) => {
 														e.preventDefault();
@@ -298,7 +298,7 @@ class UpdateCandidate extends Component {
 														</CreateCandForm>
 													</fieldset>
 												</Form>
-											</StyledPage>
+											</BiggestStyledPage>
 										)}
 									</Mutation>
 								);

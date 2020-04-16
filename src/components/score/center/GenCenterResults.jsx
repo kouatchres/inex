@@ -63,7 +63,6 @@ class GenCenterResults extends Component {
 
     render() {
         const {
-
             examID,
             sessionID,
             centerNumber

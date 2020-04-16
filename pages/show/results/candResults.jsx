@@ -1,5 +1,5 @@
 import React from "react";
-import CandDetailedResults from "../../../src/components/results/CandDetailedResults"
+import CandDetailedResults from "../../../src/components/results/candidate/CandDetailedResults"
 
 function candResults({ query }) {
   return (

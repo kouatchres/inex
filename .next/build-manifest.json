@@ -10,14 +10,6 @@
     "/_error": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
-    ],
-    "/show/results/centerResults": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/show/results/candResults": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
     ]
   }
 }

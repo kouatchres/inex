@@ -9,29 +9,21 @@ import { centersPerTownQuery } from "../../queries&Mutations&Functions/Queries";
 
 const CenterHeadings = styled.div`
   display: grid;
-  grid-template-columns:3.5fr 1fr 0.5fr 1.5fr 0.5fr;
+  grid-template-columns:3.5fr 1.5fr 0.5fr 1.5fr 0.5fr;
   grid-gap: 1rem;
   color: white;
   font-size: 1.7rem;
   justify-content: left;
   background: ${props => props.theme.googleBlue};
+  padding-left:0.6rem;
 `;
 
 const TitleItem = styled.div`
-  margin: 0 20px;
   text-align: left;
+  align-items: left;
+justify-items: left;
+	align-content: left;
 
-`;
-
-const ResultsHeader = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-gap: 0.2rem;
-  font-weight: 500;
-  font-size:1.5rem;
-  margin: 0 20px;
-justify-items: center;
-align-items: center;
 `;
 
 class CenterList extends Component {

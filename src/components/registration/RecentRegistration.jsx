@@ -99,11 +99,8 @@ class RecentRegistration extends Component {
                     const { exams } = data;
                     console.log(exams);
                     const getExamName = exams && { ...getSelectedObject(exams, examID) }
-                    const refinedExams = exams && exams.map(({
-                        __typename,
-                        examName,
-                        ...others
-                    }) => others);
+                    const refinedExams =
+                        exams && exams.map(({ __typename, examName, ...others }) => others);
 
                     return (
                         <Query query={getAllSessionsQuery}>
@@ -122,11 +119,7 @@ class RecentRegistration extends Component {
                                 const { sessions } = data;
                                 console.log(sessions);
                                 const getSessionName = sessions && { ...getSelectedObject(sessions, sessionID) }
-                                const refinedSessions = sessions && sessions.map(({
-                                    __typename,
-                                    sessionName,
-                                    ...others
-                                }) => others);
+                                const refinedSessions = sessions && sessions.map(({ __typename, sessionName, ...others }) => others);
 
                                 return (
 
@@ -168,10 +161,8 @@ class RecentRegistration extends Component {
                                                                     };
                                                                     console.log(centerExamSessions);
                                                                     // remove typename from the object
-                                                                    const refinedCenterExamSessions = centerExamSessions && centerExamSessions.map(({
-                                                                        __typename,
-                                                                        ...others
-                                                                    }) => others);
+                                                                    const refinedCenterExamSessions =
+                                                                        centerExamSessions && centerExamSessions.map(({ __typename, ...others }) => others);
                                                                     // transform the array into a single object
                                                                     const getObj = refinedCenterExamSessions && refinedCenterExamSessions.reduce((item) => item);
                                                                     console.log(getObj);
@@ -196,11 +187,8 @@ class RecentRegistration extends Component {
                                                                                 // get all the series out of this object
 
                                                                                 const newSeries = centerExamSessionSeries && centerExamSessionSeries.map((item) => (item.series))
-                                                                                const refinedSeries = newSeries && newSeries.map(({
-                                                                                    __typename,
-                                                                                    seriesName,
-                                                                                    ...others
-                                                                                }) => others);
+                                                                                const refinedSeries =
+                                                                                    newSeries && newSeries.map(({ __typename, seriesName, ...others }) => others);
 
 
                                                                                 const seriesOptions = newSeries && newSeries.map((item) => (
@@ -239,7 +227,7 @@ class RecentRegistration extends Component {
                                                                                                         series: refinedSeries && getSelectedObject(refinedSeries, seriesID),
                                                                                                         centerExamSessionSeries: refinedCESS && refinedCESS,
                                                                                                         candExamSession: candExamSessionCode(candCode, examID, sessionID),
-                                                                                                        candRegistrationNumber: this.candRegistrationNumber(centerNumber, getExamName.examCode, getSessionName.sessionName)
+                                                                                                        candRegistrationNumber: exams && sessions && this.candRegistrationNumber(centerNumber, getExamName.examCode, getSessionName.sessionName)
 
                                                                                                     }}>
                                                                                                     {(createRegistration, { loading, error }) => (

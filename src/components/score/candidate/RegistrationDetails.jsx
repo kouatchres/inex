@@ -45,7 +45,7 @@ export class RegistrationDetails extends Component {
                         }}
                     >
 
-                        <a>Resultats </a>
+                        <a target="_blank">Resultats </a>
                     </Link>
                 </CellBlock>
             </RegionRow>

@@ -1,10 +1,10 @@
 {
-  "name": "sygex-front",
+  "name": "sygex-front-Formik",
   "version": "1.0.0",
-  "description": "Sygex frontend modern exam system, GraphQL, Next and Apollo (SYGEX  FRONT-END)",
+  "description": "Sygex frontend modern exam system, GraphQL, Next and Apollo (SYGEX  FRONT-END FOORMIK)",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 8888",
+    "dev": "next -p 10000",
     "build": "next build",
     "start": "next start",
     "test": "NODE_ENV=test jest --watch",

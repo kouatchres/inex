@@ -53,26 +53,25 @@ const Form = styled.form`
     border-radius:.6rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    padding: 1rem, 1rem 1rem 1re1;
+    padding: 1rem, 1rem 1rem 1rem;
   }
   fieldset {
     max-width: 80vw;
-    /* min-width: 300px; */
-    margin: 20px 
-    height: 60vh;
-    border: .6px solid ${(props) => props.theme.googleBlue};
-    padding: 15px;
+    margin: 20px ;
+    /* height: 60vh; */
+    border: 0.1rem solid ${(props) => props.theme.googleBlue};
+    padding:1.2rem;
     display: flex;
     flex-direction: row;
-    border-radius:.5rem;
+    border-radius:.9rem;
     justify-items: center;
     box-shadow: ${(props) => props.theme.bs2};
 
     &[disabled] {
-      opacity: 0.4;
+      opacity: 0.6;
     }
     &::before {
-      height: 7px;
+      height: 0.5rem;
       content: '';
       display: block;
       background-image: linear-gradient(to right, #359 0%, #e2b04a 20%, #359 100%);

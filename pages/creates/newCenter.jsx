@@ -1,11 +1,11 @@
 import React from "react";
-import CreateCenter from "../../src/components/center/CreateCenter";
+import CreateNewCenter from "../../src/components/center/CreateNewCenter";
 // import div from '../../src/components/styles/div';
 
 const newCenter = props => {
   return (
     <div>
-      <CreateCenter />
+      <CreateNewCenter />
     </div>
   );
 };

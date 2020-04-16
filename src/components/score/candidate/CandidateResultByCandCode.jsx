@@ -63,7 +63,8 @@ class CandidateDetailedResults extends Component {
 
         id && Router.push({
             pathname: '/show/results/allCandResults',
-            query: { id }
+            query: { id },
+
         });
         return (
             <MinimStyledPage >

@@ -153,7 +153,7 @@ class SingleCandidate extends Component {
 															query: { id: this.props.id }
 														}}
 													>
-														<a>Modifier </a>
+														<a   target="_blank"  >Modifier </a>
 													</Link>
 												</UpdateBtn>
 												<UpdateBtn>
@@ -162,7 +162,7 @@ class SingleCandidate extends Component {
 															pathname: '../creates/newCand'
 														}}
 													>
-														<a>Candidat Suivant</a>
+														<a   target="_blank"  >Candidat Suivant</a>
 													</Link>
 												</UpdateBtn>
 											</DivBtn>

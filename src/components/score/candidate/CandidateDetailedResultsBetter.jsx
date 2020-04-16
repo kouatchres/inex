@@ -333,6 +333,7 @@ class CandidateDetailedResultsBetter extends Component {
                                                                                                                                                 required>
                                                                                                                                                 <option >
                                                                                                                                                     Le département
+                                                                                     
                                                                                                                                                 </option>
                                                                                                                                                 {division && divisionsOptions}
                                                                                                                                             </select>

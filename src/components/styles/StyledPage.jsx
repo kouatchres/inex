@@ -3,14 +3,17 @@ import styled from "styled-components";
 const StyledPage = styled.div`
   display: block;
   margin: 0 auto;
-  max-width: 60vw;
-  border-radius: 3rem;
-  border-color: ${props => props.theme.googleBlue};
+  text-align: center;
+  max-width: 55vw;
+  min-width: 20rem;
+ height: 100vh;
+  
+background-color: ${props => props.theme.pureWhite};
   h4 {
     margin: 0 auto;
     text-align: center;
-    font-size: 3rem;
-    font-weight: normal;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
   form {
     justify-items: center;
@@ -21,14 +24,20 @@ const StyledPage = styled.div`
 const MiniStyledPage = styled.div`
   display: block;
   margin: 0 auto;
+  text-align: center;
   max-width: 40vw;
-  border-radius: 3rem;
-  border-color: ${props => props.theme.googleBlue};
+  min-width: 20rem;
+  height: 100vh;
+  background-color: ${props => props.theme.pureWhite};
   h4 {
     margin: 0 auto;
     text-align: center;
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: normal;
+  }
+  .Form {
+    justify-items: center;
+    align-items: center;
   }
   form {
     justify-items: center;
@@ -37,16 +46,24 @@ const MiniStyledPage = styled.div`
 `;
 
 const MinimStyledPage = styled.div`
+margin:0;
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto;
+  text-align: center;
   max-width: 30vw;
-  border-radius: 3rem;
-  border-color: ${props => props.theme.googleBlue};
+  min-width: 20rem;
+  height: 100vh;
+  
+background-color: ${props => props.theme.pureWhite};
   h4 {
     margin: 0 auto;
     text-align: center;
-    font-size: 3rem;
+    font-size: 1.9rem;
     font-weight: normal;
+  }
+  .Form {
+    justify-items: center;
+    align-items: center;
   }
   form {
     justify-items: center;
@@ -57,13 +74,16 @@ const MinimStyledPage = styled.div`
 const BigStyledPage = styled.div`
   display: block;
   margin: 0 auto;
+  text-align: center;
   max-width: 80vw;
+  min-width: 20rem;
+  height:100vh;
 
   h4 {
     margin: 0 auto;
     text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: normal;
   }
   .Form {
     justify-items: center;
@@ -78,18 +98,22 @@ const BigStyledPage = styled.div`
 const BiggestStyledPage = styled.div`
   display: block;
   margin: 0 auto;
-  max-width: 100vw;
+  text-align: center;
+  max-width: 50vw;
+  min-width: 20rem;
+  height: 100vh;
+background-color: ${props => props.theme.pureWhite};
 
   h4 {
     margin: 0 auto;
     text-align: center;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: normal;
   }
   .Form {
     justify-items: center;
     align-items: center;
-  }
+  } 
   fieldset {
     justify-items: center;
     align-items: center;
@@ -97,3 +121,5 @@ const BiggestStyledPage = styled.div`
 `;
 
 export { MinimStyledPage, MiniStyledPage, StyledPage, BigStyledPage, BiggestStyledPage };
+
+

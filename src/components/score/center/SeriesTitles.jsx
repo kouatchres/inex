@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CandRegis from './CandRegis'
 
-const RegionRow = styled.div`
+const Specialties = styled.div`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-gap: 1rem;
-    font-size:1.4rem;
+    font-size:1.5rem;
 	background-color: ${(props) => props.theme.lightGrey};
 	align-items: left;
 	justify-items: left;
@@ -22,24 +22,24 @@ const CellBlock = styled.div`
 
 
 const TitleItem = styled.div`
-  margin: 0 20px;
+  margin: 0 ;
   text-align: left;
-  /* min-width:7vw; */
-  /* border-right: 1px solid black; */
-  /* width: 25%; */
-  /* padding-left: 15px; */
+  align-items: left;
+justify-items: left;
+	align-content: left;
+	
+
 `;
 
-const SeriesHeadings = styled.div`
+const CandidateInfoHeadings = styled.div`
 	display: grid;
-	grid-template-columns: repeat(8, 1fr);
+	grid-template-columns:2fr repeat(8, 1fr);
 	grid-gap: 0.5rem;
-    font-size:1.3rem;
-	align-items: left;
-	justify-items: left;
-   
+    font-size:1.4rem;
+    color: ${(props) => props.theme.pureWhite};
     background-color: ${(props) => props.theme.goldenBrown};
 	border-bottom: 1px solid black;
+    padding-left: 15px;
 `;
 
 class SeriesTitles extends Component {
@@ -52,16 +52,19 @@ class SeriesTitles extends Component {
         return (
             <>
 
-                <RegionRow>
+                <Specialties>
                     <CellBlock>
                         <span>{series.seriesName}</span>
                     </CellBlock>
                     <CellBlock>
                         <span>{series.seriesCode}</span>
                     </CellBlock>
-                </RegionRow>
-                <SeriesHeadings>
+                </Specialties>
+                <CandidateInfoHeadings>
 
+                    <TitleItem>
+                        <strong> <span>No Candidat:</span></strong>
+                    </TitleItem>
                     <TitleItem>
                         <strong> <span>Nom :</span></strong>
                     </TitleItem>
@@ -81,14 +84,14 @@ class SeriesTitles extends Component {
                         <strong>  <span>Sexe:</span></strong>
                     </TitleItem>
                     <TitleItem>
-                        <strong>  <span>Tel::</span></strong>
+                        <strong>  <span>Tel:</span></strong>
                     </TitleItem>
 
                     <TitleItem>
                         <strong>  <span>Resultat:</span></strong>
                     </TitleItem>
 
-                </SeriesHeadings>
+                </CandidateInfoHeadings>
                 {
                     registration && registration.map((item) => (
                         <CandRegis key={item.id} regisInfo={item} />

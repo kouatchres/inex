@@ -5,15 +5,18 @@ import Link from 'next/link'
 
 const RegionRow = styled.div`
 	display: grid;
-	grid-template-columns: 3.5fr 1fr 0.5fr 1.5fr 0.5fr;
+	grid-template-columns: 3.5fr 1.5fr 0.5fr 1.5fr 0.5fr;
 	grid-gap: 1rem;
     font-size:1.3rem;
 	border-bottom: 1px solid black;
-	padding-left: 15px;
+    justify-content:left;
+	padding-left: 0.6rem;
 `;
 
 
 const CellBlock = styled.div`
+
+  text-align: left;
 align-items: left;
 justify-items: left;
 	align-content: left;

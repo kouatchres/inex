@@ -79,7 +79,7 @@ class CandidateResultsByRegisID extends Component {
                 }}
               >
                 <h4>
-                  Tous les Resultats de:{candidate.cand1stName},{candidate.cand2ndName}, {candidate.cand3rdName},
+                  Les Resultats de:{candidate.cand1stName} {candidate.cand2ndName} {candidate.cand3rdName}
                 </h4>
                 <Error error={error} />
                 <fieldset disabled={loading} aria-busy={loading}>

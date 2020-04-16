@@ -1,16 +1,29 @@
 
 import React, { Component } from 'react';
-import {TextField, Button} from '@material-ui/core'
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components'
- 
-  const StyledForm =styled.div`
-display: grid;
-grid-template-columns: 1fr;
-grid-auto-flow:column;
-width:200px;
-font-size:4rem;
+import { MinimStyledPage } from '../styles/StyledPage'
+
+const StyledForm = styled.div`
+display: flex;
+flex-direction:column;
+font-size:2.5rem;
+margin : 0 2rem;
+border-radius: 2rem;
+border-color: ${props => props.theme.googleBlue};
+background:  ${(props) => props.theme.pureWhite};
+  input,
+  textarea,
+  select, .Field {
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-style: none;
+    border-bottom: 0.1rem solid ${(props) => props.theme.black};
+    &:focus {
+      outline: 0;
+      border-color: ${(props) => props.theme.red};
+    }}
   `;
 
 
@@ -19,10 +32,10 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Required'),
   password: Yup.string()
-  .required('Required'),
+    .required('Required'),
   confirmPassword: Yup.string()
-  .required('Required')
-  .oneOf([Yup.ref('password')], 'Password does not match')
+    .required('Required')
+    .oneOf([Yup.ref('password')], 'Password does not match')
 });
 
 
@@ -38,44 +51,78 @@ class RegistrationForm extends Component {
   render() {
     return (
       <Formik
-      onSubmit={this.handleSubmit}
-      initialValues={this.defaultFormState}
-      validationSchema={validationSchema}
+        initialValues={this.defaultFormState}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
       >
-        {() => (
-       
-          <StyledForm>
+        {({ handleSubmit, errors }) => (
+          <MinimStyledPage>
+            <StyledForm>
 
-          <Form>
-            <Field
-              name="email"
-              type="email"
-              placeholder="Email"
-              as={TextField}
-            />
-            <Field
-              name="password"
-              type="password"
-              placeholder="Password"
-              as={TextField}
-            />
-            <Field
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm password"
-              as={TextField}
-            />
-            <Button>
-              Submit
-            </Button>
-          </Form>
-          </StyledForm> 
+              <Form
+                onSubmit={handleSubmit}
+              >
+                <Field
+                  name="region"
+                  type="select"
+                  placeholder="Email"
+                  as="select"
+                >
+                  <option value="">Choose a region</option>
+                  <option value="red">Red</option>
+                  <option value="green">Green</option>
+                  <option value="blue">Blue</option>
+                </Field>
+                <ErrorMessage
+                  name="region"
+                  component="div"
+                />
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                />
+
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                />
+                <Field
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm password"
+
+                />
+                <ErrorMessage
+                  name="confirmPassword"
+                  component="div"
+                />
+
+              </Form>
+            </StyledForm>
+          </MinimStyledPage>
         )}
-      </Formik>
+      </Formik >
     )
   }
 }
- 
+
 
 
 export default RegistrationForm;

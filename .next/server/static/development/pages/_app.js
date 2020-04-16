@@ -104,7 +104,7 @@ module.exports =
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "endpoint", function() { return endpoint; });
 // This is client side config only - don't put anything in here that shouldn't be public!
-var endpoint = "http://localhost:4000"; // export const perPage = 6;
+var endpoint = "http://localhost:5000"; // export const perPage = 6;
 // export  {perPage};
 
 /***/ }),
@@ -170,7 +170,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _lib_withData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../lib/withData */ "./lib/withData.jsx");
 
-var _jsxFileName = "E:\\Sygex\\Sygex-front\\pages\\_app.js";
+var _jsxFileName = "E:\\Sygex-Formik\\Sygex-front-Formik\\pages\\_app.js";
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -320,7 +320,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! nprogress */ "nprogress");
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_5__);
-var _jsxFileName = "E:\\Sygex\\Sygex-front\\src\\components\\Header.jsx";
+var _jsxFileName = "E:\\Sygex-Formik\\Sygex-front-Formik\\src\\components\\Header.jsx";
 
 
 
@@ -414,7 +414,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/head */ "next/head");
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_1__);
-var _jsxFileName = "E:\\Sygex\\Sygex-front\\src\\components\\Meta.jsx";
+var _jsxFileName = "E:\\Sygex-Formik\\Sygex-front-Formik\\src\\components\\Meta.jsx";
 
 
 
@@ -500,7 +500,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header */ "./src/components/Header.jsx");
 /* harmony import */ var _Meta__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Meta */ "./src/components/Meta.jsx");
-var _jsxFileName = "E:\\Sygex\\Sygex-front\\src\\components\\Page.jsx";
+var _theme,
+    _jsxFileName = "E:\\Sygex-Formik\\Sygex-front-Formik\\src\\components\\Page.jsx";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -521,7 +522,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n/* \n radnika_next font  \n  @font-face {\n    font-family: 'radnika_next';\n    src: url('../../static/radnikanext-medium-webfont.woff2') format('woff2');\n    font-weight: normal;\n    font-style: normal;\n    \n  }  */\n\n\n/* roboto-slab-regular - latin */\n\n@font-face {\n  font-family: 'Roboto Slab';\n  font-style: normal;\n  font-weight: 400;\n  src: url('../../static/roboto-slab-v11-latin-regular.woff2') format('woff2') /* Super Modern Browsers */\n  src:  url('../../static/roboto-slab-v11-latin-regular.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */\n  src: url('../../static/roboto-slab-v11-latin-regular.woff') format('woff') /* Modern Browsers */\n  src: url('../../static/roboto-slab-v11-latin-regular.ttf') format('truetype') /* Safari, Android, iOS */\n  src: url('../../static/roboto-slab-v11-latin-regular.svg#RobotoSlab') format('svg'); /* Legacy iOS */\n  src: url('../../static/roboto-slab-v11-latin-regular.svg#RobotoSlab') format('svg'); /* Legacy iOS */\n} \n\n\n\n  html {\n    box-sizing: border-box;\n    font-size: 10px;\n  }\n  *, *:before, *:after {\n    box-sizing: inherit;\n  }\n  \n  body\n{\n    padding:0;\n    margin: 0;\n    font-size: 2rem;\n    line-height: 2;\n    font-family: \"Roboto Slab\";\n    font-weight: 500;\n    font-style: normal;\n   \n  button {  font-family: 'Roboto Slab'; }\n\n}\n\nh1, h2, h3, h4, h5, h6 {\n    font-family: \"Roboto Slab\";\n    font-size:1.8rem;\n    font-weight: 500;\n    font-style: normal;\n}\n\na\n{\n    font-family: \"Roboto Slab\";\n    font-weight: 400;\n    font-size:1.5rem;\n    font-style: italic;\n    text-decoration: none;\n    color: ", ";\n}\n"]);
+  var data = _taggedTemplateLiteral(["\n/* \n radnika_next font  \n  @font-face {\n    font-family: 'radnika_next';\n    src: url('../../static/radnikanext-medium-webfont.woff2') format('woff2');\n    font-weight: normal;\n    font-style: normal;\n    \n  }  */\n\n\n/* roboto-slab-regular - latin */\n\n@font-face {\n  font-family: 'Roboto Slab';\n  font-style: normal;\n  font-weight: 400;\n  src: url('../../static/roboto-slab-v11-latin-regular.woff2') format('woff2') /* Super Modern Browsers */\n  src:  url('../../static/roboto-slab-v11-latin-regular.eot?#iefix') format('embedded-opentype') /* IE6-IE8 */\n  src: url('../../static/roboto-slab-v11-latin-regular.woff') format('woff') /* Modern Browsers */\n  src: url('../../static/roboto-slab-v11-latin-regular.ttf') format('truetype') /* Safari, Android, iOS */\n  src: url('../../static/roboto-slab-v11-latin-regular.svg#RobotoSlab') format('svg'); /* Legacy iOS */\n  src: url('../../static/roboto-slab-v11-latin-regular.svg#RobotoSlab') format('svg'); /* Legacy iOS */\n} \n\n\n\n  html {\n    box-sizing: border-box;\n    font-size: 10px;\n  }\n  *, *:before, *:after {\n    box-sizing: inherit;\n  }\n  \n  body\n{\n    padding:0;\n    margin: 0;\n    font-size: 2rem;\n    line-height: 2;\n    font-family: \"Roboto Slab\";\n    font-weight: 500;\n    font-style: normal;\n   \n  button {  font-family: 'Roboto Slab'; }\n\n}\n\nh1, h2, h3, h4, h5, h6 {\n    font-family: \"Roboto Slab\";\n    font-size:1.8rem;\n    font-weight: 500;\n    font-style: normal;\n}\n\na\n{\n    font-family: \"Roboto Slab\";\n    font-weight: 400;\n    font-size:1.5rem;\n    font-style: italic;\n    text-decoration: none;\n    color: ", ";\n    :hover {\n  text-decoration: underline;\n}\n}\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -532,11 +533,13 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-var theme = {
+
+var theme = (_theme = {
   maxWidth: "1000px",
   red: "#FF0000",
   googleBlue: "#359",
@@ -548,12 +551,20 @@ var theme = {
   darkGrey: "#EEEEEE",
   pureWhite: "#FFFFFF",
   offWhite: "#EDEDED",
-  bs: "3.5px 3.5px 2.5px  rgba(0,0,0,0.9)",
-  bs2: "0 4px 8px 0 rgba(0,0,0,0.3)"
-};
+  primary: '#00ab80',
+  black2: '#4a4a4a',
+  white3: '#ffffff',
+  error: '#e05666',
+  brownishRed: '#fo7031',
+  coolBlue: '#195e83',
+  coollerBlue: '#136ea5',
+  sand: '#eea549',
+  reddishBrown: '#f57836',
+  buff: '#edb879'
+}, _defineProperty(_theme, "grey", ['#FAFAFA', '#F2F2F2', '#E6E5E5', '#D9D8D8', '#CDCCCB', '#C0BFBF', '#B3B2B2', '#A7A5A5', '#9A9898', '#817E7E', '#747272', '#676565', '#5A5858', '#4D4C4C', '#403F3F']), _defineProperty(_theme, "bs", "0.7rem 0.7rem 0.5rem  rgba(0,0,0,0.9)"), _defineProperty(_theme, "bs2", "0.03rem .2rem 0.2rem 0.03rem rgba(0,0.3,0,0.2)"), _defineProperty(_theme, "bs3", "0 .1rem 1.5rem 0.5rem rgba(0,0,0.8,0.9)"), _theme);
 var StyledPage = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "Page__StyledPage",
-  componentId: "qsziov-0"
+  componentId: "sc-7w315w-0"
 })(["background:", ";color:", ";"], function (props) {
   return props.theme.slightGrey;
 }, function (props) {
@@ -561,13 +572,15 @@ var StyledPage = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.wi
 });
 var Inner = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "Page__Inner",
-  componentId: "qsziov-1"
+  componentId: "sc-7w315w-1"
 })(["max-width:", ";margin:0 auto;padding:3rem;background:", ";"], function (props) {
   return props.theme.maxWidth;
 }, function (props) {
   return props.theme.slightGrey;
 });
-Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["injectGlobal"])(_templateObject(), theme.black);
+Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["injectGlobal"])(_templateObject(), function (props) {
+  return props.theme.black;
+});
 
 var Page =
 /*#__PURE__*/
@@ -587,31 +600,31 @@ function (_Component) {
         theme: theme,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 105
+          lineNumber: 136
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(StyledPage, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 106
+          lineNumber: 137
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Meta__WEBPACK_IMPORTED_MODULE_3__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 107
+          lineNumber: 138
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 108
+          lineNumber: 139
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Inner, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 109
+          lineNumber: 140
         },
         __self: this
       }, this.props.children)));
@@ -640,695 +653,688 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/link */ "next/link");
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
-var _jsxFileName = "E:\\Sygex\\Sygex-front\\src\\components\\mega-menu\\MegaMenu.jsx";
+var _jsxFileName = "E:\\Sygex-Formik\\Sygex-front-Formik\\src\\components\\mega-menu\\MegaMenu.jsx";
 
 
 
 var ToolBarNavItem = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "MegaMenu__ToolBarNavItem",
   componentId: "sc-1wbcx3v-0"
-})(["padding:1.5rem;*{box-sizing:border-box;}.container{max-width:1000px;margin:0 auto;}body{font-family:\"Roboto\",\"Open Sans\",\"Segoe UI\",\"Helvetica Neue\",Helvetica,Arial,sans-serif;margin:0;}nav{background:burlywood;box-shadow:0 4px 15px 0 rgbs(0,0,0,0.8);border-radius:5rem;}nav ul{list-style:none;position:relative;margin:0;padding:0;}nav li{display:inline-block;}nav a{text-decoration:none;display:block;color:#000;padding:0.5rem 1.3rem;}nav li:hover{border-top-right-radius:0.8rem;border-top-left-radius:0.8rem;background:#808080;color:#fff;}.menu-sub{width:100%;position:absolute;background:#808080;color:#fff;display:none;padding:1rem;border-bottom-right-radius:0.8rem;border-bottom-left-radius:0.8rem;border-top-right-radius:0.8rem;}nav li:hover .menu-sub{display:block;}.menu-sub li{display:block;}.menu-sub a{margin:0;padding:0;font-size:1.1rem;color:#fff;}.menu-sub a:hover{text-decoration:underline;}.menu-category{font-size:1.1rem;margin-bottom:0;margin-bottom:0.5rem;text-align:left;text-transform:uppercase;}.menu-category:first-of-type{margin-top:0;margin-bottom:0;}.menu-col-1,.menu-col-2,.menu-col-3,.menu-col-4{float:left;}.menu-col-1,.menu-col-2,.menu-col-3,.menu-col-4{width:25%;padding:1rem;border-right:1px solid #fff;}.menu-category:last-of-type{border-right:none;}hr{margin:0;padding:0;}"]);
+})(["padding:1.5rem;*{box-sizing:border-box;}.container{max-width:1000px;margin:0 auto;}body{font-family:'Roboto','Open Sans','Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;margin:0;}nav{background:burlywood;box-shadow:0 4px 15px 0 rgbs(0,0,0,0.8);border-radius:5rem;}nav ul{list-style:none;position:relative;margin:0;padding:0;}nav li{display:inline-block;}nav a{text-decoration:none;display:block;color:#000;padding:0.5rem 1.3rem;}nav li:hover{border-top-right-radius:0.8rem;border-top-left-radius:0.8rem;background:#808080;color:#fff;}.menu-sub{width:100%;position:absolute;background:#808080;color:#fff;display:none;padding:1rem;border-bottom-right-radius:0.8rem;border-bottom-left-radius:0.8rem;border-top-right-radius:0.8rem;}nav li:hover .menu-sub{display:block;}.menu-sub li{display:block;}.menu-sub a{margin:0;padding:0;font-size:1.1rem;color:#fff;}.menu-sub a:hover{text-decoration:underline;}.menu-category{font-size:1.1rem;margin-bottom:0;margin-bottom:0.5rem;text-align:left;text-transform:uppercase;}.menu-category:first-of-type{margin-top:0;margin-bottom:0;}.menu-col-1,.menu-col-2,.menu-col-3,.menu-col-4{float:left;}.menu-col-1,.menu-col-2,.menu-col-3,.menu-col-4{width:25%;padding:1rem;border-right:1px solid #fff;}.menu-category:last-of-type{border-right:none;}hr{margin:0;padding:0;}"]);
 
 var MegaMenu = function MegaMenu() {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToolBarNavItem, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109
+      lineNumber: 110
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110
+      lineNumber: 111
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111
+      lineNumber: 112
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "menu-main",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 112
+      lineNumber: 113
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 113
+      lineNumber: 114
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 114
+      lineNumber: 115
     },
     __self: this
   }, "Entrer Information"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "menu-sub",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115
+      lineNumber: 116
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "menu-col-1",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116
+      lineNumber: 117
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117
+      lineNumber: 118
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118
+      lineNumber: 119
     },
     __self: this
   }, "Region"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 119
+      lineNumber: 120
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newRegion",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 120
+      lineNumber: 121
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 121
+      lineNumber: 122
     },
     __self: this
   }, "Nouvelle Region")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyRegion",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 123
+      lineNumber: 124
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 124
+      lineNumber: 125
     },
     __self: this
   }, "Modifier Region"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 127
+      lineNumber: 128
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128
+      lineNumber: 129
     },
     __self: this
   }, "Departement"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129
+      lineNumber: 130
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newDivision",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130
+      lineNumber: 131
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 131
+      lineNumber: 132
     },
     __self: this
   }, "Nouveau Departement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyDivision",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 133
+      lineNumber: 134
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134
+      lineNumber: 135
     },
     __self: this
   }, "Modifier Department"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137
+      lineNumber: 138
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138
+      lineNumber: 139
     },
     __self: this
   }, "Arrondissement"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139
+      lineNumber: 140
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newSubDivision",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140
+      lineNumber: 141
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141
+      lineNumber: 142
     },
     __self: this
   }, "Nouvel Arrondissement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifySubDivision",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 143
+      lineNumber: 144
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 144
+      lineNumber: 145
     },
     __self: this
   }, "Modifier Arrondissement"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 147
+      lineNumber: 148
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 148
+      lineNumber: 149
     },
     __self: this
   }, "Ville"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 149
+      lineNumber: 150
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newTown",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 150
+      lineNumber: 151
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 151
+      lineNumber: 152
     },
     __self: this
   }, "Nouvelle Ville")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyTown",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 153
+      lineNumber: 154
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 154
+      lineNumber: 155
     },
     __self: this
   }, "Modifier Ville"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 157
+      lineNumber: 158
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 158
+      lineNumber: 159
     },
     __self: this
   }, "New Series"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 159
+      lineNumber: 160
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newSeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 160
+      lineNumber: 161
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 161
+      lineNumber: 162
     },
     __self: this
   }, "register Series")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifySeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 163
+      lineNumber: 164
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 164
+      lineNumber: 165
     },
     __self: this
   }, "Modifier Serie"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 167
+      lineNumber: 168
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 168
+      lineNumber: 169
     },
     __self: this
   }, "Notes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 169
+      lineNumber: 170
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newMarks",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 170
+      lineNumber: 171
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 171
+      lineNumber: 172
     },
     __self: this
   }, "Inscrire Notes")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyMarks",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 173
+      lineNumber: 174
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 174
+      lineNumber: 175
     },
     __self: this
-  }, "Modifier Notes")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menu-col-2",
+  }, "Modifier Notes"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 179
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 180
+      lineNumber: 178
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
+      lineNumber: 179
+    },
+    __self: this
+  }, "Formik Forms"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 180
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/formikForms/showFormikForms",
+    __source: {
+      fileName: _jsxFileName,
       lineNumber: 181
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 182
+    },
+    __self: this
+  }, "New Registration")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifySubjectType",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 184
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 185
+    },
+    __self: this
+  }, "Modifier Type Mati\xE8re")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "menu-col-2",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 190
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 191
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "menu-category",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 192
     },
     __self: this
   }, "Type De Mati\xE8re"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 182
+      lineNumber: 193
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newSubjectType",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 183
+      lineNumber: 194
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 184
+      lineNumber: 195
     },
     __self: this
   }, " Nouveau Type Mati\xE8re")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifySubjectType",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 186
+      lineNumber: 197
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 187
+      lineNumber: 198
     },
     __self: this
   }, "Modifier Type Mati\xE8re"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 190
+      lineNumber: 201
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 191
+      lineNumber: 202
     },
     __self: this
   }, "Subject Series"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 192
+      lineNumber: 203
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newSubjectSeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 193
+      lineNumber: 204
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 194
+      lineNumber: 205
     },
     __self: this
   }, "Subjects Series")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifySubjectSeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 196
+      lineNumber: 207
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 197
+      lineNumber: 208
     },
     __self: this
   }, "Modifier Type Mati\xE8re"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 200
+      lineNumber: 211
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 201
+      lineNumber: 212
     },
     __self: this
   }, "Inscription"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 202
+      lineNumber: 213
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newRegister",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 203
+      lineNumber: 214
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 204
+      lineNumber: 215
     },
     __self: this
   }, " Nouvelle Inscription")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyRegistration",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 206
+      lineNumber: 217
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 207
+      lineNumber: 218
     },
     __self: this
   }, "Modifier Inscription"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 210
+      lineNumber: 221
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 211
+      lineNumber: 222
     },
     __self: this
   }, "Poste"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 212
+      lineNumber: 223
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newRank",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 213
+      lineNumber: 224
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 214
+      lineNumber: 225
     },
     __self: this
   }, "Nouveau Poste")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyRank",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 216
+      lineNumber: 227
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 217
+      lineNumber: 228
     },
     __self: this
   }, "Modifier Poste"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 220
+      lineNumber: 232
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 221
+      lineNumber: 233
     },
     __self: this
   }, "Examen"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 222
+      lineNumber: 234
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newExam",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 223
+      lineNumber: 235
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 224
+      lineNumber: 236
     },
     __self: this
   }, "Nouvel Examen")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyExam",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 226
+      lineNumber: 238
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 227
+      lineNumber: 239
     },
     __self: this
   }, "Modifier Examen"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 230
+      lineNumber: 242
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 231
+      lineNumber: 243
     },
     __self: this
   }, "Resultats"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 232
+      lineNumber: 244
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/show/genCenterResults",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 233
+      lineNumber: 245
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 234
+      lineNumber: 246
     },
     __self: this
   }, "Resultats Centre")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/show/results/candCodeResults",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 236
+      lineNumber: 248
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 237
+      lineNumber: 249
     },
     __self: this
   }, "Resultat Candidat")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 239
+      lineNumber: 251
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 241
+      lineNumber: 253
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 242
+      lineNumber: 254
     },
     __self: this
   }, "Listes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 243
+      lineNumber: 255
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/show/lists/centersPerTown",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 244
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 245
-    },
-    __self: this
-  }, "Centres par Ville")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/show/lists/subjPerSeries",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 247
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 248
-    },
-    __self: this
-  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/show/lists/subjPerSeries",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 250
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 251
-    },
-    __self: this
-  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/show/lists/subjPerSeries",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 253
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 254
-    },
-    __self: this
-  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/show/lists/subjPerSeries",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 256
@@ -1340,252 +1346,252 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 257
     },
     __self: this
-  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+  }, "Centres par Ville")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/lists/subjPerSeries",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 259
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 260
+    },
+    __self: this
+  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/lists/subjPerSeries",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 262
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 263
+    },
+    __self: this
+  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/lists/subjPerSeries",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 265
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 266
+    },
+    __self: this
+  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/lists/subjPerSeries",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 268
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 269
+    },
+    __self: this
+  }, "Matieres par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 271
     },
     __self: this
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "menu-col-3",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 262
+      lineNumber: 274
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 263
+      lineNumber: 275
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 264
+      lineNumber: 276
     },
     __self: this
   }, "Utilisateur"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 265
+      lineNumber: 277
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newUser",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 266
+      lineNumber: 278
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 267
+      lineNumber: 279
     },
     __self: this
   }, "Nouveau Utilisateur")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyUser",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 269
+      lineNumber: 281
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 270
+      lineNumber: 282
     },
     __self: this
   }, "Modifier Utilisateur"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 273
+      lineNumber: 285
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 274
+      lineNumber: 286
     },
     __self: this
   }, "Centre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 275
+      lineNumber: 287
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newCenter",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 276
+      lineNumber: 288
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 277
+      lineNumber: 289
     },
     __self: this
   }, "Nouveau Centre")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifyCenter",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 279
+      lineNumber: 291
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 280
+      lineNumber: 292
     },
     __self: this
   }, "Modifier Centre"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 283
+      lineNumber: 295
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 284
+      lineNumber: 296
     },
     __self: this
   }, "Session"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 285
+      lineNumber: 297
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newSession",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 286
+      lineNumber: 298
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 287
+      lineNumber: 299
     },
     __self: this
   }, "Nouvelle Session")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifySession",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 289
+      lineNumber: 301
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 290
+      lineNumber: 302
     },
     __self: this
   }, "Modifier Session"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 293
+      lineNumber: 305
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 294
+      lineNumber: 306
     },
     __self: this
   }, "Series"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 295
+      lineNumber: 307
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newSeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 296
+      lineNumber: 308
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 297
+      lineNumber: 309
     },
     __self: this
   }, "Nouvelle Series")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/modify/modifySeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 299
+      lineNumber: 311
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 300
+      lineNumber: 312
     },
     __self: this
   }, "Modifier Series"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 303
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-    className: "menu-category",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 304
-    },
-    __self: this
-  }, "Rapports"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 305
-    },
-    __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/creates/newReport",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 306
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 307
-    },
-    __self: this
-  }, "charger rapport ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modify/modifyReport",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 309
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 310
-    },
-    __self: this
-  }, "Modifier rapport")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menu-col-4",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 314
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 315
@@ -1598,14 +1604,14 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 316
     },
     __self: this
-  }, "Sexe"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+  }, "Rapports"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 317
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/creates/newGender",
+    href: "/creates/newReport",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 318
@@ -1617,8 +1623,8 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 319
     },
     __self: this
-  }, "nouveau Sexe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modify/modifyGender",
+  }, "charger rapport ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifyReport",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 321
@@ -1630,7 +1636,7 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 322
     },
     __self: this
-  }, "Modifier Sexe"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, "Modifier rapport"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 325
@@ -1643,14 +1649,14 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 326
     },
     __self: this
-  }, "Candidat"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+  }, "Resultats Centre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 327
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/creates/newCand",
+    href: "/show/results/centerResults/getCompleteCenterResults",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 328
@@ -1662,8 +1668,8 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 329
     },
     __self: this
-  }, "nouveau Candidat")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/show/candidatePage",
+  }, "Resultats Complet du Centre")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/results/centerResults/centerResultsPerSeries",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 331
@@ -1675,53 +1681,47 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 332
     },
     __self: this
-  }, "Liste Candidats")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modify/modifyCandidate",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 334
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+  }, "Resultats du Centre par Serie")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/results/candidateResults/getCandidateResultsFromRegNo",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 335
     },
     __self: this
-  }, "Modifier Candidat"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 338
+      lineNumber: 336
+    },
+    __self: this
+  }, "Resultats Du Candidat")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "menu-col-4",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 340
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 341
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 339
-    },
-    __self: this
-  }, "Enseignement"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 340
-    },
-    __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/creates/newEducType",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 341
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
       lineNumber: 342
     },
     __self: this
-  }, "Nouveau Type D'enseignement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modify/modifyEducType",
+  }, "Sexe"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 343
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newGender",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 344
@@ -1733,40 +1733,40 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 345
     },
     __self: this
-  }, "Modifier Type D'enseignement"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, "nouveau Sexe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifyGender",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 347
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 348
+    },
+    __self: this
+  }, "Modifier Sexe"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 351
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 349
-    },
-    __self: this
-  }, "Mati\xE8re"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 350
-    },
-    __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/creates/newSubject",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 351
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
       lineNumber: 352
     },
     __self: this
-  }, "Nouvelle Mati\xE8re ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modify/modifySubject",
+  }, "Candidat"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 353
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newCand",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 354
@@ -1778,53 +1778,53 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 355
     },
     __self: this
-  }, "Modifier Mati\xE8re"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, "nouveau Candidat")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/show/candidatePage",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 357
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 358
+    },
+    __self: this
+  }, "Liste Candidats")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifyCandidate",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 360
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 361
+    },
+    __self: this
+  }, "Modifier Candidat"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 364
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 359
-    },
-    __self: this
-  }, "Charge de centre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 360
-    },
-    __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/creates/newCenterAdmin",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 361
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 362
-    },
-    __self: this
-  }, "Nouveau Charge de centre ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/modify/modifyCenterAdmin",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 364
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    __source: {
-      fileName: _jsxFileName,
       lineNumber: 365
     },
     __self: this
-  }, "Modifier Charge de centre")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: "/signInOut/signUp",
+  }, "Enseignement"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 366
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newEducType",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 367
@@ -1836,94 +1836,306 @@ var MegaMenu = function MegaMenu() {
       lineNumber: 368
     },
     __self: this
-  }, "SignUp"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, "Nouveau Type D'enseignement")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifyEducType",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 370
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 371
+    },
+    __self: this
+  }, "Modifier Type D'enseignement"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 374
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 372
+      lineNumber: 375
+    },
+    __self: this
+  }, "Mati\xE8re"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 376
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newSubject",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 377
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 378
+    },
+    __self: this
+  }, "Nouvelle Mati\xE8re ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifySubject",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 380
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 381
+    },
+    __self: this
+  }, "Modifier Mati\xE8re"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 384
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "menu-category",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 385
+    },
+    __self: this
+  }, "Charge de centre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 386
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newExaminer",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 387
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 388
+    },
+    __self: this
+  }, "Inscription des Charge de centre ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/modify/modifyExaminer",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 390
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 391
+    },
+    __self: this
+  }, "Modifier Charge de centre")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/signInOut/signUp",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 393
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 394
+    },
+    __self: this
+  }, "SignUp"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 397
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "menu-category",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 398
+    },
+    __self: this
+  }, "Phase de l'Examen"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 401
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newPhase",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 402
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 403
+    },
+    __self: this
+  }, "Nouvelle Phase de l'Examen "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 406
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "menu-category",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 407
+    },
+    __self: this
+  }, "Inscrire Postes aux Phases de l'Examen"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 410
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newPhaseRank",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 411
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 412
+    },
+    __self: this
+  }, "Postes aux Phases de l'Examen "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 415
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "menu-category",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 416
+    },
+    __self: this
+  }, "Inscrire Prof au centre d'Examen"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 419
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: "/creates/newCESExaminer",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 420
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 421
+    },
+    __self: this
+  }, "Prof s'inscrire au centre d'Examen "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 424
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "menu-category",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 425
     },
     __self: this
   }, "Examen Pour Session par Centre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 373
+      lineNumber: 428
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newCenterExamSession",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 374
+      lineNumber: 429
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 375
+      lineNumber: 430
     },
     __self: this
   }, "Inscrire Centre a l'Examen "))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 379
+      lineNumber: 433
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "menu-category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 380
+      lineNumber: 434
     },
     __self: this
   }, "Series par Centre"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 381
+      lineNumber: 435
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/creates/newCenterExamSessionSeries",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 382
+      lineNumber: 436
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 383
+      lineNumber: 437
     },
     __self: this
   }, "Inscrire Series aux centres ")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 391
+      lineNumber: 444
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "/creates/newRegister",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 392
+      lineNumber: 445
     },
     __self: this
   }, "Contact")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 394
+      lineNumber: 447
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "/creates/newRegister",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 395
+      lineNumber: 448
     },
     __self: this
   }, "Register"))))));

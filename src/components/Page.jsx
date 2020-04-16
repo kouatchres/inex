@@ -15,8 +15,36 @@ const theme = {
   darkGrey: "#EEEEEE",
   pureWhite: "#FFFFFF",
   offWhite: "#EDEDED",
-  bs: "3.5px 3.5px 2.5px  rgba(0,0,0,0.9)",
-  bs2: "0 4px 8px 0 rgba(0,0,0,0.3)"
+  primary: '#00ab80',
+  black2: '#4a4a4a',
+  white3: '#ffffff',
+  error: '#e05666',
+  brownishRed: '#fo7031',
+  coolBlue: '#195e83',
+  coollerBlue: '#136ea5',
+  sand: '#eea549',
+  reddishBrown: '#f57836',
+  buff: '#edb879',
+  grey: [
+    '#FAFAFA',
+    '#F2F2F2',
+    '#E6E5E5',
+    '#D9D8D8',
+    '#CDCCCB',
+    '#C0BFBF',
+    '#B3B2B2',
+    '#A7A5A5',
+    '#9A9898',
+    '#817E7E',
+    '#747272',
+    '#676565',
+    '#5A5858',
+    '#4D4C4C',
+    '#403F3F'
+  ],
+  bs: "0.7rem 0.7rem 0.5rem  rgba(0,0,0,0.9)",
+  bs2: "0.03rem .2rem 0.2rem 0.03rem rgba(0,0.3,0,0.2)",
+  bs3: "0 .1rem 1.5rem 0.5rem rgba(0,0,0.8,0.9)"
 };
 
 const StyledPage = styled.div`
@@ -95,7 +123,10 @@ a
     font-size:1.5rem;
     font-style: italic;
     text-decoration: none;
-    color: ${theme.black};
+    color: ${props => props.theme.black};
+    :hover {
+  text-decoration: underline;
+}
 }
 `;
 

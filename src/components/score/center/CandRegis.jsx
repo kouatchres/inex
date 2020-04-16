@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 
 const RegionRow = styled.div`
 	display: grid;
-	grid-template-columns: repeat(8, 1fr);
+	grid-template-columns:2fr repeat(8, 1fr);
 	grid-gap: 0.5rem;
     font-size:1.2rem;
 	border-bottom: 1px solid black;
@@ -15,7 +15,7 @@ const RegionRow = styled.div`
 
 
 const CellBlock = styled.div`
-min-width: 7vw;
+/* min-width: 7vw; */
 align-items: left;
 justify-items: left;
 	align-content: left;
@@ -23,20 +23,27 @@ justify-items: left;
 
 class CandRegis extends Component {
 
-    state = {
-        modalOpen: true,
-    };
-
     static propTypes = {
         regisInfo: PropTypes.object.isRequired
     };
     openModal = (id) => {
     }
     render() {
-        const { candidate, id, candExamSecretCode } = { ...this.props.regisInfo };
+        const { candRegistrationNumber, candidate, id, candExamSecretCode } = { ...this.props.regisInfo };
         return (
             <>
                 <RegionRow>
+                    <CellBlock>
+                        <Link
+                            href={{
+                                pathname: "/show/results/candResults",
+                                query: { id }
+                            }}
+                        >
+                            <a target="_blank">{candRegistrationNumber} </a>
+                        </Link>
+                        <span></span>
+                    </CellBlock>
                     <CellBlock>
                         <span>{candidate.cand1stName}</span>
                     </CellBlock>
@@ -66,7 +73,7 @@ class CandRegis extends Component {
                                 query: { id }
                             }}
                         >
-                            <a>Voir Resultats </a>
+                            <a target="_blank">Resultats </a>
                         </Link>
                     </CellBlock>
                 </RegionRow>

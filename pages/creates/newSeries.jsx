@@ -1,27 +1,12 @@
 import React from 'react';
-import CreateSeries from '../../src/components/series/CreateSeries';
-import styled from 'styled-components';
+import CreateNewSeries from '../../src/components/series/CreateNewSeries';
 
-const StyledRegion = styled.div`
-	display: block;
-	text-align: center;
-	margin: 0 auto;
-	min-width: 350px;
-	background: #359;
-	width: 40vw;
-	h4 {
-		margin: 0 auto;
-		text-align: center;
-		font-size: 3rem;
-		font-weight: normal;
-	}
-`;
 
 const NewSeries = () => {
 	return (
-		<StyledRegion>
-			<CreateSeries />
-		</StyledRegion>
+		<div>
+			<CreateNewSeries />
+		</div>
 	);
 };
 export default NewSeries;

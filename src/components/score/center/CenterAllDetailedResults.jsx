@@ -16,24 +16,21 @@ const SeriesHeadings = styled.div`
   font-size: 1.7rem;
   justify-content: left;
   background: ${props => props.theme.googleBlue};
-  /* border-radius: 0.5rem; */
 `;
 
 const TitleItem = styled.div`
   margin: 0 20px;
   text-align: left;
-  /* border-right: 1px solid black; */
-  /* width: 25%; */
-  /* padding-left: 15px; */
+  
 `;
 
-const ResultsHeader = styled.div`
+const ExamCenterInfo = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1.5fr 5fr .5fr;
   grid-gap: 0.2rem;
-  font-weight: 500;
-  font-size:1.5rem;
-  margin: 0 20px;
+  font-weight: bold;
+  font-size:1.7rem;
+  margin: 0 0.2rem;
 justify-items: center;
 align-items: center;
 `;
@@ -64,7 +61,7 @@ class CenterAllDetailedResults extends Component {
                                 <Error error={error} />
                                 <fieldset disabled={loading} aria-busy={loading}>
 
-                                    <ResultsHeader>
+                                    <ExamCenterInfo>
                                         <p>
                                             <strong> Examen: </strong><span>{exam.examName}</span>
                                         </p>
@@ -72,9 +69,9 @@ class CenterAllDetailedResults extends Component {
                                             <strong> Centre: </strong><span>{center.centerName}</span>
                                         </p>
                                         <p>
-                                            <strong> Session:  </strong><span>{session.sessionName}</span>
+                                            <strong> Session:</strong><span>{session.sessionName}</span>
                                         </p>
-                                    </ResultsHeader>
+                                    </ExamCenterInfo>
 
                                     <SeriesHeadings>
 
