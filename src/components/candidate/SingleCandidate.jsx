@@ -4,7 +4,7 @@ import Error from '../ErrorMessage';
 import Link from 'next/link';
 import Form from '../styles/Form';
 import { format } from 'date-fns';
-import { BigStyledPage } from '../styles/StyledPage';
+import { MiniStyledPage } from '../styles/StyledPage';
 import styled from 'styled-components';
 import { singleCandidateQuery } from '../queries&Mutations&Functions/Queries';
 
@@ -21,30 +21,37 @@ const UpdateBtn = styled.button`
 
 const DivBtn = styled.div`
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 	grid-gap: 1rem;
 `;
 
 const ImageInfo = styled.div`
-	margin: 0 auto;
-	max-width: 90vw;
-	display: grid;
-	grid-gap: 1rem;
-	grid-template-columns: 1fr 1fr;
-	/* box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.08); */
-	border-radius: 15px;
+	 
+	 display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+   
+`;
+
+const AllInfo = styled.div`
+	 
+	 display: flex;
+flex-direction:column;   
 `;
 
 const BottomInfo = styled.div`
-	padding: .5px;
+    text-align: left;
+	padding: 0.2rem;
 	margin: .5rem auto;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     line-height: 0.3rem;
+	min-width:13rem;
+	/* align-items:center;
+	justify-content:left; */
   
 `;
 
 const CandImg = styled.div`
-	padding-left: 3.5rem;
+	/* padding-left: 3.5rem; */
 	display: flex;
 	flex-direction: column;
 	margin-bottom: .5rem;
@@ -52,8 +59,8 @@ const CandImg = styled.div`
 		margin-top: .5rem;
 		margin-left: .5rem;
 		height: 15rem;
-		width: 15rem;
-		border-radius: 10px;
+		width: 13rem;
+		border-radius: 0.7rem;
 		background-size: contain;
 		background-position: center;
 	}
@@ -87,7 +94,7 @@ class SingleCandidate extends Component {
 						error && <Error error={error} />;
 					}
 					return (
-						<BigStyledPage>
+						<MiniStyledPage>
 							<Form>
 								<h4>Info Candidat</h4>
 								<fieldset>
@@ -100,16 +107,21 @@ class SingleCandidate extends Component {
 												<strong>Prenoms: </strong>
 												<span> {cand2ndName}</span>
 											</p>
+
 											<p>
 												<strong>Autres Noms:</strong>
 												<span> {cand3rdName}</span>
 											</p>
 											<p>
-												<strong>Date Naissance:</strong>
+												<strong>Naissance:</strong>
+												<hr />
+											</p>
+											<p>
+												<strong>Date:</strong>
 												<span> {format(dateOfBirth, 'd MMMM, YYYY')}</span>
 											</p>
 											<p>
-												<strong>Lieu Naissance:</strong> <span>{placeOfBirth}</span>
+												<strong>Lieu:</strong> <span>{placeOfBirth}</span>
 											</p>
 											<p>
 												<strong>Sexe: </strong>
@@ -117,16 +129,24 @@ class SingleCandidate extends Component {
 											</p>
 
 											<p>
-												<strong>Nom du Père:</strong>
+												<strong>Nom des parents:</strong>
+												<hr />
+											</p>
+											<p>
+												<strong>Père:</strong>
 												<span> {dadName}</span>
 											</p>
 											<p>
-												<strong>Nom De la Mère:</strong>
+												<strong>Mère:</strong>
 												<span> {momName}</span>
 											</p>
 
 											<p>
-												<strong>No Acte Naissance:</strong>
+												<strong>Acte Naissance:</strong>
+												<hr />
+											</p>
+											<p>
+												<strong>No:</strong>
 												<span> {birthCertNumber}</span>
 											</p>
 											<p>
@@ -140,37 +160,38 @@ class SingleCandidate extends Component {
 											</p>
 
 											<p>
-												<strong>Code Candidat:</strong> <span> {candCode}</span>
+												<strong>Code:</strong> <span> {candCode}</span>
 											</p>
 											<CandImg>
 												<div>{candidate.image && <img src={image} alt="Upload image" />}</div>
 											</CandImg>
-											<DivBtn>
-												<UpdateBtn>
-													<Link
-														href={{
-															pathname: '../updates/updateCand',
-															query: { id: this.props.id }
-														}}
-													>
-														<a   target="_blank"  >Modifier </a>
-													</Link>
-												</UpdateBtn>
-												<UpdateBtn>
-													<Link
-														href={{
-															pathname: '../creates/newCand'
-														}}
-													>
-														<a   target="_blank"  >Candidat Suivant</a>
-													</Link>
-												</UpdateBtn>
-											</DivBtn>
 										</BottomInfo>
 									</ImageInfo>
+									<DivBtn>
+										<UpdateBtn>
+											<Link
+												href={{
+													pathname: '../updates/updateCand',
+													query: { id: this.props.id }
+												}}
+											>
+												<a target="_blank"  >Modifier </a>
+											</Link>
+										</UpdateBtn>
+										<UpdateBtn>
+											<Link
+												href={{
+													pathname: '../creates/newCand'
+												}}
+											>
+												<a target="_blank"  >Candidat Suivant</a>
+											</Link>
+										</UpdateBtn>
+									</DivBtn>
+
 								</fieldset>
 							</Form>
-						</BigStyledPage>
+						</MiniStyledPage>
 					);
 				}}
 			</Query>
@@ -179,11 +200,3 @@ class SingleCandidate extends Component {
 }
 
 export default SingleCandidate;
-//bacc 2017 chinois specialty
-//candCodes              //  examCandSecretCode
-//fdzpk&Coh65Z          //Xp5I#RnK
-//HUQDgdZRt6H1          //%zxXvYUU
-//LK#fryyoI57           //RSNtIjPE
-//swMwBJtT1ct           // oWMOcC2T
-//6UnsPVM%#Ibl  //
-//mWrmVPpcf9C2     //

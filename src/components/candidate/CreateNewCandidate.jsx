@@ -81,9 +81,9 @@ const validationSchema = Yup.object().shape({
     phoneNumb: Yup
         .number()
         .required("Numero de portable obligatoire"),
-    image: Yup
-        .string()
-        .required("Photo obligtoire"),
+    // image: Yup
+    //     .string()
+    //     .required("Photo obligtoire"),
     genderID: Yup
         .string()
         .required("Choix de votre sexe obligatoire"),
@@ -133,7 +133,7 @@ class CreateNewCandidate extends Component {
 
     render() {
         const { image } = this.state
-        this.initialValues.image = image
+        // this.initialValues.image = image
 
         return (
             <Query query={getAllGendersQuery} >
@@ -191,25 +191,26 @@ class CreateNewCandidate extends Component {
                                                 <Form>
                                                     <AllControls>
                                                         <TwoGroups>
+
                                                             <InputGroup>
+                                                                <SygexInput name="file" type="file" onChange={this.uploadFile} />
                                                                 <SygexSelect name="genderID" >
                                                                     <option>Le Sexe</option>
                                                                     {genderOptions}
                                                                 </SygexSelect>
-                                                                <SygexInput name="file" type="file" onChange={this.uploadFile} />
-                                                                <div>{image && <img src={image} alt="Upload image" />}</div>
-                                                                <SygexInput name="email" type="email" placeholder="Email" />
-                                                                <SygexInput name="birthCertNumber" type="text" placeholder="No l'Acte de Naissance" />
-                                                                <SygexInput name="phoneNumb" type="number" placeholder="No de portable" />
-                                                            </InputGroup>
-                                                            <InputGroup>
                                                                 <SygexInput name="cand1stName" type="text" placeholder="Nom" />
                                                                 <SygexInput name="cand2ndName" type="text" placeholder="Prénom" />
                                                                 <SygexInput name="cand3rdName" type="text" placeholder="Autres Noms" />
                                                                 <SygexInput name="placeOfBirth" type="text" placeholder="Lieu de Naissance" />
                                                                 <SygexInput name="dadName" type="text" placeholder="Noms du pere" />
                                                                 <SygexInput name="momName" type="text" placeholder="Noms de la mere" />
+                                                            </InputGroup>
+                                                            <InputGroup>
                                                                 <SygexInput name="dateOfBirth" format="d MMM yyyy" type="date" placeholder="Date de Naissance" />
+                                                                <SygexInput name="birthCertNumber" type="text" placeholder="No l'Acte de Naissance" />
+                                                                <SygexInput name="phoneNumb" type="number" placeholder="No de portable" />
+                                                                <SygexInput name="email" type="email" placeholder="Email" />
+                                                                <div>{image && <img src={image} alt="Upload image" />}</div>
                                                             </InputGroup>
                                                         </TwoGroups>
                                                         <ButtonStyled>

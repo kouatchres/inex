@@ -10,6 +10,14 @@
     "/_error": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
+    ],
+    "/show/singleCand": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/creates/newCand": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
     ]
   }
 }
