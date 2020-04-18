@@ -138,7 +138,7 @@ class RecentRegistration extends Component {
 
                                             return (
                                                 <Query query={getSingleCenterQuery}
-                                                    variables={{ centerNumber: centerNumber, }}  >
+                                                    variables={{ this.makeCenterVariableObject(centerNumber) }}  >
                                                     {({ data, error, loading }) => {
                                                         { loading && <p>...Loading</p> }
                                                         { error && <Error error={error} /> }

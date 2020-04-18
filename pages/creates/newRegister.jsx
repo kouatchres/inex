@@ -1,27 +1,11 @@
 import React from 'react';
-import RecentRegistration from '../../src/components/registration/RecentRegistration';
-import styled from 'styled-components';
+import RecentNewRegistration from '../../src/components/registration/RecentNewRegistration';
 
-const StyledRegion = styled.div`
-	/* display: block; */
-	text-align: center;
-	margin: 0 auto;
-	width: 60vw;
-	h4 {
-
-		margin: 0 auto;
-		text-align: center;
-		font-size: 3rem;
-		font-weight: normal;
-		
-	}
-`;
-
-const register = () => {
+const newRegister = () => {
 	return (
-		<StyledRegion>
-			<RecentRegistration />
-		</StyledRegion>
+		<div>
+			<RecentNewRegistration />
+		</div>
 	);
 };
-export default register;
+export default newRegister;

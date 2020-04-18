@@ -46,6 +46,7 @@ const ResultsHeader = styled.div`
 `;
 
 const FirstInfo = styled.div`
+text-align:left;
   display: block;
   flex-direction: column;
   font-size:1.5rem;
@@ -108,14 +109,20 @@ class CandidateResultsByRegisID extends Component {
                       </p>
                       <p>
                         <span>
-                          <strong> Lieu de Naissance: </strong> {candidate.placeOfBirth}
+                          <strong>Naissance: </strong>
+                          <hr />
+                        </span>
+                      </p>
+                      <p>
+                        <span>
+                          <strong> Lieu: </strong> {candidate.placeOfBirth}
                         </span>
                       </p>
 
 
                       <p>
                         <span>
-                          <strong> Date de Naissance: </strong>
+                          <strong> Date: </strong>
                           {format(candidate.dateOfBirth, "d MMM, YYYY ")}
                         </span>
                       </p>
@@ -134,12 +141,18 @@ class CandidateResultsByRegisID extends Component {
 
                       <p>
                         <span>
-                          <strong> Noms du Père: </strong> {candidate.dadName}
+                          <strong> Noms des parents: </strong>
+                          <hr />
                         </span>
                       </p>
                       <p>
                         <span>
-                          <strong> Noms de la Mère: </strong> {candidate.momName}
+                          <strong>Père: </strong> {candidate.dadName}
+                        </span>
+                      </p>
+                      <p>
+                        <span>
+                          <strong>Mère: </strong> {candidate.momName}
                         </span>
                       </p>
 
@@ -147,7 +160,7 @@ class CandidateResultsByRegisID extends Component {
                   </ResultsHeader>
                   <SubjectTitles>
                     <TitleItem>
-                      <span>Centre D'Examen</span>
+                      <span>Centre</span>
                     </TitleItem>
                     <TitleItem>
                       <span>Session </span>

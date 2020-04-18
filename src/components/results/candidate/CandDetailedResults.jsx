@@ -28,7 +28,7 @@ const AveTotals = styled.div`
   justify-items: center;
   border-bottom: 0.1rem solid black;
   padding-left: 0.2rem;
-`
+`;
 
 const SubjectTitles = styled.div`
   display: grid;
@@ -38,21 +38,21 @@ const SubjectTitles = styled.div`
   font-size: 1.5rem;
   justify-content: left;
   background: ${props => props.theme.googleBlue};
-`
+`;
 
 const TitleItem = styled.div`
   margin: 0 20px;
   border-right: 1px solid black;
   text-align: left;
   /* padding-left: 15px; */
-`
+`;
 
 const ResultsHeader = styled.div`
   display: grid;
   grid-template-columns: 0.5fr 18fr;
   justify-items: center;
   align-items: center;
-`
+`;
 
 const SchoolInfo = styled.div`
   display: grid;
@@ -61,16 +61,16 @@ const SchoolInfo = styled.div`
   align-items: center;
   font-size: 1.5rem;
   margin: 0 0.3rem;
-`
+`;
 
 const SchoolInfo2 = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(10rem,1fr));
   justify-items: center;
   align-items: center;
   font-size: 1.5rem;
   margin: 0 0.3rem;
-`
+`;
 
 const SchoolInfoBlock = styled.div`
   display: grid;
@@ -82,7 +82,7 @@ const SchoolInfoBlock = styled.div`
   font-size: 1.5rem;
   padding: 0.2rem;
   border-bottom: 0.1rem solid ${props => props.theme.black};
-`
+`;
 const CandPic = styled.div`
   margin-top: 1rem;
   display: block;
@@ -93,14 +93,15 @@ const CandPic = styled.div`
     width: 15vw;
     border-radius: 0.5rem;
   }
-`
+`;
 
 const FirstInfo = styled.div`
+text-align:left;
   display: block;
   flex-direction: column;
   font-size: 1.5rem;
   line-height: 0.3rem;
-`
+`;
 
 class CandDetailedResults extends Component {
   static propTypes = { id: PropTypes.string.isRequired }
@@ -137,7 +138,10 @@ class CandDetailedResults extends Component {
                   <SchoolInfoBlock>
                     <SchoolInfo>
                       <span>
-                        <strong> Centre D'Examen: </strong>{' '}
+                        <strong> Centre D'Examen: </strong>
+                        <hr />
+                      </span>
+                      <span>
                         {center && center.centerName}
                       </span>
                     </SchoolInfo>
@@ -146,7 +150,7 @@ class CandDetailedResults extends Component {
                         <strong> Examen: </strong> {exam && exam.examName}
                       </span>
                       <span>
-                        <strong> Session: </strong>{' '}
+                        <strong> Session: </strong>
                         {session && session.sessionName}
                       </span>
                     </SchoolInfo2>
@@ -157,6 +161,9 @@ class CandDetailedResults extends Component {
                       </span>
                       <span>
                         <strong> Specialization: </strong>
+                        <hr />
+                      </span>
+                      <span>
                         {series && series.seriesName}
                       </span>
                     </SchoolInfo>
@@ -171,14 +178,14 @@ class CandDetailedResults extends Component {
                     <FirstInfo>
                       <p>
                         <span>
-                          <strong> Nom: </strong>{' '}
+                          <strong> Nom: </strong>
                           {candidate && candidate.cand1stName}
                         </span>
                       </p>
 
                       <p>
                         <span>
-                          <strong> Prenom: </strong>{' '}
+                          <strong> Prenom: </strong>
                           {candidate && candidate.cand2ndName}
                         </span>
                       </p>
@@ -191,42 +198,56 @@ class CandDetailedResults extends Component {
                       </p>
                       <p>
                         <span>
-                          <strong> Date de Naissance: </strong>
-                          {format(
-                            candidate && candidate.dateOfBirth,
-                            'd MMMM, YYYY ',
-                          )}
+                          <strong>Naissance: </strong>
+                          <hr />
                         </span>
                       </p>
                       <p>
                         <span>
-                          <strong> Lieu de Naissance: </strong>{' '}
+                          <strong> Date: </strong>
+                          {format(candidate && candidate.dateOfBirth, 'd MMMM, YYYY ')}
+                        </span>
+                      </p>
+                      <p>
+                        <span>
+                          <strong> Lieu: </strong>
                           {candidate && candidate.placeOfBirth}
                         </span>
                       </p>
 
                       <p>
                         <span>
-                          <strong> Sexe: </strong>{' '}
+                          <strong> Sexe: </strong>
                           {candidate && candidate.gender.genderName}
                         </span>
                       </p>
                       <p>
                         <span>
                           <strong> Email: </strong>
+                          <hr />
+                        </span>
+                      </p>
+                      <p>
+                        <span>
                           {candidate && candidate.email}
                         </span>
                       </p>
 
                       <p>
                         <span>
-                          <strong> Noms du Père: </strong>{' '}
+                          <strong> Noms des parents: </strong>
+                          <hr />
+                        </span>
+                      </p>
+                      <p>
+                        <span>
+                          <strong>Père: </strong>
                           {candidate && candidate.dadName}
                         </span>
                       </p>
                       <p>
                         <span>
-                          <strong> Noms de la Mère: </strong>{' '}
+                          <strong>Mère: </strong>
                           {candidate && candidate.momName}
                         </span>
                       </p>

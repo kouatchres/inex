@@ -33,7 +33,7 @@ justify-items: left;
 
 const CandidateInfoHeadings = styled.div`
 	display: grid;
-	grid-template-columns:2fr repeat(8, 1fr);
+	grid-template-columns:2fr repeat(7, 1fr);
 	grid-gap: 0.5rem;
     font-size:1.4rem;
     color: ${(props) => props.theme.pureWhite};
@@ -85,10 +85,6 @@ class SeriesTitles extends Component {
                     </TitleItem>
                     <TitleItem>
                         <strong>  <span>Tel:</span></strong>
-                    </TitleItem>
-
-                    <TitleItem>
-                        <strong>  <span>Resultat:</span></strong>
                     </TitleItem>
 
                 </CandidateInfoHeadings>

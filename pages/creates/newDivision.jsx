@@ -1,11 +1,11 @@
 import React from 'react';
-import CreateNewDivision from '../../src/components/division/CreateNewDivision';
+import CreateNewDivisionHook from '../../src/components/division/CreateNewDivisionHook';
 
 
 const newDivision = (props) => {
 	return (
 		<div>
-			<CreateNewDivision />
+			<CreateNewDivisionHook />
 		</div>
 	);
 };

@@ -5,8 +5,9 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 
 const RegionRow = styled.div`
+text-align:left;
 	display: grid;
-	grid-template-columns:2fr repeat(8, 1fr);
+	grid-template-columns:2fr repeat(7, 1fr);
 	grid-gap: 0.5rem;
     font-size:1.2rem;
 	border-bottom: 1px solid black;
@@ -65,16 +66,6 @@ class CandRegis extends Component {
 
                     <CellBlock>
                         <span>{candExamSecretCode}</span>
-                    </CellBlock>
-                    <CellBlock>
-                        <Link
-                            href={{
-                                pathname: "/show/results/candResults",
-                                query: { id }
-                            }}
-                        >
-                            <a target="_blank">Resultats </a>
-                        </Link>
                     </CellBlock>
                 </RegionRow>
 

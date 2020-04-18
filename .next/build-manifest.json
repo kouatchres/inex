@@ -1,6 +1,6 @@
 {
   "devFiles": [
-    "static/development/dll/dll_a2101089cef155c33957.js"
+    "static/development/dll/dll_3adef44842bc65cca58c.js"
   ],
   "pages": {
     "/_app": [
@@ -8,14 +8,6 @@
       "static/runtime/main.js"
     ],
     "/_error": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/show/singleCand": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
-    "/creates/newCand": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

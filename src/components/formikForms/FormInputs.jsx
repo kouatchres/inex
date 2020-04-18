@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const StyledInput = styled.input`
 padding-top:01.2rem;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     border-style: none;
       outline: 0;
      border-bottom: 0.09rem solid ${(props) => props.theme.black};
@@ -29,7 +29,7 @@ const StyledLabel = styled.label`
 
 const StyledSelect = styled.select`
 padding-top:01.2rem;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     border-style: none;
      border-bottom: 0.09rem solid ${(props) => props.theme.black};
     &:focus {

@@ -1,52 +1,64 @@
+
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import Form from '../../styles/Form';
-import { MiniStyledPage } from '../../styles/StyledPage';
-import Error from '../../ErrorMessage';
+import { Query } from 'react-apollo'
+import { MinimStyledPage } from '../../styles/StyledPage'
+import Error from '../../ErrorMessage.js';
+import Router from 'next/router'
+import { Formik, Form } from 'formik';
+import { SygexInput, SygexSelect, StyledForm, ButtonStyled, StyledButton } from '../../formikForms/FormInputs'
 import styled from 'styled-components';
+import * as Yup from 'yup';
 import { getSelectedObject } from '../../queries&Mutations&Functions/Functions';
 import {
     getExamSessionQuery,
-    getSingleCenterExamSessionQuery,
     getAllExamsQuery,
     getAllSessionsQuery,
+    getSingleCenterExamSessionQuery,
     getSingleCenterQuery
 } from '../../queries&Mutations&Functions/Queries';
 
-const StyledDivision = styled.div`
-	display: grid;
-	grid-template-columns: 1fr;
-	text-align: center;
-	margin: 0 auto;
-    .submitButton{
-paddding-top:2rem;
-    }
+const InputGroup = styled.div`
+    
+    display: flex;
+    flex-direction:column;
+    min-width:13rem;
+    margin:0 1rem;
+   
+`;
+const AllControls = styled.div`
+  display: flex;
+flex-direction:column;
+/* min-width: 17rem; */
 `;
 
-
-const OtherSelect = styled.div`
-	display: block;
-	text-align: center;
-	margin: 0 auto;
-`;
+const validationSchema = Yup
+    .object()
+    .shape({
+        examID: Yup
+            .string()
+            .required("Choix De l'examen Obligatoire"),
+        sessionID: Yup
+            .string()
+            .required("Choix de la session Obligatoire"),
+        centerNumber: Yup
+            .number()
+            .min(0, 'Pas de note négative')
+            .required('No du centre obligatoire'),
+    });
 
 class NewGenCenterResults extends Component {
-    state = {
+    initialValues = {
         examID: "",
         sessionID: "",
         centerNumber: "",
-        candCode: "",
-        seriesID: "",
-    };
 
-    handleChange = (e) => {
+    };
+    state = { centerNumber: "", examID: "", sessionID: "12" }
+
+    handleChange = e => {
         const { name, value, type } = e.target;
-        const val = type === 'number' ? parseInt(value) : value;
+        const val = type === "number" ? parseInt(value) : value;
         this.setState({ [name]: val });
-    };
-
-    resetForm = () => {
-        this.setState({ centerNumber: '' });
     };
 
     makeCenterVariableObject = (centerCodeValue) => {
@@ -56,7 +68,17 @@ class NewGenCenterResults extends Component {
         return storedCenter;
     };
 
+    candRegistrationNumber = (centerCode, exam, session) => {
 
+        return `${centerCode + exam + session}`
+
+    };
+    makeCandVariableObject = (candCodeValue) => {
+        const storedCandidate = {
+            candCode: `${candCodeValue}`
+        };
+        return storedCandidate;
+    };
     makeCESSObject = (candCodeValue) => {
         const objCESS = {
             id: `${candCodeValue}`
@@ -65,11 +87,12 @@ class NewGenCenterResults extends Component {
     };
 
     render() {
-        const {
-            examID,
-            sessionID,
-            centerNumber
-        } = this.state;
+
+        const { centerNumber, sessionID, examID } = this.state
+        this.initialValues.sessionID = sessionID
+        this.initialValues.centerNumber = centerNumber
+        this.initialValues.examID = examID
+
         return (
             <Query query={getAllExamsQuery}>
                 {({ data, loading, error }) => {
@@ -82,35 +105,32 @@ class NewGenCenterResults extends Component {
 
                     const { exams } = data;
                     console.log(exams);
-
-                    const refinedExams = exams && exams.map(({
-                        __typename,
-                        examName,
-                        ...others
-                    }) => others);
-
+                    const getExamName = exams && { ...getSelectedObject(exams, examID) }
+                    const refinedExams =
+                        exams && exams.map(({ __typename, examName, ...others }) => others);
+                    const examsOptions = exams && exams.map((item) => (
+                        <option key={item.id} value={item.id}>
+                            {item.examName}
+                        </option>
+                    ))
                     return (
                         <Query query={getAllSessionsQuery}>
                             {({ data, loading, error }) => {
                                 {
-                                    loading && (
-                                        <p >
-                                            loading...
-                                        </p>
-                                    );
+                                    loading && <p> loading...</p>;
                                 }
                                 {
-                                    error && (<Error error={error} />);
+                                    error && <Error error={error} />;
                                 }
 
                                 const { sessions } = data;
-                                console.log(sessions);
-                                const refinedSessions = sessions && sessions.map(({
-                                    __typename,
-                                    sessionName,
-                                    ...others
-                                }) => others);
-
+                                const getSessionName = sessions && { ...getSelectedObject(sessions, sessionID) }
+                                const refinedSessions = sessions && sessions.map(({ __typename, sessionName, ...others }) => others);
+                                const sessionsOptions = sessions && sessions.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.sessionName}
+                                    </option>
+                                ))
                                 return (
 
                                     <Query query={getExamSessionQuery}
@@ -118,19 +138,9 @@ class NewGenCenterResults extends Component {
 
                                             exam: refinedExams && getSelectedObject(refinedExams, examID),
                                             session: refinedSessions && getSelectedObject(refinedSessions, sessionID)
-                                        }}  >
-                                        {({ data, error, loading }) => {
-                                            {
-                                                loading && (
-                                                    <p >
-                                                        loading...
-                                                    </p>
-                                                );
-                                            }
-                                            {
-                                                error && (<Error error={error} />);
-                                            }
-
+                                        }} delay="skip" >
+                                        {({ data, error, loading , load}) => {
+                                            console.log(`examName-- ${getExamName}, examen--${examID},  session- ${sessionID}`);
                                             console.log(data)
                                             const { examSessions } = { ...data }
                                             const refinedES = examSessions && examSessions.map(({ __typename, ...others }) => others)
@@ -141,131 +151,87 @@ class NewGenCenterResults extends Component {
                                                 <Query query={getSingleCenterQuery}
                                                     variables={{ centerNumber: centerNumber, }}  >
                                                     {({ data, error, loading }) => {
-                                                        {
-                                                            loading && (
-                                                                <p >
-                                                                    loading...
-                                                                </p>
-                                                            );
-                                                        }
-                                                        {
-                                                            error && (<Error error={error} />);
-                                                        }
+                                                        { loading && <p>...Loading</p> }
+                                                        { error && <Error error={error} /> }
                                                         const { centerByNumber } = { ...data }
                                                         centerByNumber && delete centerByNumber.__typename
                                                         console.log(centerByNumber)
                                                         return (
-
-
                                                             <Query
                                                                 query={getSingleCenterExamSessionQuery}
                                                                 variables={{
-                                                                    ...this.state,
-                                                                    center: centerByNumber && centerByNumber,
                                                                     examSession: reducedES && reducedES,
-                                                                }}>
-                                                                {(centerExamSessions) => (
+                                                                    center: centerByNumber && centerByNumber
+                                                                }} delay="skip">
+                                                                {({ data, error, loading, load }) => {
+                                                                    { loading && <p>...Loading</p> }
+                                                                    { error && <Error error={error} /> }
+                                                                    console.log(data);
+                                                                    const { centerExamSessionsByCode } = { ...data };
+                                                                    console.log(centerExamSessionsByCode);
+                                                                    // remove typename from the object
+                                                                    const refinedCenterExamSessions =
+                                                                        centerExamSessionsByCode && centerExamSessionsByCode.map(({ __typename, ...others }) => others);
+                                                                    // transform the array into a single object
+                                                                    const getObj = refinedCenterExamSessions && refinedCenterExamSessions.reduce((item) => item);
+                                                                    console.log(getObj);
+                                                                    getObj && Router.push({
+                                                                        pathname: '/show/results/centerResults',
+                                                                        query: {
+                                                                            id: getObj.id
+                                                                        }
+                                                                    });
 
-                                                                    <MiniStyledPage>
-                                                                        <Form
+
+                                                                    return (
+                                                                        <Formik
                                                                             method="POST"
-                                                                            onSubmit={async (e) => {
-                                                                                e.preventDefault();
-                                                                                this.resetForm();
-                                                                            }}>
-                                                                            <h4>
-                                                                                Les Resultats du Centre
-                                                                                                                </h4>
-                                                                            <fieldset disabled={loading} aria-busy={loading}>
-                                                                                <StyledDivision >
+                                                                            initialValues={this.initialValues}
+                                                                            validationSchema={validationSchema}>
+                                                                            <MinimStyledPage>
+                                                                                <h4>Resultats d'un Centre</h4>
+                                                                                <Error error={error} />
+                                                                                <StyledForm>
+                                                                                    <Form>
+                                                                                        <AllControls>
+                                                                                            <InputGroup>
+                                                                                                <SygexInput
+                                                                                                    value={centerByNumber && centerByNumber.centerCode}
+                                                                                                    name="centerName" type="text" placeholder=" Nom du centre" />
+                                                                                                <SygexInput onChange={this.handleChange} name="centerNumber" type="number" placeholder="no du centre" />
 
-                                                                                    <OtherSelect >
-                                                                                        <input
-                                                                                            type="textarea"
-                                                                                            id="centerName"
-                                                                                            name="centerName"
-                                                                                            placeholder="Nom du centre"
-                                                                                            value={centerByNumber && centerByNumber.centerCode}
-                                                                                            rows="2"
-                                                                                            wrap="soft"
-                                                                                            readOnly
-                                                                                        />
-                                                                                        <input
-                                                                                            type="number"
-                                                                                            id="centerNumber"
-                                                                                            name="centerNumber"
-                                                                                            placeholder="Numéro du centre"
-                                                                                            value={centerNumber}
-                                                                                            onChange={this.handleChange}
-                                                                                            required />
-                                                                                        <select
-                                                                                            type="select"
-                                                                                            id="sessionID"
-                                                                                            name="sessionID"
-                                                                                            value={sessionID}
-                                                                                            onChange={this.handleChange}
-                                                                                            required>
-                                                                                            <option >
-                                                                                                La Session
-                                                                                                                                                                    </option>
-                                                                                            {sessions && sessions.map((item) => (
-                                                                                                <option key={item.id} value={item.id}>
-                                                                                                    {item.sessionName}
-                                                                                                </option>
-                                                                                            ))}
-                                                                                        </select>
+                                                                                                <SygexSelect onChange={this.handleChange} name="sessionID">
+                                                                                                    <option>La session</option>
+                                                                                                    {sessionsOptions}
+                                                                                                </SygexSelect>
+                                                                                                <SygexSelect onChange={this.handleChange} name="examID">
+                                                                                                    <option>L'Examen </option>
+                                                                                                    {examsOptions}
+                                                                                                </SygexSelect>
 
-                                                                                        <select
-                                                                                            type="select"
-                                                                                            id="examID"
-                                                                                            name="examID"
-                                                                                            value={examID}
-                                                                                            onChange={this.handleChange}
-                                                                                            required>
-                                                                                            <option >
-                                                                                                L'Examen
-                                                                                                                                                                    </option>
-                                                                                            {exams && exams.map((item) => (
-                                                                                                <option key={item.id} value={item.id}>
-                                                                                                    {item.examName}
-                                                                                                </option>
-                                                                                            ))}
-                                                                                        </select>
-
-                                                                                        <div className="submitButton">
-                                                                                            <button type="submit">
-                                                                                                Valid{loading
-                                                                                                    ? 'ation en cours'
-                                                                                                    : 'er'}
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </OtherSelect>
-                                                                                </StyledDivision>
-                                                                            </fieldset>
-                                                                        </Form>
-                                                                    </MiniStyledPage>
-                                                                )
-                                                                }
-                                                            </Query>
-
+                                                                                            </InputGroup>
+                                                                                            <ButtonStyled>
+                                                                                                <StyledButton  onclick={load} type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
+                                                                                            </ButtonStyled>
+                                                                                        </AllControls>
+                                                                                    </Form>
+                                                                                </StyledForm>
+                                                                            </MinimStyledPage>
+                                                                        </Formik>
+                                                                    )
+                                                                }}</Query>
                                                         )
-                                                    }}
-                                                </Query>
+                                                    }}</Query>
                                             )
-                                        }}
-                                    </Query>
-                                );
+                                        }}</Query>
+                                )
                             }
-                            }
-                        </Query>
-                    );
+                            }</Query>
+                    )
                 }
-                }
-            </Query>
-
+                }</Query>
 
         );
     }
 }
-
 export default NewGenCenterResults;

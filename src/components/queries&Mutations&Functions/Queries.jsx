@@ -57,6 +57,15 @@ const getAllRegionsQuery = gql`
     }
   }
 `;
+const getAllCountrysQuery = gql`
+  query getAllCountrysQuery {
+    countrys(orderBy: countryName_ASC) {
+      countryName
+      countryCode
+      id
+    }
+  }
+`;
 const getCenterResultsQuery = gql`
   query getCenterResultsQuery(
     $exam: ExamWhereUniqueInput!
@@ -1202,6 +1211,7 @@ export {
   centerExamSessionSeriesResultsQuery,
   dataForAverage,
   getAllPhasesQuery,
+  getAllCountrysQuery,
   singleExaminerQuery,
   getSingleProfQuery,
   getASinglePhaseRankQuery,

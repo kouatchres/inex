@@ -336,6 +336,16 @@ const MegaMenu = () => (
                     <a>Resultats Du Candidat</a>
                   </Link>
                 </ul>
+                <ul>
+                  <h3 className="menu-category">Pays</h3>
+                  <hr />
+                  <Link href="/creates/newCountry">
+                    <a>Nouveau pays</a>
+                  </Link>
+                  <Link href="/show/results">
+                    <a>Modify counr</a>
+                  </Link>
+                </ul>
               </div>
               <div className="menu-col-4">
                 <ul>

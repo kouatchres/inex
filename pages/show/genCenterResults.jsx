@@ -1,10 +1,10 @@
 import React from "react";
-import GenCenterResults from "../../src/components/score/center/GenCenterResults"
+import NewGenCenterResults from "../../src/components/score/center/NewGenCenterResults"
 
 function genCenterResults({ query }) {
     return (
         <div>
-            <GenCenterResults id={query.id} />
+            <NewGenCenterResults id={query.id} />
         </div>
     );
 }

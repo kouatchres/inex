@@ -99,7 +99,7 @@ const BiggestStyledPage = styled.div`
   display: block;
   margin: 0 auto;
   text-align: center;
-  max-width: 50vw;
+  max-width: 90vw;
   min-width: 20rem;
   height: 100vh;
 background-color: ${props => props.theme.pureWhite};

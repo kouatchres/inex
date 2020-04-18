@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import Form from "../styles/Form";
-import { StyledPage } from "../styles/StyledPage";
+import { BiggestStyledPage } from "../styles/StyledPage";
 import { format } from "date-fns";
-import SubjectList from '../results/SubjectList'
+import SubjectList from '../results/candidate/SubjectList'
 import { getCandidateResultsQuery } from "../queries&Mutations&Functions/Queries";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
@@ -26,7 +26,7 @@ const TitleItem = styled.div`
 
 const ResultsHeader = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 18fr ;
+  grid-template-columns:repeat(auto-fit, minmax(15rem, 1fr));
   justify-items: center;
   align-items: center;
 `;
@@ -42,13 +42,15 @@ margin: 0 0.3rem;
 
 const SchoolInfo2 = styled.div`
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   justify-items: center;
   align-items: center;
   font-size:1.5rem;
 margin: 0 0.3rem;
 `;
-
+const FieldSetStyled = styled.fieldset`
+min-width: 20rem;
+`;
 const SchoolInfoBlock = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -62,32 +64,37 @@ border-bottom: .1rem solid ${props => props.theme.black};
 
 `;
 const CandPic = styled.div`
-  margin-top: 1rem;
-  display: block;
-  flex-direction: column;
-
-  img {
-    height: 30vh;
-    width: 15vw;
-    border-radius: 0.5rem;
-  }
+  display: flex;
+	flex-direction: column;
+	margin-bottom: .5rem;
+	img {
+		margin-top: .5rem;
+		margin-left: .5rem;
+		height: 15rem;
+		width: 13rem;
+		border-radius: 0.7rem;
+		background-size: contain;
+		background-position: center;
+	}
 `;
 
 const FirstInfo = styled.div`
   display: block;
+  text-align:left;
   flex-direction: column;
   font-size:1.5rem;
   line-height:0.3rem;
+  min-width: 13rem;
 `;
 
 const Signature = styled.div`
+margin-top:1.5rem;
+padding:3rem;
   display: grid;
-grid-template-columns: 1fr 1fr;
-grid-gap:1rem;
+grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+grid-gap:3rem;
   font-size:1.5rem;
   line-height:0.3rem;
-  background: ${props => props.theme.silverGrey};
-  padding:3rem;
   justify-content: center;
   align-items: center;
 `;
@@ -107,7 +114,7 @@ class RegistrationReceipt extends Component {
                     const { exam, session } = { ...examSession }
 
                     return (
-                        <StyledPage>
+                        <BiggestStyledPage>
                             <Form
                                 onSubmit={e => {
                                     e.preventDefault();
@@ -117,11 +124,16 @@ class RegistrationReceipt extends Component {
                                     Reçu d'inscription de: {candidate.cand1stName} {candidate.cand2ndName} {candidate.cand3rdName}
                                 </h4>
                                 <Error error={error} />
-                                <fieldset disabled={loading} aria-busy={loading}>
+                                <FieldSetStyled disabled={loading} aria-busy={loading}>
                                     <SchoolInfoBlock>
                                         <SchoolInfo>
                                             <span>
-                                                <strong> Centre D'Examen: </strong> {center.centerName}
+                                                <hr />
+                                                <strong> Centre D'Examen: </strong>
+                                                <hr />
+                                            </span>
+                                            <span>
+                                                {center.centerName}
                                             </span>
                                         </SchoolInfo>
                                         <SchoolInfo2>
@@ -134,15 +146,23 @@ class RegistrationReceipt extends Component {
                                         </SchoolInfo2>
                                         <SchoolInfo>
                                             <span>
-                                                <strong> Numero d'Inscritption: </strong> {candRegistrationNumber}
+                                                <hr />
+                                                <strong>Inscritption: </strong>
+                                                <hr />
                                             </span>
                                             <span>
-                                                <strong> Date d'Inscritption: </strong> {format(createdAt, 'd  MMM, yyyy , HH:MM:SS')}
+                                                <strong> Numero: </strong> {candRegistrationNumber}
+                                            </span>
+                                            <span>
+                                                <strong> Date: </strong> {format(createdAt, 'd  MMM, yyyy , HH:MM:SS')}
                                             </span>
 
 
                                             <span>
                                                 <strong> Specialization: </strong>
+                                                <hr />
+                                            </span>
+                                            <span>
                                                 {series.seriesName}
                                             </span>
                                         </SchoolInfo>
@@ -172,14 +192,21 @@ class RegistrationReceipt extends Component {
                                             </p>
                                             <p>
                                                 <span>
-                                                    <strong> Lieu de Naissance: </strong> {candidate.placeOfBirth}
+                                                    <hr />
+                                                    <strong>Naissance: </strong>
+                                                    <hr />
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    <strong> Lieu: </strong> {candidate.placeOfBirth}
                                                 </span>
                                             </p>
 
 
                                             <p>
                                                 <span>
-                                                    <strong> Date de Naissance: </strong>
+                                                    <strong> Date: </strong>
                                                     {format(candidate.dateOfBirth, "d MMMM, YYYY ")}
                                                 </span>
                                             </p>
@@ -198,12 +225,19 @@ class RegistrationReceipt extends Component {
 
                                             <p>
                                                 <span>
-                                                    <strong> Noms du Père: </strong> {candidate.dadName}
+                                                    <hr />
+                                                    <strong> Noms des parents: </strong>
+                                                    <hr />
                                                 </span>
                                             </p>
                                             <p>
                                                 <span>
-                                                    <strong> Noms de la Mère: </strong> {candidate.momName}
+                                                    <strong>Père: </strong> {candidate.dadName}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                <span>
+                                                    <strong>Mère: </strong> {candidate.momName}
                                                 </span>
                                             </p>
 
@@ -225,9 +259,9 @@ class RegistrationReceipt extends Component {
                                         <FirstInfo>Candidat:</FirstInfo>
                                         <FirstInfo>Proviseur/Directeur:</FirstInfo>
                                     </Signature>
-                                </fieldset>
+                                </FieldSetStyled>
                             </Form>
-                        </StyledPage>
+                        </BiggestStyledPage>
                     );
                 }}
             </Query>

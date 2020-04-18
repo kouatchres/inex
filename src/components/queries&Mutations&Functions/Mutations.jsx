@@ -433,12 +433,22 @@ const createNewRankMutation = gql`
       rankName
     }
   }
-`
+`;
+
 const createNewRegionMutation = gql`
   mutation createNewRegionMutation($regName: String!, $regCode: String!) {
     createRegion(regName: $regName, regCode: $regCode) {
       id
       regName
+    }
+  }
+`
+
+const createNewCountryMutation = gql`
+  mutation createNewCountryMutation($countryName: String!, $countryCode: String!) {
+    createCountry(countryName: $countryName, countryCode: $countryCode) {
+      id
+      countryName
     }
   }
 `
@@ -807,6 +817,7 @@ export {
   updateSeriesMutation,
   updateRankMutation,
   createPhaseRankMutation,
+  createNewCountryMutation,
   signUpMutation,
   updateSubjectMutation,
   updateSubjectTypeMutation,
