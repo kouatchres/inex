@@ -1,11 +1,11 @@
 import React from 'react';
-import EnterNewMarks from '../../src/components/score/EnterNewMarks';
+import EnterNewMarksHook from '../../src/components/score/EnterNewMarksHook';
 
 
 const newMarks = () => {
 	return (
 		<div>
-			<EnterNewMarks />
+			<EnterNewMarksHook />
 		</div>
 	);
 };

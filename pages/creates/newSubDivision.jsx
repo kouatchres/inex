@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateNewSubDivision from '../../src/components/subDivision/CreateNewSubDivision';
+import SubDivHooks from '../../src/components/subDivision/SubDivHooks'
 
 const newSubDivision = (props) => {
 	return (
 		<div>
-			<CreateNewSubDivision />
+			<SubDivHooks />
 		</div>
 	);
 };

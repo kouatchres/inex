@@ -139,7 +139,7 @@ class NewGenCenterResults extends Component {
                                             exam: refinedExams && getSelectedObject(refinedExams, examID),
                                             session: refinedSessions && getSelectedObject(refinedSessions, sessionID)
                                         }} delay="skip" >
-                                        {({ data, error, loading , load}) => {
+                                        {({ data, error, loading, load }) => {
                                             console.log(`examName-- ${getExamName}, examen--${examID},  session- ${sessionID}`);
                                             console.log(data)
                                             const { examSessions } = { ...data }
@@ -197,8 +197,8 @@ class NewGenCenterResults extends Component {
                                                                                             <InputGroup>
                                                                                                 <SygexInput
                                                                                                     value={centerByNumber && centerByNumber.centerCode}
-                                                                                                    name="centerName" type="text" placeholder=" Nom du centre" />
-                                                                                                <SygexInput onChange={this.handleChange} name="centerNumber" type="number" placeholder="no du centre" />
+                                                                                                    name="centerName" type="text" label=" Nom du centre" />
+                                                                                                <SygexInput onChange={this.handleChange} name="centerNumber" type="number" label="no du centre" />
 
                                                                                                 <SygexSelect onChange={this.handleChange} name="sessionID">
                                                                                                     <option>La session</option>
@@ -211,7 +211,7 @@ class NewGenCenterResults extends Component {
 
                                                                                             </InputGroup>
                                                                                             <ButtonStyled>
-                                                                                                <StyledButton  onclick={load} type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
+                                                                                                <StyledButton onclick={load} type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
                                                                                             </ButtonStyled>
                                                                                         </AllControls>
                                                                                     </Form>

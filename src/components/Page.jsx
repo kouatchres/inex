@@ -1,10 +1,21 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider, injectGlobal } from "styled-components";
 import Header from "./Header";
+import Footer from "./Footer";
 import Meta from "./Meta";
 
 const theme = {
-  maxWidth: "1000px",
+  maxWidth: "1000p",
+  quarterBB: " #003c96",
+  lightestBB: "#b3b4d1",
+  britishRed: "#d4351c",
+  complementaryBB: "#784800",
+  complementaryBB1: "#007860",
+  complementaryBB2: "#006078",
+  complementaryBB3: "#007078",
+  americanBlue: "#1d70b8",
+  britishBlue: "#003078",
+  britishLightBlue: "#1d70b8",
   red: "#FF0000",
   googleBlue: "#359",
   goldenBrown: "#d17f05",
@@ -25,38 +36,65 @@ const theme = {
   sand: '#eea549',
   reddishBrown: '#f57836',
   buff: '#edb879',
-  grey: [
-    '#FAFAFA',
-    '#F2F2F2',
-    '#E6E5E5',
-    '#D9D8D8',
-    '#CDCCCB',
-    '#C0BFBF',
-    '#B3B2B2',
-    '#A7A5A5',
-    '#9A9898',
-    '#817E7E',
-    '#747272',
-    '#676565',
-    '#5A5858',
-    '#4D4C4C',
-    '#403F3F'
+  blues: [
+    '#729fbf',
+    '#b6c7d6',
+    '#0780b7',
+    '#68a1c5',
+    '#014e98',
+    '#2782b0',
+    '#5EC9F9',
+    '#c8e5eb',
+    '#b1dee3',
+    '#bde4e9',
+    '#cce7e8',
   ],
-  bs: "0.7rem 0.7rem 0.5rem  rgba(0,0,0,0.9)",
-  bs2: "0.03rem .2rem 0.2rem 0.03rem rgba(0,0.3,0,0.2)",
-  bs3: "0 .1rem 1.5rem 0.5rem rgba(0,0,0.8,0.9)"
-};
 
-const StyledPage = styled.div`
-  background: ${props => props.theme.slightGrey};
-  color: ${props => props.theme.black};
+  lightBlues: [
+    '#c8e4f3',
+    '#d1e8ed',
+    '#b3d3ea',
+    '#c5e2f2',
+    '#f1f5ff',
+    '#e6ecfe'
+  ],
+  greys: [
+    '#F9FAFC',
+    '#F2F2F6',
+    '#aaabaa',
+    '#999',
+    '#fcfcfc',
+    '#c8c8c8',
+  ],
+  formBS3: " inset 0.7rem 0.7rem 0.5rem  rgba(0,0,0,0.9)",
+  formBS4: " inset 0.08rem 1rem 1rem 0.03rem rgba(0,0.3,0,0.2)",
+
+  formBS: " inset  0.1rem .05rem 0.5rem rgba(0,0,0.8,0.5)",
+  formBS2: " inset  0 0 2px 2px rgba(0,0,0.4,0.1)",
+  formBS1: " 2px 2px 2px 2px rgba(0,0,0.4,0.1)",
+};
+11
+const GenPage = styled.div`
+/* padding-top:4rem; */
+position: relative;
+display:flex; 
+flex-direction:column; 
+justify-content: center;
+align-items: center;
+width:100vw;
+font-family:"Roboto Slab";
+min-height:100vh;
+background: ${props => props.theme.lightBlues[4]};
+
 `;
 
 const Inner = styled.div`
-  max-width: ${props => props.theme.maxWidth};
+position:relative;
   margin: 0 auto;
-  /* padding: 3rem; */
-  background: ${props => props.theme.slightGrey};
+  padding:2rem;
+  background: ${props => props.theme.pureWhite};
+  border-radius:0.5rem;
+  border: 0.09rem solid ${props => props.theme.blues[2]};
 `;
 
 injectGlobal`
@@ -89,7 +127,7 @@ injectGlobal`
 
   html {
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 11px;
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -100,7 +138,6 @@ injectGlobal`
     padding:0;
     margin: 0;
     font-size: 2rem;
-    line-height: 2;
     font-family: "Roboto Slab";
     font-weight: 500;
     font-style: normal;
@@ -111,9 +148,9 @@ injectGlobal`
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Slab";
-    font-size:1.8rem;
+    font-size:2rem;
     font-weight: 500;
-    font-style: normal;
+    font-style: bold;
 }
 
 a
@@ -130,15 +167,17 @@ a
 }
 `;
 
+
 class Page extends Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <StyledPage>
+        <GenPage>
           <Meta />
           <Header />
           <Inner>{this.props.children}</Inner>
-        </StyledPage>
+          <Footer />
+        </GenPage>
       </ThemeProvider>
     );
   }

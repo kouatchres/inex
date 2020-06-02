@@ -118,7 +118,10 @@ class NewGenCenterResults extends Component {
 
                                             exam: refinedExams && getSelectedObject(refinedExams, examID),
                                             session: refinedSessions && getSelectedObject(refinedSessions, sessionID)
-                                        }}  >
+                                        }}
+                                        skip={getAllSessionsQuery.loading}
+                                        skip={getAllExamsQuery.loading}
+                                    >
                                         {({ data, error, loading }) => {
                                             {
                                                 loading && (
@@ -139,7 +142,9 @@ class NewGenCenterResults extends Component {
 
                                             return (
                                                 <Query query={getSingleCenterQuery}
-                                                    variables={{ centerNumber: centerNumber, }}  >
+                                                    variables={{ centerNumber: centerNumber }}
+                                                    skip={getExamSessionQuery.loading}
+                                                >
                                                     {({ data, error, loading }) => {
                                                         {
                                                             loading && (
@@ -163,7 +168,10 @@ class NewGenCenterResults extends Component {
                                                                     ...this.state,
                                                                     center: centerByNumber && centerByNumber,
                                                                     examSession: reducedES && reducedES,
-                                                                }}>
+                                                                }}
+                                                                skip={getExamSessionQuery.loading}
+                                                                skip={getSingleCenterQuery.loading}
+                                                            >
                                                                 {(centerExamSessions) => (
 
                                                                     <MiniStyledPage>
@@ -190,14 +198,7 @@ class NewGenCenterResults extends Component {
                                                                                             wrap="soft"
                                                                                             readOnly
                                                                                         />
-                                                                                        <input
-                                                                                            type="number"
-                                                                                            id="centerNumber"
-                                                                                            name="centerNumber"
-                                                                                            placeholder="Numéro du centre"
-                                                                                            value={centerNumber}
-                                                                                            onChange={this.handleChange}
-                                                                                            required />
+
                                                                                         <select
                                                                                             type="select"
                                                                                             id="sessionID"
@@ -231,6 +232,14 @@ class NewGenCenterResults extends Component {
                                                                                                 </option>
                                                                                             ))}
                                                                                         </select>
+                                                                                        <input
+                                                                                            type="number"
+                                                                                            id="centerNumber"
+                                                                                            name="centerNumber"
+                                                                                            placeholder="Numéro du centre"
+                                                                                            value={centerNumber}
+                                                                                            onChange={this.handleChange}
+                                                                                            required />
 
                                                                                         <div className="submitButton">
                                                                                             <button type="submit">

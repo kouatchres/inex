@@ -1,11 +1,11 @@
 import React from 'react';
-import CreateNewSubject from '../../src/components/subject/CreateNewSubject';
+import CreateNewSubjectHook from '../../src/components/subject/CreateNewSubjectHook';
 
-const NewSubject = () => {
+const newSubject = () => {
 	return (
 		<div>
-			<CreateNewSubject />
+			<CreateNewSubjectHook />
 		</div>
 	);
 };
-export default NewSubject;
+export default newSubject;

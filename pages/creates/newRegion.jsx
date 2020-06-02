@@ -1,13 +1,12 @@
 import React from 'react';
-import CreateRegionFormik from '../../src/components/region/CreateRegionFormik';
-import styled from 'styled-components';
+import NewRegionHooks from '../../src/components/region/NewRegionHooks';
 
 
-const NewRegion = () => {
+const newRegion = () => {
 	return (
 		<div>
-			<CreateRegionFormik />
+			<NewRegionHooks />
 		</div>
 	);
 };
-export default NewRegion;
+export default newRegion;

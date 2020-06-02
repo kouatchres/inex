@@ -20,7 +20,7 @@ const StyledDivision = styled.div`
 	text-align: center;
 	margin: 0 auto;
     .submitButton{
-paddding-top:2rem;
+    paddding-top:2rem;
     }
 `;
 
@@ -80,21 +80,13 @@ class CenterCompleteResults extends Component {
                     const { exams } = data;
                     console.log(exams);
 
-                    const refinedExams = exams && exams.map(({
-                        __typename,
-                        examName,
-                        ...others
-                    }) => others);
+                    const refinedExams = exams && exams.map(({ __typename, examName, ...others }) => others);
 
                     return (
                         <Query query={getAllSessionsQuery}>
                             {({ data, loading, error }) => {
                                 {
-                                    loading && (
-                                        <p >
-                                            loading...
-                                        </p>
-                                    );
+                                    loading && (<p >     loading... </p>);
                                 }
                                 {
                                     error && (<Error error={error} />);
@@ -102,11 +94,7 @@ class CenterCompleteResults extends Component {
 
                                 const { sessions } = data;
                                 console.log(sessions);
-                                const refinedSessions = sessions && sessions.map(({
-                                    __typename,
-                                    sessionName,
-                                    ...others
-                                }) => others);
+                                const refinedSessions = sessions && sessions.map(({ __typename, sessionName, ...others }) => others);
 
                                 return (
 

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 
 const RegionRow = styled.div`
+
 text-align:left;
 	display: grid;
 	grid-template-columns:2fr repeat(7, 1fr);

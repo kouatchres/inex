@@ -134,12 +134,13 @@ const createNewReportMutation = gql`
   mutation createNewReportMutation(
     $reportImage: String!
     $reportName: String!
-    $centerAdmin: CenterAdminWhereUniqueInput!
+    $centerExamSessionExaminer: CenterExamSessionExaminerWhereUniqueInput!
+
   ) {
     createReport(
       reportImage: $reportImage
       reportName: $reportName
-      centerAdmin: $centerAdmin
+      centerExamSessionExaminer: $centerExamSessionExaminer
     ) {
       id
       reportName
@@ -207,9 +208,10 @@ const createCenterExamSessionMutation = gql`
 const createPhaseRankMutation = gql`
   mutation createPhaseRankMutation(
     $phase: PhaseWhereUniqueInput!
-    $rank:  RankWhereUniqueInput!                                                                                                                                                                    
+    $rankName:  String!                                                                                                                                                                    
+    $rankCode:  String!                                                                                                                                                                   
   ) {
-    createPhaseRank(phase: $phase, rank: $rank){                                                                                                                                                                      
+    createPhaseRank(phase: $phase, rankName : $rankName, rankCode: $rankCode ){                                                                                                                                                                      
       id
     }
   }
@@ -276,7 +278,7 @@ const createDivisionMutation = gql`
   mutation createDivisionMutation(
     $divName: String!
     $divCode: String!
-    $region: RegionCreateWithoutDivisionInput!
+    $region: RegionWhereUniqueInput!
   ) {
     createDivision(divName: $divName, divCode: $divCode, region: $region) {
       id
@@ -436,10 +438,51 @@ const createNewRankMutation = gql`
 `;
 
 const createNewRegionMutation = gql`
-  mutation createNewRegionMutation($regName: String!, $regCode: String!) {
-    createRegion(regName: $regName, regCode: $regCode) {
+  mutation createNewRegionMutation(
+    $regName: String!
+     $regCode: String!
+      $country: CountryWhereUniqueInput!
+      ) {
+    createRegion(
+       country: $country 
+        regName: $regName
+         regCode: $regCode
+         ) {
       id
       regName
+    }
+  }
+`
+
+const signupUserMutation = gql`
+  mutation signupUserMutation(
+    $name: String!
+     $email: String!
+      $password: String!
+      ) {
+    signup(
+       password: $password 
+        name: $name
+         email: $email
+         ) {
+      id
+      name
+      email
+    }
+  }
+`
+
+const loginUserMutation = gql`
+  mutation loginUserMutation(
+     $email: String!
+      $password: String!
+      ) {
+    login(
+       password: $password 
+         email: $email
+         ) {
+      id
+      email
     }
   }
 `
@@ -449,6 +492,7 @@ const createNewCountryMutation = gql`
     createCountry(countryName: $countryName, countryCode: $countryCode) {
       id
       countryName
+      countryCode
     }
   }
 `
@@ -577,6 +621,7 @@ const createExaminerMutation = gql`
     $examinerMatricule: String!
     $examinerImage: String!
     $examinerPhone: Int!
+    $gender: GenderWhereUniqueInput!
   ) {
     createExaminer(
       examiner1stName: $examiner1stName
@@ -588,6 +633,7 @@ const createExaminerMutation = gql`
       examinerEmail: $examinerEmail
       examinerImage: $examinerImage
       examinerPhone: $examinerPhone
+      gender: $gender
     ) {
       id
       examiner1stName
@@ -687,15 +733,24 @@ const updateScoreMutation = gql`
   }
 `
 
-const logInUserMutation = gql`
-  mutation logInUserMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      id
-      email
-      password
-    }
-  }
-`
+// const createUserMutation = gql`
+//   mutation createUserMutation(
+//     $email: String!
+//     $name: String!
+//     $password: String!
+//     ) {
+//     createUser( 
+//                email: $email!
+//                name: $name!
+//                password: $password!
+//                ) {
+//       id
+//       name
+//       email
+//       password
+//     }
+//   }
+// `
 
 const updateCandidateMutation = gql`
   mutation updateCandidateMutation(
@@ -732,7 +787,14 @@ const updateCandidateMutation = gql`
       cand1stName
       cand2ndName
       cand3rdName
+      momName
+      dadName
+      email
       image
+      phoneNumb
+      placeOfBirth
+      dateOfBirth
+      birthCertNumber
       gender {
         id
       }
@@ -806,7 +868,6 @@ export {
   updateExamMutation,
   updateSubDivisionMutation,
   updateGenderMutation,
-  logInUserMutation,
   updateCandidateMutation,
   updateScoreMutation,
   updateDivisionMutation,
@@ -824,4 +885,6 @@ export {
   createCenterExamSessionMutation,
   updateEducationTypeMutation,
   signInCandidate,
+  loginUserMutation,
+  signupUserMutation,
 }

@@ -4,7 +4,6 @@ import Form from '../styles/Form';
 import { MiniStyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage';
 import styled from 'styled-components';
-import Router from 'next/router'
 import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
 import { createCenterExamSessionSeriesMutation } from '../queries&Mutations&Functions/Mutations';
 import {
@@ -40,7 +39,7 @@ class CenterTakesSeries extends Component {
         sessionID: "",
         centerNumber: "",
         educTypeID: "",
-        SeriesID: "",
+        seriesID: "",
     };
 
     handleChange = (e) => {

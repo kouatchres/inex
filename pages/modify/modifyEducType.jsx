@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import SelectEducTypeToModify from "../../src/components/educationType/SelectEducTypeToModify";
+import EducTypeToModifyHook from "../../src/components/educationType/EducTypeToModifyHook";
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  justify-items: center;
-  align-content: center;
-`;
 const modifyRegion = props => {
   return (
-    <DivStyled>
-      <SelectEducTypeToModify />
-    </DivStyled>
+    <div>
+      <EducTypeToModifyHook />
+    </div>
   );
 };
 export default modifyRegion;

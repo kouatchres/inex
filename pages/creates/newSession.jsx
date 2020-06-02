@@ -1,12 +1,12 @@
 import React from 'react';
-import CreateNewSession from '../../src/components/session/CreateNewSession';
+import CreateNewSessionHook from '../../src/components/session/CreateNewSessionHook';
 import styled from 'styled-components';
 
 
 const NewSession = () => {
 	return (
 		<div>
-			<CreateNewSession />
+			<CreateNewSessionHook />
 		</div>
 	);
 };

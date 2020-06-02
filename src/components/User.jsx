@@ -1,27 +1,16 @@
-import React, { Component } from 'react'
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import PropTypes from 'prop-types'
+import { meQuery } from '../components/queries&Mutations&Functions/Queries'
 
-const getUsers = gql`
- query getUsers{
-   getUsers{
-   name  
-   email
-   id
-  }}
-`;
+const User = props => (
 
-class Regions extends Component {
-    render() {
-        return (
-            <div>
-                <Query query={getUsers}>
-                    {(payload) => {
-                        console.log(payload);
-                    }}
-                </Query>
-            </div>
-        )
-    }
+    <Query  {...props} query={meQuery} >
+        {payload => props.children(payload)}
+    </Query>
+)
+
+User.propTypes = {
+    children: PropTypes.func.isRequired,
 }
-export default Regions;
+
+export default User;

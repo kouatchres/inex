@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import SelectRankToModify from "../../src/components/rank/SelectRankToModify";
+import RankToModifyHook from "../../src/components/rank/RankToModifyHook";
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  justify-items: center;
-  align-content: center;
-`;
-const modifySeries = props => {
+const modifyRank = props => {
   return (
-    <DivStyled>
-      <SelectRankToModify />
-    </DivStyled>
+    <div>
+      <RankToModifyHook />
+    </div>
   );
 };
-export default modifySeries;
+export default modifyRank;

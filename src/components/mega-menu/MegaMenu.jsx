@@ -1,118 +1,187 @@
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import User from '../../components/User'
 
 const ToolBarNavItem = styled.div`
-  padding: 1.5rem;
+  /* padding: 1.5rem; */
   * {
     box-sizing: border-box;
   }
   .container {
-    max-width: 1000px;
+    padding-top:0.5rem;
+    max-width: 100vw;
     margin: 0 auto;
+    /* font-family:"Roboto Slab"; */
   }
 
-  body {
-    font-family: 'Roboto', 'Open Sans', 'Segoe UI', 'Helvetica Neue', Helvetica,
-      Arial, sans-serif;
-    margin: 0;
-  }
-  nav {
-    background: burlywood;
-    box-shadow: 0 4px 15px 0 rgbs(0, 0, 0, 0.8);
-    border-radius: 5rem;
-  }
-  nav ul {
-    list-style: none;
-    position: relative;
-    margin: 0;
-    padding: 0;
-  }
-  nav li {
-    display: inline-block;
-  }
-  nav a {
-    text-decoration: none;
-    display: block;
-    color: #000;
-    padding: 0.5rem 1.3rem;
-  }
+body {
+  font-family: 'Roboto Slab', 'Open Sans', 'Segoe UI', 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  background: ${ props => props.theme.blues[2]};
+  margin: 0;
+  padding: 0 2rem;
+  height: 3.5rem;
+  width: 100vw;
+  color: ${ props => props.theme.pureWhite}
+}
 
-  nav li:hover {
-    border-top-right-radius: 0.8rem;
-    border-top-left-radius: 0.8rem;
-    background: #808080;
-    color: #fff;
+nav ul {
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+ 
+nav li {
+  display: inline-block;
+} 
+nav a {
+  text-decoration: none;
+  display: block;
+  color: ${ props => props.theme.pureWhite};
+  padding: 0.5rem 1.3rem;
+    :hover{
+    color: ${ props => props.theme.britishLightBlue};
+
   }
+}
+
+nav li:hover {
+  border-top-right-radius: 0.8rem;
+  border-top-left-radius: 0.8rem;
+  background: ${ props => props.theme.pureWhite};
+  color: ${ props => props.theme.britishBlue};
+
+}
+  
   .menu-sub {
-    width: 100%;
-    position: absolute;
-    background: #808080;
-    color: #fff;
-    display: none;
-    padding: 1rem;
-    border-bottom-right-radius: 0.8rem;
-    border-bottom-left-radius: 0.8rem;
-    border-top-right-radius: 0.8rem;
-  }
-  nav li:hover .menu-sub {
-    display: block;
-  }
+  width: 100 %;
+  position: absolute;
+  background: ${ props => props.theme.pureWhite};
+  color: ${ props => props.theme.britishBlue};
+  display: none;
+  padding: 1rem;
+  border-bottom-right-radius: 0.8rem;
+  border-bottom-left-radius: 0.8rem;
+  box-shadow:${props => props.theme.formBS};
+}
+nav li:hover .menu-sub {
+  display: block;
+}
   .menu-sub li {
-    display: block;
-  }
+  display: block;
+}
   .menu-sub a {
-    margin: 0;
-    padding: 0;
-    font-size: 1.1rem;
-    color: #fff;
-    /* margin: 0.1rem; */
-  }
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  color: ${ props => props.theme.britishBlue};
+  /* margin: 0.1rem; */
+}
 
   .menu-sub a:hover {
-    text-decoration: underline;
-  }
+  text-decoration: underline;
+}
+  .menu-sub-user {
+  width: 70 %;
+  position: absolute;
+  background: ${ props => props.theme.blues[2]};
+  color: ${ props => props.theme.pureWhite};
+  display: none;
+  padding: 1rem;
+  border-bottom-right-radius: 0.8rem;
+  border-bottom-left-radius: 0.8rem;
+}
+nav li:hover .menu-sub-user {
+  display: block;
+}
+  .menu-sub-user li {
+  display: block;
+}
+  .menu-sub-user a {
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  color: ${ props => props.theme.pureWhite};
+  /* margin: 0.1rem; */
+}
+
+  .menu-sub-user a:hover {
+  text-decoration: underline;
+}
   .menu-category {
-    font-size: 1.1rem;
-    margin-bottom: 0;
-    margin-bottom: 0.5rem;
-    text-align: left;
-    text-transform: uppercase;
-  }
-  .menu-category :first-of-type {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+  font-size: 1.3rem;
+  margin-top: 0;
+  color: ${ props => props.theme.britishBlue}
+  margin-bottom: 0.5rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+  .menu-category:first-of-type {
+  margin-top: 0;
+  margin-bottom: 0;
+}
   .menu-col-1,
   .menu-col-2,
   .menu-col-3,
   .menu-col-4 {
-    float: left;
-  }
+  float: left;
+}
   .menu-col-1,
   .menu-col-2,
   .menu-col-3,
   .menu-col-4 {
-    width: 25%;
-    padding: 1rem;
-    border-right: 1px solid #fff;
-  }
+  width: 25 %;
+  padding: 1rem;
+  border-right: 1px solid #fff;
+}
   .menu-category:last-of-type {
-    border-right: none;
+  border-right: none;
+}
+hr {
+  margin: 0;
+  padding: 0;
+}
+@media(max-width:650){
+  body{
+    /* overflow-x: hidden; */
   }
-  hr {
-    margin: 0;
-    padding: 0;
+  nav {
+    position:absolute;
+    right:0;
+    height:90vh;
+    top:3.5rem;
+    background: ${props => props.theme.blues[2]};
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:50%
+    transform: translateX(100%);
+    transistion:transform 0.5s ease-in;
+    
   }
-`
+  nav li{
+    display:block;
+    /* opacity:0; */
+  }
+  
+}
+`;
 
 const MegaMenu = () => (
   <ToolBarNavItem>
     <nav>
       <div className="container">
+
+
         <ul className="menu-main">
           <li>
-            <a href="/">Entrer Information</a>
+            <a href="/">Administration</a>
             <div className="menu-sub">
               <div className="menu-col-1">
                 <ul>
@@ -452,14 +521,355 @@ const MegaMenu = () => (
           </li>
 
           <li>
+            <a href="/creates/newRegister">Candidate</a>
+            <div className="menu-sub">
+
+              <div className="menu-col-2">
+                <ul>
+                  <h3 className="menu-category">Inscription</h3>
+                  <hr />
+                  <Link href="/creates/newRegister">
+                    <a> Nouvelle Inscription</a>
+                  </Link>
+                  <Link href="/modify/modifyRegistration">
+                    <a>Modifier Inscription</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Resultats</h3>
+                  <hr />
+                  <Link href="/show/genCenterResults">
+                    <a>Resultats Centre</a>
+                  </Link>
+                  <Link href="/show/results/candCodeResults">
+                    <a>Resultat Candidat</a>
+                  </Link>
+                  <hr />
+                </ul>
+              </div>
+              <div className="menu-col-3">
+                <ul>
+                  <h3 className="menu-category">Utilisateur</h3>
+                  <hr />
+                  <Link href="/creates/newUser">
+                    <a>Nouveau Utilisateur</a>
+                  </Link>
+                  <Link href="/modify/modifyUser">
+                    <a>Modifier Utilisateur</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Resultats Centre</h3>
+                  <hr />
+                  <Link href="/show/results/centerResults/getCompleteCenterResults">
+                    <a>Resultats Complet du Centre</a>
+                  </Link>
+                  <Link href="/show/results/centerResults/centerResultsPerSeries">
+                    <a>Resultats du Centre par Serie</a>
+                  </Link>
+
+                  <Link href="/show/results/candidateResults/getCandidateResultsFromRegNo">
+                    <a>Resultats Du Candidat</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Candidat</h3>
+                  <hr />
+                  <Link href="/creates/newCand">
+                    <a>nouveau Candidat</a>
+                  </Link>
+                  <Link href="/show/candidatePage">
+                    <a>Liste Candidats</a>
+                  </Link>
+                  <Link href="/modify/modifyCandidate">
+                    <a>Modifier Candidat</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Charge de centre</h3>
+                  <hr />
+                  <Link href="/creates/newExaminer">
+                    <a>Inscription des Charge de centre </a>
+                  </Link>
+                  <Link href="/modify/modifyExaminer">
+                    <a>Modifier Charge de centre</a>
+                  </Link>
+                  <Link href="/signInOut/signUp">
+                    <a>SignUp</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Phase de l'Examen
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newPhase">
+                    <a>Nouvelle Phase de l'Examen </a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Inscrire Postes aux Phases de l'Examen
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newPhaseRank">
+                    <a>Postes aux Phases de l'Examen </a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Inscrire Prof au centre d'Examen
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newCESExaminer">
+                    <a>Prof s'inscrire au centre d'Examen </a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Examen Pour Session par Centre
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newCenterExamSession">
+                    <a>Inscrire Centre a l'Examen </a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Series par Centre</h3>
+                  <hr />
+                  <Link href="/creates/newCenterExamSessionSeries">
+                    <a>Inscrire Series aux centres </a>
+                  </Link>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="/creates/newRegister">Centre</a>
+            <div className="menu-sub">
+              <div className="menu-col-1">
+                <ul>
+                  <h3 className="menu-category">Notes</h3>
+                  <hr />
+                  <Link href="/creates/newMarks">
+                    <a>Inscrire Notes</a>
+                  </Link>
+                  <Link href="/modify/modifyMarks">
+                    <a>Modifier Notes</a>
+                  </Link>
+                </ul>
+
+                <ul>
+                  <h3 className="menu-category">Inscription</h3>
+                  <hr />
+                  <Link href="/creates/newRegister">
+                    <a> Nouvelle Inscription</a>
+                  </Link>
+                  <Link href="/modify/modifyRegistration">
+                    <a>Modifier Inscription</a>
+                  </Link>
+                </ul>
+
+                <ul>
+                  <h3 className="menu-category">Resultats</h3>
+                  <hr />
+                  <Link href="/show/genCenterResults">
+                    <a>Resultats Centre</a>
+                  </Link>
+                  <Link href="/show/results/candCodeResults">
+                    <a>Resultat Candidat</a>
+                  </Link>
+                  <hr />
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Listes</h3>
+                  <hr />
+                  <Link href="/show/lists/centersPerTown">
+                    <a>Centres par Ville</a>
+                  </Link>
+                  <Link href="/show/lists/subjPerSeries">
+                    <a>Matieres par Serie</a>
+                  </Link>
+                  <Link href="/show/lists/subjPerSeries">
+                    <a>Matieres par Serie</a>
+                  </Link>
+                  <Link href="/show/lists/subjPerSeries">
+                    <a>Matieres par Serie</a>
+                  </Link>
+                  <Link href="/show/lists/subjPerSeries">
+                    <a>Matieres par Serie</a>
+                  </Link>
+                  <hr />
+                </ul>
+              </div>
+              <div className="menu-col-2">
+                <ul>
+                  <h3 className="menu-category">Utilisateur</h3>
+                  <hr />
+                  <Link href="/creates/newUser">
+                    <a>Nouveau Utilisateur</a>
+                  </Link>
+                  <Link href="/modify/modifyUser">
+                    <a>Modifier Utilisateur</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Resultats Centre</h3>
+                  <hr />
+                  <Link href="/show/results/centerResults/getCompleteCenterResults">
+                    <a>Resultats Complet du Centre</a>
+                  </Link>
+                  <Link href="/show/results/centerResults/centerResultsPerSeries">
+                    <a>Resultats du Centre par Serie</a>
+                  </Link>
+
+                  <Link href="/show/results/candidateResults/getCandidateResultsFromRegNo">
+                    <a>Resultats Du Candidat</a>
+                  </Link>
+                </ul>
+
+                <ul>
+                  <h3 className="menu-category">Candidat</h3>
+                  <hr />
+                  <Link href="/creates/newCand">
+                    <a>nouveau Candidat</a>
+                  </Link>
+                  <Link href="/show/candidatePage">
+                    <a>Liste Candidats</a>
+                  </Link>
+                  <Link href="/modify/modifyCandidate">
+                    <a>Modifier Candidat</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Charge de centre</h3>
+                  <hr />
+                  <Link href="/creates/newExaminer">
+                    <a>Inscription des Charge de centre </a>
+                  </Link>
+                  <Link href="/modify/modifyExaminer">
+                    <a>Modifier Charge de centre</a>
+                  </Link>
+                  <Link href="/signInOut/signUp">
+                    <a>SignUp</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Inscrire Prof au centre d'Examen
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newCESExaminer">
+                    <a>Prof s'inscrire au centre d'Examen </a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Examen Pour Session par Centre
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newCenterExamSession">
+                    <a>Inscrire Centre a l'Examen </a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Series par Centre</h3>
+                  <hr />
+                  <Link href="/creates/newCenterExamSessionSeries">
+                    <a>Inscrire Series aux centres </a>
+                  </Link>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="/creates/newRegister">Examinateur</a>
+            <div className="menu-sub">
+              <div className="menu-col-1">
+                <ul>
+                  <h3 className="menu-category">Notes</h3>
+                  <hr />
+                  <Link href="/creates/newMarks">
+                    <a>Inscrire Notes</a>
+                  </Link>
+                  <Link href="/modify/modifyMarks">
+                    <a>Modifier Notes</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Utilisateur</h3>
+                  <hr />
+                  <Link href="/creates/newUser">
+                    <a>Nouveau Utilisateur</a>
+                  </Link>
+                  <Link href="/modify/modifyUser">
+                    <a>Modifier Utilisateur</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Rapports</h3>
+                  <hr />
+                  <Link href="/creates/newReport">
+                    <a>charger rapport </a>
+                  </Link>
+                  <Link href="/modify/modifyReport">
+                    <a>Modifier rapport</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">Charge de centre</h3>
+                  <hr />
+                  <Link href="/creates/newExaminer">
+                    <a>Inscription des Charge de centre </a>
+                  </Link>
+                  <Link href="/modify/modifyExaminer">
+                    <a>Modifier Charge de centre</a>
+                  </Link>
+                  <Link href="/signInOut/signUp">
+                    <a>SignUp</a>
+                  </Link>
+                </ul>
+                <ul>
+                  <h3 className="menu-category">
+                    Inscrire Prof au centre d'Examen
+                  </h3>
+                  <hr />
+                  <Link href="/creates/newCESExaminer">
+                    <a>Prof s'inscrire au centre d'Examen </a>
+                  </Link>
+                </ul>
+
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="/creates/newRegister">Utilisateur</a>
+            <div className="menu-sub-user">
+              <div className="menu-col-1">
+                <ul>
+                  <h3 className="menu-category">Login/Signup</h3>
+                  <hr />
+                  <Link href="/creates/newSignup">
+                    <a>Signup</a>
+                  </Link>
+                  <Link href="/login">
+                    <a>Login</a>
+                  </Link>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
             <a href="/creates/newRegister">Contact</a>
           </li>
           <li>
-            <a href="/creates/newRegister">Register</a>
+            <a href="/creates/newRegister">Nous</a>
           </li>
+
         </ul>
       </div>
     </nav>
+
   </ToolBarNavItem>
 )
 export default MegaMenu

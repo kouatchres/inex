@@ -1,12 +1,12 @@
 import React from 'react';
-import CreateNewSeries from '../../src/components/series/CreateNewSeries';
+import CreateNewSeriesHook from '../../src/components/series/CreateNewSeriesHook';
 
 
-const NewSeries = () => {
+const newSeries = () => {
 	return (
 		<div>
-			<CreateNewSeries />
+			<CreateNewSeriesHook />
 		</div>
 	);
 };
-export default NewSeries;
+export default newSeries;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation, Query } from 'react-apollo';
 import Form from '../styles/Form';
-import { StyledPage } from '../styles/StyledPage';
+import { MiniStyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage.js';
 import { updateRegionMutation, updateItemMutation } from '../queries&Mutations&Functions/Mutations';
 import { getSingleRegionQuery } from '../queries&Mutations&Functions/Queries';
@@ -55,7 +55,7 @@ class UpdateRegion extends Component {
 					return (
 						<Mutation mutation={updateRegionMutation} variables={{ id: this.props.id }}>
 							{(updateRegion, { loading, error }) => (
-								<StyledPage>
+								<MiniStyledPage>
 									<Form
 										onSubmit={async (e) => {
 											e.preventDefault();
@@ -89,7 +89,7 @@ class UpdateRegion extends Component {
 											</div>
 										</fieldset>
 									</Form>
-								</StyledPage>
+								</MiniStyledPage>
 							)}
 						</Mutation>
 					);

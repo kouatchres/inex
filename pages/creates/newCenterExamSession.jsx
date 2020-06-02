@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateCenterExamSession from '../../src/components/centerExamSession/CreateCenterExamSession';
+import CreateCenterExamSessionHook from '../../src/components/centerExamSession/CreateCenterExamSessionHook';
 
 function newCenterExamSession() {
 	return (
 		<div>
-			<CreateCenterExamSession />
+			<CreateCenterExamSessionHook />
 		</div>
 	);
 }

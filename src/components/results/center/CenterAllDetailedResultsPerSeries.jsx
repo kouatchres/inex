@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import Form from "../../styles/Form";
 import { BiggestStyledPage } from "../../styles/StyledPage";

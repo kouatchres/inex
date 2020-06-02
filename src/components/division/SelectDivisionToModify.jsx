@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Link from 'next/link';
 import Form from '../styles/Form';
-import { ApolloComsumer} from 'react-apollo'
+import { ApolloComsumer } from 'react-apollo'
 import { StyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage';
 import styled from 'styled-components';
@@ -108,8 +108,7 @@ class SelectDivisionToModify extends Component {
 										<Form
 											onSubmit={async (e) => {
 												e.preventDefault();
-												const res = await updateDivision();
-												console.log(res);
+
 											}}
 										>
 											<h4>Modification d'info de Département </h4>

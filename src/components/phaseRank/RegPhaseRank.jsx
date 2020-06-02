@@ -4,13 +4,11 @@ import Form from '../styles/Form';
 import { MiniStyledPage } from '../styles/StyledPage';
 import Error from '../ErrorMessage';
 import styled from 'styled-components';
-import {
-  createPhaseRankMutation
-} from '../queries&Mutations&Functions/Mutations';
+import { createPhaseRankMutation } from '../queries&Mutations&Functions/Mutations';
 import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
 import {
   getAllPhasesQuery,
-  getAllRanksQuery,
+  getAllRanksQuery
 } from '../queries&Mutations&Functions/Queries';
 
 const StyledDivision = styled.div`

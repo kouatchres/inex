@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import SelectSubjectTypeToModify from "../../src/components/subjectType/SelectSubjectTypeToModify";
+import SubjectTypeToModifyHook from "../../src/components/subjectType/SubjectTypeToModifyHook";
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  justify-items: center;
-  align-content: center;
-`;
 const modifySubjectType = props => {
   return (
-    <DivStyled>
-      <SelectSubjectTypeToModify />
-    </DivStyled>
+    <div>
+      <SubjectTypeToModifyHook />
+    </div>
   );
 };
 export default modifySubjectType;

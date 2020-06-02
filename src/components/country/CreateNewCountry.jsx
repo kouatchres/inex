@@ -1,10 +1,10 @@
 
-import React, { Component, useState } from 'react';
-import { MinimStyledPage } from '../styles/StyledPage'
-import { useMutation} from '@apollo/react-hooks'
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo'
+import { MiniStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import { Formik, Form } from 'formik';
-import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
+import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../utils/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { createNewCountryMutation } from '../queries&Mutations&Functions/Mutations'
@@ -29,25 +29,25 @@ const validationSchema = Yup
       .required('Nom du pays obligatoire'),
     countryCode: Yup
       .string()
-      .required('Ccde du pays obligatoire')
+      .required('Code du pays obligatoire')
   });
 
-class CreateNewExam extends Component {
-  initialFormState = {
+class CreateNewCountry extends Component {
+  initialValues = {
     countryName: '',
     countryCode: ''
   }
 
   render() {
-    const [addCountry]= useMutation(createNewCountryMutation)
     return (
-     
+      <Mutation mutation={createNewCountryMutation}>
+        {(createCountry, { loading, error }) => (
           <Formik
             method="POST"
-            initialValues={this.initialFormState}
+            initialValues={this.initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values, actions, setSubmitting, resetForm) => {
-              const res = await addCountry({ variables: values });
+              const res = await createCountry({ variables: values });
               setTimeout(() => {
                 console.log(JSON.stringify(values, null, 2));
                 console.log(res);
@@ -55,15 +55,15 @@ class CreateNewExam extends Component {
                 actions.setSubmitting(false);
               }, 400);
             }}>
-            <MinimStyledPage>
+            <MiniStyledPage>
               <Error error={error} />
-              <h4>Nouveau Pays</h4>
-              <StyledForm>
+              <h4>Crée Nouveau Pays</h4>
+              <StyledForm disabled={loading} aria-busy={loading} >
                 <Form>
                   <AllControls>
                     <InputGroup>
-                      <SygexInput name="countryName" type="text" placeholder="Nom Du pays" />
-                      <SygexInput name="countryCode" type="text" placeholder="Code Du pays" />
+                      <SygexInput name="countryName" type="text" label="Nom du Pays" />
+                      <SygexInput name="countryCode" type="text" label="Code du Pays" />
 
                     </InputGroup>
                     <ButtonStyled>
@@ -72,8 +72,13 @@ class CreateNewExam extends Component {
                   </AllControls>
                 </Form>
               </StyledForm>
-            </MinimStyledPage>
-          </Formik>    );
+            </MiniStyledPage>
+          </Formik>
+        )
+        }
+      </Mutation>
+
+    );
   }
 }
-export default CreateNewExam;
+export default CreateNewCountry;

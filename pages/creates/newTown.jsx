@@ -1,9 +1,9 @@
 import React from 'react';
-import CreateNewTown from '../../src/components/town/CreateNewTown';
+import CreateTownHook from '../../src/components/town/CreateTownHook';
 const newTown = (props) => {
 	return (
 		<div>
-			<CreateNewTown />
+			<CreateTownHook />
 		</div>
 	);
 };

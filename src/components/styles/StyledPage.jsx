@@ -1,19 +1,33 @@
 import styled from "styled-components";
 
 const StyledPage = styled.div`
-  display: block;
-  margin: 0 auto;
+padding:0 1rem
+ margin:0 auto;
+  display: grid;
+  grid-template-columns:1fr;
+  grid-auto-flow:row;
+  /* grid-row-gap:1rem; */
   text-align: center;
-  max-width: 55vw;
-  min-width: 20rem;
- height: 100vh;
+  width: 70vw;
+  min-width: 30rem;
   
 background-color: ${props => props.theme.pureWhite};
-  h4 {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
+h4{
+  margin:0 auto;
+  margin-bottom:1rem ;
+  padding:0.5rem 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: normal;
+  box-shadow: ${props => props.theme.formBS};
+  background:${props => props.theme.pureWhite};
+width:100%;
+  border-radius:0.5rem;
+  color:${props => props.theme.blues[2]};
+}
+.Form {
+    justify-items: center;
+    align-items: center;
   }
   form {
     justify-items: center;
@@ -22,45 +36,63 @@ background-color: ${props => props.theme.pureWhite};
 `;
 
 const MiniStyledPage = styled.div`
-  display: block;
-  margin: 0 auto;
+  display: grid;
+  padding:0 1rem;
+  margin:0 auto;
+  grid-template-columns:1fr;
+  grid-auto-flow:row;
+  
   text-align: center;
-  max-width: 40vw;
-  min-width: 20rem;
-  height: 100vh;
+  width: 50vw;
+  min-width: 30rem;
   background-color: ${props => props.theme.pureWhite};
-  h4 {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: normal;
-  }
-  .Form {
+  
+  h4{
+    margin:0 auto;
+  margin-bottom:1rem ;
+  padding:0.5rem 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: normal;
+  box-shadow: ${props => props.theme.formBS};
+  background:${props => props.theme.pureWhite};
+width:100%;
+  border-radius:0.5rem;
+  color:${props => props.theme.blues[2]};
+}
+  /* .Form {
     justify-items: center;
     align-items: center;
   }
   form {
     justify-items: center;
     align-items: center;
-  }
+  } */
 `;
 
 const MinimStyledPage = styled.div`
-margin:0;
-  display: block;
-  margin: 1rem auto;
-  text-align: center;
-  max-width: 30vw;
-  min-width: 20rem;
-  height: 100vh;
+  display: grid;
+   margin:0 auto;
   
+  grid-template-columns:1fr;
+  grid-auto-flow:row;
+  text-align: center;
+  width: 30vw;
+  min-width: 25rem;
 background-color: ${props => props.theme.pureWhite};
-  h4 {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.9rem;
-    font-weight: normal;
-  }
+h4{
+  margin:0 auto;
+  margin-bottom:1rem ;
+  padding:0.5rem 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: normal;
+  box-shadow: ${props => props.theme.formBS};
+  background:${props => props.theme.pureWhite};
+width:100%;
+  border-radius:0.5rem;
+  color:${props => props.theme.blues[2]};
+}
   .Form {
     justify-items: center;
     align-items: center;
@@ -72,19 +104,30 @@ background-color: ${props => props.theme.pureWhite};
 `;
 
 const BigStyledPage = styled.div`
-  display: block;
-  margin: 0 auto;
+  display: grid;
+  padding:0 1rem;
+   margin:0 auto;
+  
+  grid-template-columns:1fr;
+  grid-auto-flow:row;
   text-align: center;
-  max-width: 80vw;
-  min-width: 20rem;
-  height:100vh;
-
-  h4 {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: normal;
-  }
+  width: 60vw;
+  min-width: 30rem;
+  
+background-color: ${props => props.theme.pureWhite};
+  h4{
+    margin:0 auto;
+  margin-bottom:1rem ;
+  padding:0.5rem 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: normal;
+  box-shadow: ${props => props.theme.formBS};
+  background:${props => props.theme.pureWhite};
+width:100%;
+  border-radius:0.5rem;
+  color:${props => props.theme.blues[2]};
+}
   .Form {
     justify-items: center;
     align-items: center;
@@ -96,20 +139,29 @@ const BigStyledPage = styled.div`
 `;
 
 const BiggestStyledPage = styled.div`
-  display: block;
-  margin: 0 auto;
+  display: grid;
+  padding:0 1rem;
+   margin:0 auto;
+  
+  grid-template-columns:1fr;
   text-align: center;
-  max-width: 90vw;
-  min-width: 20rem;
-  height: 100vh;
-background-color: ${props => props.theme.pureWhite};
+  width: 90vw;
+  min-width: 30rem;
 
-  h4 {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: normal;
-  }
+background-color: ${props => props.theme.pureWhite};
+h4{
+  margin:0 auto;
+  margin-bottom:1rem ;
+  padding:0.5rem 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: normal;
+  box-shadow: ${props => props.theme.formBS};
+  background:${props => props.theme.pureWhite};
+width:100%;
+  border-radius:0.5rem;
+  color:${props => props.theme.blues[2]};
+}
   .Form {
     justify-items: center;
     align-items: center;

@@ -247,7 +247,7 @@ class SelectTownToModify extends Component {
 																						}
 																					}}
 																				>
-																					<a>Modifier</a>
+																					<a >Modifier</a>
 																				</Link>
 																			</UpdateBlock>
 																			<DeleteBlock>

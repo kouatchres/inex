@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import SelectSeriesToModify from "../../src/components/series/SelectSeriesToModify";
+import SeriesToModifyHook from "../../src/components/series/SeriesToModifyHook";
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  justify-items: center;
-  align-content: center;
-`;
 const modifySeries = props => {
   return (
-    <DivStyled>
-      <SelectSeriesToModify />
-    </DivStyled>
+    <div>
+      <SeriesToModifyHook />
+    </div>
   );
 };
 export default modifySeries;

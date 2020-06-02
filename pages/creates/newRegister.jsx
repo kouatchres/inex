@@ -1,10 +1,10 @@
 import React from 'react';
-import RecentNewRegistration from '../../src/components/registration/RecentNewRegistration';
+import NewRegistrationHook from '../../src/components/registration/NewRegistrationHook';
 
 const newRegister = () => {
 	return (
 		<div>
-			<RecentNewRegistration />
+			<NewRegistrationHook />
 		</div>
 	);
 };

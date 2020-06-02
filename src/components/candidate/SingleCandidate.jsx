@@ -29,25 +29,24 @@ const ImageInfo = styled.div`
 	 
 	 display: grid;
     grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    grid-gap: 1rem;
    
 `;
-
+// 
 const AllInfo = styled.div`
 	 
 	 display: flex;
 flex-direction:column;   
 `;
 
+// 
 const BottomInfo = styled.div`
+    padding-left:0.3rem;
     text-align: left;
-	padding: 0.2rem;
-	margin: .5rem auto;
     font-size: 1.3rem;
     line-height: 0.3rem;
 	min-width:13rem;
-	/* align-items:center;
-	justify-content:left; */
-  
+	
 `;
 
 const CandImg = styled.div`
@@ -58,7 +57,7 @@ const CandImg = styled.div`
 	img {
 		margin-top: .5rem;
 		margin-left: .5rem;
-		height: 15rem;
+		height: 13rem;
 		width: 13rem;
 		border-radius: 0.7rem;
 		background-size: contain;
@@ -112,11 +111,11 @@ class SingleCandidate extends Component {
 												<strong>Autres Noms:</strong>
 												<span> {cand3rdName}</span>
 											</p>
+
+											<strong>Naissance:</strong>
+											<hr />
 											<p>
-												<strong>Naissance:</strong>
-												<hr />
-											</p>
-											<p>
+
 												<strong>Date:</strong>
 												<span> {format(dateOfBirth, 'd MMMM, YYYY')}</span>
 											</p>
@@ -128,10 +127,10 @@ class SingleCandidate extends Component {
 												<span> {genderName}</span>
 											</p>
 
-											<p>
-												<strong>Nom des parents:</strong>
-												<hr />
-											</p>
+
+											<strong>Nom des parents:</strong>
+											<hr />
+
 											<p>
 												<strong>Père:</strong>
 												<span> {dadName}</span>

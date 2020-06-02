@@ -4,12 +4,13 @@ import { Mutation, Query } from 'react-apollo'
 import { MinimStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import { Formik, Form } from 'formik';
-import { SygexSelect, StyledButtonBlueBlue, SygexInput, StyledForm, ButtonStyled, StyledButtonBlue } from '../formikForms/FormInputs'
+import Select from 'react-select'
+import { customStyle, SygexInput, StyledForm, ButtonStyled, StyledButton } from '../utils/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { getAllSubjectTypesQuery, getAllEducationTypesQuery } from "../queries&Mutations&Functions/Queries";
 import { createNewSubjectMutation } from "../queries&Mutations&Functions/Mutations";
-import { getSelectedObject } from "../queries&Mutations&Functions/Functions";
+import { getObjectFromID, removeTypename } from "../queries&Mutations&Functions/Functions";
 
 const InputGroup = styled.div`
     
@@ -32,8 +33,8 @@ const validationSchema = Yup
     subjectCode: Yup
       .string()
       .required('Code de la matière obligatoire'),
-    educTypeID: Yup.string().required("Choix d'un type d'enseignement obligatiore"),
-    subjectTypeID: Yup
+    educType: Yup.string().required("Choix d'un type d'enseignement obligatiore"),
+    subjectType: Yup
       .string()
       .required("Choix d'un type de matière obligatiore")
   });
@@ -42,8 +43,8 @@ class CreateNewSubject extends Component {
   initialFormState = {
     subjectName: '',
     subjectCode: '',
-    educTypeID: "",
-    subjectTypeID: "",
+    educType: "",
+    subjectType: "",
 
   }
 
@@ -60,18 +61,14 @@ class CreateNewSubject extends Component {
           }
 
           const { educationTypes } = data;
+          const refinedEducTypes =
+            educationTypes && removeTypename(educationTypes);
+          const getEducTypes =
+            refinedEducTypes &&
+            refinedEducTypes.map((item) => ({ ...item, value: item.id, label: item.educationTypeName }));
 
-          const educTypeOptions =
-            educationTypes &&
-            educationTypes.map((item) => (
-              <option value={item.id} key={item.id}>
-                {item.educationTypeName}
-              </option>
-            ));
 
           //*******important function'stripping off __typename')
-          const refinedEducTypes =
-            educationTypes && educationTypes.map(({ __typename, educationTypeName, ...others }) => others);
 
           return (
             <Query query={getAllSubjectTypesQuery}>
@@ -83,15 +80,11 @@ class CreateNewSubject extends Component {
                   error && <Error error={error} />;
                 }
                 const { subjectTypes } = data;
-                const refinedSubjectType = subjectTypes && subjectTypes.map(({ __typename, ...others }) => others);
+                const refinedSubjectType = subjectTypes && removeTypename(subjectTypes);
                 console.log(refinedSubjectType);
-                const allSubjctTypes =
-                  subjectTypes &&
-                  subjectTypes.map(item => (
-                    <option key={item.id} value={item.id}>
-                      {item.subjectTypeName}
-                    </option>
-                  ));
+                const getSubjectTypes =
+                  refinedSubjectType &&
+                  refinedSubjectType.map(item => ({ ...item, value: item.id, label: item.subjectTypeName }));
                 return (
                   <Mutation mutation={createNewSubjectMutation}>
                     {(createSubject, { loading, error }) => (
@@ -104,8 +97,8 @@ class CreateNewSubject extends Component {
                             variables:
                             {
                               ...values,
-                              subjectType: refinedSubjectType && getSelectedObject(refinedSubjectType, values.subjectTypeID),
-                              educType: refinedEducTypes && getSelectedObject(refinedEducTypes, values.educTypeID)
+                              subjectType: refinedSubjectType && getObjectFromID(values.subjectType.id),
+                              educType: refinedEducTypes && getObjectFromID(values.educType.id),
                             }
                           });
                           setTimeout(() => {
@@ -115,33 +108,35 @@ class CreateNewSubject extends Component {
                             actions.resetForm(true);
                           }, 400);
                         }}>
-                        <MinimStyledPage>
-                          <h4>Crée Nouvelle Matière</h4>
-                          <Error error={error} />
-                          <StyledForm>
-                            <Form>
-                              <AllControls>
-                                <InputGroup>
+                        {({ values, setFieldValue }) => {
 
-                                  <SygexSelect name="educTypeID">
-                                    <option>Le Type d'enseignement</option>
-                                    {educTypeOptions}
-                                  </SygexSelect>
-                                  <SygexSelect name="subjectTypeID">
-                                    <option>Le type de la Matière</option>
-                                    {allSubjctTypes}
-                                  </SygexSelect>
-                                  <SygexInput name="subjectName" type="text" placeholder="Libéllé de la Matière" />
-                                  <SygexInput name="subjectCode" type="text" placeholder="Code de la Matière" />
+                          return (
 
-                                </InputGroup>
-                                <ButtonStyled>
-                                  <StyledButtonBlue type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButtonBlue>
-                                </ButtonStyled>
-                              </AllControls>
-                            </Form>
-                          </StyledForm>
-                        </MinimStyledPage>
+                            <MinimStyledPage>
+                              <h4>Nouvelle Matière</h4>
+                              <Error error={error} />
+                              <StyledForm disabled={loading} aria-busy={loading} >
+                                <Form>
+                                  <AllControls>
+                                    <InputGroup>
+
+                                      <Select name="educType" onChange={(value) => (setFieldValue('educType', value))} options={getEducTypes} placeholder={"Le Type d'Enseignement"} styles={customStyle} />
+                                      <Select name="subjectType" onChange={(value) => (setFieldValue('subjectType', value))} options={getSubjectTypes} placeholder={"Le Type de Matière"} styles={customStyle} />
+
+                                      <SygexInput name="subjectName" type="text" label="Libéllé de la Matière" />
+                                      <SygexInput name="subjectCode" type="text" label="Code de la Matière" />
+
+                                    </InputGroup>
+                                    <ButtonStyled>
+                                      <StyledButton type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
+                                    </ButtonStyled>
+                                  </AllControls>
+                                </Form>
+                              </StyledForm>
+                            </MinimStyledPage>
+
+                          )
+                        }}
                       </Formik>
                     )
                     }

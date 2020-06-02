@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import SelectGenderToModify from "../../src/components/gender/SelectGenderToModify";
+import GenderToModifyHook from "../../src/components/gender/GenderToModifyHook";
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  justify-items: center;
-  align-content: center;
-`;
 const modifyGender = props => {
   return (
-    <DivStyled>
-      <SelectGenderToModify />
-    </DivStyled>
+    <div>
+      <GenderToModifyHook />
+    </div>
   );
 };
 export default modifyGender;

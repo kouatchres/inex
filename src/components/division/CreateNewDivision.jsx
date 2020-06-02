@@ -4,12 +4,13 @@ import { Mutation, Query } from 'react-apollo'
 import { MinimStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import { Formik, Form } from 'formik';
-import { SygexSelect, SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
+import Select from 'react-select'
+import { customStyle, SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import { getAllRegionsQuery } from '../queries&Mutations&Functions/Queries';
+import { getAllRegionsOfACountryQuery, getAllCountrysQuery } from '../queries&Mutations&Functions/Queries';
 import { createDivisionMutation } from '../queries&Mutations&Functions/Mutations';
-import { getSelectedObject } from '../queries&Mutations&Functions/Functions';
+import { removeTypename, getObjectFromID } from '../queries&Mutations&Functions/Functions';
 
 const InputGroup = styled.div`
     
@@ -32,20 +33,23 @@ const validationSchema = Yup
 		divCode: Yup
 			.string()
 			.required(' Code du Département obligatoire'),
-		regionID: Yup.string().required("Choix d'une region obligatoire")
+		region: Yup
+			.string()
+			.required("Choix d'une region obligatoire")
 	});
 
-class CreateNewExam extends Component {
-	initialFormState = {
+class CreateNewDivision extends Component {
+	initialValues = {
 		divName: '',
 		divCode: '',
-		regionID: "",
+		region: "",
 	}
 
 
 	render() {
 		return (
-			<Query query={getAllRegionsQuery} >
+			<Query query={getAllCountrysQuery}  >
+
 				{({ data, loading, error }) => {
 					{
 						loading && <p>Loading...</p>;
@@ -53,69 +57,94 @@ class CreateNewExam extends Component {
 					{
 						error && <Error error={error} />;
 					}
-					const { regions } = data
-					const refinedRegions = regions && regions.map(({ __typename, ...others }) => others)
-					const regionOptions = refinedRegions && refinedRegions.map((item) => (<option value={item.id} key={item.id}>{item.regName}  </option>))
-
-
+					const { countries } = data
+					const reducedCountries = countries && countries.reduce((item) => item)
+					const refinedCountry = removeTypename(reducedCountries)
+					console.log(refinedCountry);
 
 					return (
-						<Mutation mutation={createDivisionMutation}>
-							{(createDivision, { loading, error }) => (
+
+						<Query query={getAllRegionsOfACountryQuery} variables={reducedCountries} >
+							{({ data, loading, error }) => {
+								{
+									loading && <p>Loading...</p>;
+								}
+								{
+									error && <Error error={error} />;
+								}
+								const { country } = data
+								const { region } = { ...country }
+								console.log(region);
+								const refinedRegions = region && removeTypename(region)
+								const getRegions = refinedRegions && refinedRegions.map((item) => (
+									{ ...item, value: item.id, label: item.regName }))
+
+								return (
+									<Mutation mutation={createDivisionMutation}>
+										{(createDivision, { loading, error }) => (
 
 
-								<Formik
-									method="POST"
-									initialValues={this.initialFormState}
-									validationSchema={validationSchema}
-									onSubmit={async (values, actions, setSubmitting, resetForm) => {
-										const res = await createDivision({
-											variables:
-											{
-												...values,
-												region: refinedRegions && getSelectedObject(refinedRegions, values.regionID)
-											}
-										});
-										setTimeout(() => {
-											console.log(JSON.stringify(values, null, 2));
-											console.log(res);
-											actions.resetForm(true);
-											actions.setSubmitting(false);
-										}, 400);
-									}}>
-									<MinimStyledPage>
-										<h4>Crée Département</h4>
-										<Error error={error} />
-										<StyledForm>
-											<Form>
-												<AllControls>
-													<InputGroup>
+											<Formik
+												method="POST"
+												initialValues={this.initialValues}
+												validationSchema={validationSchema}
+												onSubmit={async (values, actions, setSubmitting, resetForm) => {
+													const res = await createDivision({
+														variables:
+														{
+															...values,
+															region: refinedRegions && getObjectFromID(values.region.id)
+														}
+													});
+													setTimeout(() => {
+														console.log(JSON.stringify(values, null, 2));
+														console.log(res);
+														actions.resetForm(true);
+														actions.setSubmitting(false);
+													}, 400);
+												}}>
+												{({ setFieldValue
+												}) => {
+													return (
 
-														<SygexSelect name="regionID">
-															<option>Choisir une Région</option>
-															{regionOptions}
-														</SygexSelect>
-														<SygexInput name="divName" type="text" placeholder="Nom Département" />
-														<SygexInput name="divCode" type="text" placeholder="Code Département" />
 
-													</InputGroup>
-													<ButtonStyled>
-														<StyledButton type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
-													</ButtonStyled>
-												</AllControls>
-											</Form>
-										</StyledForm>
-									</MinimStyledPage>
-								</Formik>
-							)
+														<MinimStyledPage>
+															<h4>Nouveau Département</h4>
+															<Error error={error} />
+															<StyledForm disabled={loading} aria-busy={loading} >
+																<Form>
+																	<AllControls>
+																		<InputGroup>
+
+																			<Select name="region" onChange={(value) => (setFieldValue('region', value))} styles={customStyle} options={getRegions} placeholder="la Région" />
+																			<SygexInput name="divName" type="text" label="Nom Département" />
+																			<SygexInput name="divCode" type="text" label="Code Département" />
+
+																		</InputGroup>
+																		<ButtonStyled>
+																			<StyledButton type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
+																		</ButtonStyled>
+																	</AllControls>
+																</Form>
+															</StyledForm>
+														</MinimStyledPage>
+													)
+												}}
+											</Formik>
+										)
+										}
+									</Mutation>
+
+								)
 							}
-						</Mutation>
+							}
+						</Query>
 					)
 				}
 				}
-			</Query >
+			</Query>
 
 		);
 	}
 }
-export default CreateNewExam;
+export default CreateNewDivision;

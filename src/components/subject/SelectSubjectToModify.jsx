@@ -56,14 +56,10 @@ class SelectSubjectToModify extends Component {
 		return (
 			<Query query={getAllSubjectsQuery}>
 				{({ data, loading, error }) => {
-					{
-						loading && <p>Loading...</p>;
-					}
-					{
-						error && <Error error={error} />;
-					}
+					{ loading && <p>Loading...</p>; }
+					{ error && <Error error={error} />; }
 
-					const getSubject = data.subjects.map((item) => (
+					const getSubject = data.subjects && data.subjects.map((item) => (
 						<option value={item.id} key={item.id}>
 							{item.subjectName} - {item.subjectCode}
 						</option>

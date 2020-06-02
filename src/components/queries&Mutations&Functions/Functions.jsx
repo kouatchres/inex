@@ -1,6 +1,7 @@
 import React from 'react'
 import { concat } from 'apollo-link'
 
+
 const uniqueCodeGen = keyLength => {
   var i,
     key = '',
@@ -27,6 +28,13 @@ const objectFromCode = codeValue => {
   return storedObject
 }
 
+const getObjectFromID = suppliedID => {
+  const theObject = {
+    id: `${suppliedID}`,
+  }
+  return theObject
+}
+
 const centerExamSessionObjectFromCode = codeValue => {
   const storedObject = {
     centerExamSession: `${codeValue}`,
@@ -47,8 +55,8 @@ const getSelectedObject = (dataSource, objectID) => {
     return selectedObject
   }
 }
-
-Number.prototype.pad = function(size) {
+// function to model a number with leading zeroes
+Number.prototype.pad = function (size) {
   var s = String(this)
   while (s.length < (size || 2)) {
     s = '0' + s
@@ -85,6 +93,37 @@ const calcCandTotalCoeff = candScores => {
 const roundFloatNumber = (value, decimals) => {
   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
 }
+const removeTypename = (value) => {
+  if (value === null || value === undefined) {
+    return value;
+  } else if (Array.isArray(value)) {
+    return value.map(v => removeTypename(v));
+  } else if (typeof value === 'object') {
+    const newObj = {};
+    Object.entries(value).forEach(([key, v]) => {
+      if (key !== '__typename') {
+        newObj[key] = removeTypename(v);
+      }
+    });
+    return newObj;
+  }
+  return value;
+};
+
+const uploadFile = async (e) => {
+  const files = e.target.files;
+  const data = new FormData();
+  data.append('file', files[0]);
+  data.append('upload_preset', 'ineximages');
+  const res = await fetch('https://api.cloudinary.com/v1_1/inex/image/upload', {
+    method: 'POST',
+    body: data
+  });
+  const file = await res.json();
+  console.log(file);
+  // this.setState({ image: file.secure_url });
+  setState({ image: file.secure_url })
+}
 
 export {
   candExamSessionCode,
@@ -96,6 +135,9 @@ export {
   updateItemMutation,
   uniqueCodeGen,
   getSelectedObject,
+  getObjectFromID,
+  removeTypename,
+  uploadFile,
   registrationSerialNumber,
   centerExamSessionObjectFromCode,
 }

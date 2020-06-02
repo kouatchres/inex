@@ -1,10 +1,10 @@
 import React from 'react';
-import CreateNewEducationType from '../../src/components/educationType/CreateNewEducationType';
+import CreateNewEducationTypeHook from '../../src/components/educationType/CreateNewEducationTypeHook';
 
 const NewEducationType = () => {
 	return (
 		<div>
-			<CreateNewEducationType />
+			<CreateNewEducationTypeHook />
 		</div>
 	);
 };

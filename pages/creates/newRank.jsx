@@ -1,10 +1,10 @@
 import React from 'react';
-import NewCreateRank from '../../src/components/rank/NewCreateRank';
+import CreateNewRankHook from '../../src/components/rank/CreateNewRankHook';
 
 const newRank = () => {
 	return (
 		<div>
-			<NewCreateRank />
+			<CreateNewRankHook />
 		</div>
 	);
 };

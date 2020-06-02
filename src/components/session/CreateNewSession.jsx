@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo'
 import { MinimStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import { Formik, Form } from 'formik';
-import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
+import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../utils/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { createNewSessionMutation } from '../queries&Mutations&Functions/Mutations'
@@ -58,12 +58,12 @@ class CreateNewSession extends Component {
             <MinimStyledPage>
               <h4>Crée Session</h4>
               <Error error={error} />
-              <StyledForm>
+              <StyledForm disabled={loading} aria-busy={loading} >
                 <Form>
                   <AllControls>
                     <InputGroup>
-                      <SygexInput name="sessionName" type="text" placeholder="Nom Session" />
-                      <SygexInput name="sessionCode" type="text" placeholder="Code Session" />
+                      <SygexInput name="sessionName" type="text" label="Nom Session" />
+                      <SygexInput name="sessionCode" type="text" label="Code Session" />
 
                     </InputGroup>
                     <ButtonStyled>

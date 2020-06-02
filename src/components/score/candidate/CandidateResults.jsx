@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import Form from '../../styles/Form';
-import { StyledPage } from '../../styles/StyledPageage';
+import useForm from '../utils/useForm'
+import { MiniStyledPage } from '../../styles/StyledPage';
 import Error from '../../ErrorMessageage';
 import styled from 'styled-components';
 import Router from 'next/router';
@@ -12,6 +13,7 @@ import {
 	getAllSessionsQuery,
 	getSingleCenterExamSessionQuery
 } from '../../queries&Mutations&Functions/Queries';
+import { removeTypename } from '../../queries&Mutations&Functions/Functions';
 
 const OtherSelect = styled.div`
   display: block;
@@ -21,173 +23,137 @@ flex-direction:column
   /* min-width: 40rem; */
 `;
 
-class Results extends Component {
-	state = {
+const CandidateResults = () => {
+	const { state, handleReactSelectChange, setState } = useForm({
 		candCode: '',
 		sessionID: '12',
 		examID: '12',
 		id: '',
-		loading: false
-	};
+	});
 
-	handleChange = (e) => {
+	const handleChange = (e) => {
 		const { name, value, type } = e.target;
 		const val = type === 'number' ? parseInt(value) : value;
 		this.setState({ [name]: val });
 	};
-	resetForm = () => {
+	const resetForm = () => {
 		this.setState({ candCode: '' });
 	};
 
-	makeCandVariableObject = (candCodeValue) => {
+	const makeCandVariableObject = (candCodeValue) => {
 		const storedCandidate = {
 			candCode: `${candCodeValue}`
 		};
 		return storedCandidate;
 	};
 
-	render() {
-		const { candCode, examID, sessionID } = this.state;
-		return (
-			<Query query={getAllExamsQuery}>
-				{({ data, loading, error }) => {
-					{
-						loading && <p>loading...</p>;
-					}
-					{
-						error && <Error error={error} />;
-					}
+	const { data: dataExam, loading: loadingExam, error: errorExam } = useQuery(getAllExamsQuery)
 
-					const { exams } = data;
-					console.log(exams);
+	{ loadingExam && <p>loading...</p>; }
+	{ errorExam && <Error error={errorExam} />; }
 
-					const refinedExams = exams && exams.map(({ __typename, examName, ...others }) => others);
-					const examsOptions =
-						exams &&
-						exams.map((item) => (
-							<option key={item.id} value={item.id}>
-								{item.examName}
-							</option>
-						));
-					return (
-						<Query query={getAllSessionsQuery}>
-							{({ data, loading, error }) => {
-								{
-									loading && <p>loading...</p>;
-								}
-								{
-									error && <Error error={error} />;
-								}
+	const getExams = dataExam && dataExam.exams;
+	console.log(exams);
 
-								const { sessions } = data;
-								const refinedSessions =
-									sessions && sessions.map(({ __typename, sessionName, ...others }) => others);
-								const sessionsOptions =
-									sessions &&
-									sessions.map((item) => (
-										<option key={item.id} value={item.id}>
-											{item.sessionName}
-										</option>
-									));
-								return (
-									<Query
-										query={getSingleCenterExamSessionQuery}
-										variables={{
-											exam: refinedExams && getSelectedObject(refinedExams, examID),
-											session: refinedSessions && getSelectedObject(refinedSessions, sessionID),
-											center: refinedCenter && getSelectedObject(refinedCenter, centerID)
-										}}>
-										{({ data, error, loading }) => {
-											console.log(data);
-											const { centerExamSessions } = {
-												...data
-											};
-											console.log(centerExamSessions);
-											// remove typename from the object
-											const refinedCenterExamSessions = centerExamSessions && centerExamSessions.map(({
-												__typename,
-												...others
-											}) => others);
-											// transform the array into a single object
-											const getObj = refinedCenterExamSessions && refinedCenterExamSessions.reduce((item) => item);
-											console.log(getObj);
+	const refinedExams = getExams && removeTypename(getExams);
+	const getExamsOptions =
+		getExams &&
+		getExams.map((item) => ({ value: item.id, label: item.examName }));
 
-											return (
-												<Query
-													query={getCandidateRegistrationIDQuery}
-													variables={{
-														centerExamSession: getObj && getObj,
-														candidate: this.makeCandVariableObject(candCode)
-													}}
-												>
-													{({ data, error, loading }) => {
-														const { candidateRegistrationID } = { ...data };
-														candidateRegistrationID &&
-															Router.push({
-																pathname: '/show/results/candResults',
-																query: { id: candidateRegistrationID.id }
-															});
-														return (
-															<StyledPage>
-																<Form
-																	onSubmit={async (e) => {
-																		e.preventDefault();
-																	}}
-																>
-																	<h4>Résultats d'un Candidat</h4>
-																	<Error error={error} />
-																	<fieldset disabled={loading} aria-busy={loading}>
-																		<OtherSelect>
-																			<select
-																				type="select"
-																				id="sessionID"
-																				name="sessionID"
-																				value={sessionID}
-																				onChange={this.handleChange}
-																				required
-																			>
-																				<option>la Session</option>
-																				{sessionsOptions}
-																			</select>
-																			<select
-																				type="select"
-																				id="examID"
-																				name="examID"
-																				value={examID}
-																				onChange={this.handleChange}
-																				required
-																			>
-																				<option> L'Examen</option>
-																				{examsOptions}
-																			</select>
+	const { data: dataSession, loadding: loadingSession, error: errorSession } = useQuery(getAllSessionsQuery)
 
-																			<input
-																				type="search"
-																				id="candCode"
-																				name="candCode"
-																				value={candCode}
-																				placeholder="Code Candidat"
-																				onChange={this.handleChange}
-																				required
-																			/>
-																		</OtherSelect>
-																	</fieldset>
-																</Form>
-															</StyledPage>
-														);
-													}}
-												</Query>
-											);
-										}}
-									</Query>
-								);
-							}}
-						</Query>
-					);
-				}}
-			</Query>
-		);
+	{ loadingSession && <p>loading...</p>; }
+	{ errorSession && <Error error={errorSession} />; }
+
+	const getSessions = dataSession && dataSession.sessions;
+	const refinedSessions =
+		getSessions && removeTypename(getSessions)
+	const getSessionsOptions =
+		sessions &&
+		sessions.map((item) => (
+			{ value: { item.id, label: item.sessionName }
+		));
+	const { data: dataExamSession, loading: loadingExamSession, error: errExamSession } = useQuery(getSingleCenterExamSessionQuery, {
+		skip: !
+			variables:{
+		exam: refinedExams && getSelectedObject(refinedExams, state.examID),
+		session: refinedSessions && getSelectedObject(refinedSessions, state.sessionID),
+		center: refinedCenter && getSelectedObject(refinedCenter, state.centerID)
+	}}
+	)
+console.log(dataExamSession);
+const { centerExamSessions } = { ...dataExamSession };
+console.log(centerExamSessions);
+// remove typename from the object
+const refinedCenterExamSessions = centerExamSessions && removeTypename(centerExamSessions);
+// transform the array into a single object
+const getObj = refinedCenterExamSessions && refinedCenterExamSessions[0];
+console.log(getObj);
+
+
+const { dataCand, error: errorCand, loading: loadingCand } = useQuery(getCandidateRegistrationIDQuery, {
+	skip: !getObj || !state.candCode,
+	variables: {
+		centerExamSession: getObj && getObj,
+		candidate: makeCandVariableObject(candCode)
 	}
 }
+)
 
-export default Results;
+const { candidateRegistrationID } = { ...dataCand };
+candidateRegistrationID &&
+	Router.push({
+		pathname: '/show/results/candResults',
+		query: { id: candidateRegistrationID.id }
+	});
+return (
+	<MiniStyledPage>
+		<Form
+			onSubmit={async (e) => {
+				e.preventDefault();
+			}}
+		>
+			<h4>Résultats d'un Candidat</h4>
+			<Error error={errorCand} />
+			<fieldset disabled={loadingCand} aria-busy={loadingCand}>
+				<OtherSelect>
+					<select
+						type="select"
+						id="sessionID"
+						name="sessionID"
+						value={sessionID}
+						onChange={this.handleChange}
+						required
+					>
+						<option>la Session</option>
+						{sessionsOptions}
+					</select>
+					<select
+						type="select"
+						id="examID"
+						name="examID"
+						value={examID}
+						onChange={this.handleChange}
+						required
+					>
+						<option> L'Examen</option>
+						{examsOptions}
+					</select>
+
+					<input
+						type="search"
+						id="candCode"
+						name="candCode"
+						value={candCode}
+						placeholder="Code Candidat"
+						onChange={this.handleChange}
+						required
+					/>
+				</OtherSelect>
+			</fieldset>
+		</Form>
+	</MiniStyledPage>
+);
+}
+
+export default CandidateResults;

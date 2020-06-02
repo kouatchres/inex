@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import Form from "../styles/Form";
-import { BiggestStyledPage } from "../styles/StyledPage";
+import { MiniStyledPage } from "../styles/StyledPage";
 import { format } from "date-fns";
 import SubjectList from '../results/candidate/SubjectList'
 import { getCandidateResultsQuery } from "../queries&Mutations&Functions/Queries";
@@ -11,10 +11,10 @@ import styled from "styled-components";
 
 const SubjectTitles = styled.div`
   display: flex;
-  color: white;
+  color: ${props => props.theme.pureWhite};
   font-size: 1.5rem;
   justify-content: left;
-  background: ${props => props.theme.googleBlue};
+  background: ${props => props.theme.blues[2]};
 `;
 
 const TitleItem = styled.div`
@@ -55,7 +55,8 @@ const SchoolInfoBlock = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-flow:colums;
-  background: ${props => props.theme.lightGrey};
+  background: ${props => props.theme.blues[2]};
+  color:${props => props.theme.pureWhite};
   justify-content: center;
   align-items: center;
   font-size:1.5rem;
@@ -100,6 +101,7 @@ grid-gap:3rem;
 `;
 
 class RegistrationReceipt extends Component {
+
     static propTypes = { id: PropTypes.string.isRequired };
     render() {
         return (
@@ -114,7 +116,7 @@ class RegistrationReceipt extends Component {
                     const { exam, session } = { ...examSession }
 
                     return (
-                        <BiggestStyledPage>
+                        <MiniStyledPage>
                             <Form
                                 onSubmit={e => {
                                     e.preventDefault();
@@ -128,7 +130,6 @@ class RegistrationReceipt extends Component {
                                     <SchoolInfoBlock>
                                         <SchoolInfo>
                                             <span>
-                                                <hr />
                                                 <strong> Centre D'Examen: </strong>
                                                 <hr />
                                             </span>
@@ -146,8 +147,7 @@ class RegistrationReceipt extends Component {
                                         </SchoolInfo2>
                                         <SchoolInfo>
                                             <span>
-                                                <hr />
-                                                <strong>Inscritption: </strong>
+                                                <strong>Info Inscritption: </strong>
                                                 <hr />
                                             </span>
                                             <span>
@@ -261,7 +261,7 @@ class RegistrationReceipt extends Component {
                                     </Signature>
                                 </FieldSetStyled>
                             </Form>
-                        </BiggestStyledPage>
+                        </MiniStyledPage>
                     );
                 }}
             </Query>

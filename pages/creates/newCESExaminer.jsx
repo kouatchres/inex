@@ -1,11 +1,11 @@
 import React from "react";
-import CreateCESExaminer from "../../src/components/CESExaminer/CreateCESExaminer";
+import CreateNewCESExaminerHook from "../../src/components/CESExaminer/CreateNewCESExaminerHook";
 // import div from '../../src/components/styles/div';
 
 const newCESExaminer = props => {
   return (
     <div>
-      <CreateCESExaminer />
+      <CreateNewCESExaminerHook />
     </div>
   );
 };

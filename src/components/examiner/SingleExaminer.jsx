@@ -3,12 +3,12 @@ import { Query } from 'react-apollo';
 import Error from '../ErrorMessage';
 import Link from 'next/link';
 import Form from '../styles/Form';
-import { format } from 'date-fns';
-import { BigStyledPage } from '../styles/StyledPage';
+import { MiniStyledPage } from '../styles/StyledPage';
 import styled from 'styled-components';
 import { singleExaminerQuery } from '../queries&Mutations&Functions/Queries';
 
 const UpdateBtn = styled.button`
+
 	background-color: #379;
 	border-radius: 10px;
 	font-size: .3rem;
@@ -21,38 +21,47 @@ const UpdateBtn = styled.button`
 
 const DivBtn = styled.div`
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 1rem;
+grid-template-columns: repeat(auto-fit, minmax(13rem,1fr));
+	grid-gap:1rem;
 `;
 
-const ImageInfo = styled.div`
-	margin: 0 auto;
-	max-width: 90vw;
-	display: grid;
-	grid-gap: 1rem;
-	grid-template-columns: 1fr 1fr;
-	/* box-shadow: 1px 2px 6px 1px rgba(0, 0, 0, 0.08); */
-	border-radius: 15px;
-`;
 
 const BottomInfo = styled.div`
-	padding: .5px;
-	margin: .5rem auto;
-    font-size: 1.6rem;
-    line-height: 0.3rem;
+display: flex;
+flex-direction:column;
+	text-align:left;
+`;
+
+const GenInfo = styled.div`
+	text-align:left;
+	/* margin: 0 auto; */
+    font-size: 1.3rem;
+    line-height: 0.2rem;
   
 `;
 
-const examinerImg = styled.div`
-	padding-left: 3.5rem;
+const ExaminerInfo = styled.div`
+display:grid;
+grid-template-columns: repeat(auto-fit, minmax(13rem,1fr));
+grid-gap	:0.6rem;
+	text-align:left;
+	/* padding: .5px;
+	margin: .5rem auto;
+    font-size: 1.6rem;
+    line-height: 0.3rem; */
+  
+`;
+
+const ExaminerImg = styled.div`
+	/* padding-left: 3.5rem; */
 	display: flex;
 	flex-direction: column;
 	margin-bottom: .5rem;
 	img {
-		margin-top: .5rem;
-		margin-left: .5rem;
-		height: 15rem;
-		width: 15rem;
+		padding-top:1rem;
+		margin:0 auto;
+		height: 13rem;
+		width: 13rem;
 		border-radius: 10px;
 		background-size: contain;
 		background-position: center;
@@ -64,17 +73,18 @@ class SingleExaminer extends Component {
 		return (
 			<Query query={singleExaminerQuery} variables={{ id: this.props.id }}>
 				{({ data, loading, error }) => {
-					const { examineridate } = data;
+					const { examiner } = data;
 					const {
 						examiner1stName,
 						examiner2ndName,
 						examinerOtherNames,
 						examinerCode,
 						examinerEmail,
+						examinerCNI,
 						examinerImage,
 						examinerPhone,
 						examinerMatricule
-					} = examineridate;
+					} = examiner;
 					{
 						loading && <p>Loading...</p>;
 					}
@@ -82,70 +92,75 @@ class SingleExaminer extends Component {
 						error && <Error error={error} />;
 					}
 					return (
-						<BigStyledPage>
+						<MiniStyledPage>
 							<Form>
 								<h4>Info Examinateur</h4>
 								<fieldset>
-									<ImageInfo>
-										<BottomInfo>
-											<p>
-												<strong>Nom:</strong> <span>{examiner1stName}</span>
-											</p>
-											<p>
-												<strong>Prenoms: </strong>
-												<span> {examiner2ndName}</span>
-											</p>
-											<p>
-												<strong>Autres Noms:</strong>
-												<span> {examinerOtherNames}</span>
-											</p>
-											<p>
-												<strong>Matricule:</strong>
-												<span> {examinerMatricule}</span>
-											</p>
+									<BottomInfo>
+										<ExaminerInfo>
+											<GenInfo>
+												<p>
+													<strong>Nom:</strong> <span>{examiner1stName}</span>
+												</p>
+												<p>
+													<strong>Prenoms: </strong>
+													<span> {examiner2ndName}</span>
+												</p>
+												<p>
+													<strong>Autres Noms:</strong>
+													<span> {examinerOtherNames}</span>
+												</p>
+												<p>
+													<strong>Matricule:</strong>
+													<span> {examinerMatricule}</span>
+												</p>
 
-											<p>
-												<strong>Tel: </strong> <span>{examinerPhone}</span>
-											</p>
-										</BottomInfo>
-										<BottomInfo>
-											<p>
-												<strong>Email:</strong>
-												<span> {examinerEmail}</span>
-											</p>
+												<p>
+													<strong>Tel: </strong> <span>{examinerPhone}</span>
+												</p>
 
-											<p>
-												<strong>Code Examinateur:</strong> <span> {examinerCode}</span>
-											</p>
-											<examinerImg>
-												<div>{examinerImage && <img src={examinerImage} alt={exminerEmail} />}</div>
-											</examinerImg>
-											<DivBtn>
-												<UpdateBtn>
-													<Link
-														href={{
-															pathname: '../updates/updateexaminer',
-															query: { id: this.props.id }
-														}}
-													>
-														<a target="_blank" >Modifier </a>
-													</Link>
-												</UpdateBtn>
-												<UpdateBtn>
-													<Link
-														href={{
-															pathname: '../creates/newExaminer'
-														}}
-													>
-														<a target="_blank" >Nouveau Examinateur</a>
-													</Link>
-												</UpdateBtn>
-											</DivBtn>
-										</BottomInfo>
-									</ImageInfo>
+												<p>
+													<strong>Email:</strong>
+													<span> {examinerEmail}</span>
+												</p>
+												<p>
+													<strong>CNI:</strong>
+													<span> {examinerCNI}</span>
+												</p>
+
+												<p>
+													<strong>Code:</strong> <span> {examinerCode}</span>
+												</p>
+											</GenInfo>
+											<ExaminerImg>
+												<div>{examinerImage && <img src={examinerImage} alt={examinerEmail} />}</div>
+											</ExaminerImg>
+										</ExaminerInfo>
+										<DivBtn>
+											<UpdateBtn>
+												<Link
+													href={{
+														pathname: '../updates/updateExaminer',
+														query: { id: this.props.id }
+													}}
+												>
+													<a target="_blank" >Modifier </a>
+												</Link>
+											</UpdateBtn>
+											<UpdateBtn>
+												<Link
+													href={{
+														pathname: '../creates/newExaminer'
+													}}
+												>
+													<a target="_blank" >Nouveau Examinateur</a>
+												</Link>
+											</UpdateBtn>
+										</DivBtn>
+									</BottomInfo>
 								</fieldset>
 							</Form>
-						</BigStyledPage>
+						</MiniStyledPage>
 					);
 				}}
 			</Query>
@@ -154,11 +169,3 @@ class SingleExaminer extends Component {
 }
 
 export default SingleExaminer;
-//bacc 2017 chinois specialty
-//examinerCodes              //  examexaminerSecretCode
-//fdzpk&Coh65Z          //Xp5I#RnK
-//HUQDgdZRt6H1          //%zxXvYUU
-//LK#fryyoI57           //RSNtIjPE
-//swMwBJtT1ct           // oWMOcC2T
-//6UnsPVM%#Ibl  //
-//mWrmVPpcf9C2     //

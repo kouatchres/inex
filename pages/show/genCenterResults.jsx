@@ -1,10 +1,10 @@
 import React from "react";
-import NewGenCenterResults from "../../src/components/score/center/NewGenCenterResults"
+import GenCenterResultsHook from "../../src/components/score/center/GenCenterResultsHook"
 
 function genCenterResults({ query }) {
     return (
         <div>
-            <NewGenCenterResults id={query.id} />
+            <GenCenterResultsHook id={query.id} />
         </div>
     );
 }

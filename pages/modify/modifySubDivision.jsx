@@ -1,18 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import SelectSubDivisionToModify from "../../src/components/subDivision/SelectSubDivisionToModify";
+import SubDivisionToModifyHook from "../../src/components/subDivision/SubDivisionToModifyHook";
 
-const DivStyled = styled.div`
-  display: block;
-  margin: 0 auto;
-  justify-items: center;
-  align-content: center;
-`;
 const modifySubDivision = props => {
   return (
-    <DivStyled>
-      <SelectSubDivisionToModify />
-    </DivStyled>
+    <div>
+      <SubDivisionToModifyHook />
+    </div>
   );
 };
 export default modifySubDivision;

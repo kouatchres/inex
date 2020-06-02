@@ -1,18 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import SelectTownToModify from '../../src/components/town/SelectTownToModify';
+import TownToModifyHook from '../../src/components/town/TownToModifyHook';
 
-const DivStyled = styled.div`
-	display: block;
-	margin: 0 auto;
-	justify-items: center;
-	align-content: center;
-`;
+
 const modifyTown = (props) => {
 	return (
-		<DivStyled>
-			<SelectTownToModify />
-		</DivStyled>
+		<div>
+			<TownToModifyHook />
+		</div>
 	);
 };
 export default modifyTown;

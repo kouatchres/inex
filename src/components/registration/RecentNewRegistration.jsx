@@ -5,10 +5,11 @@ import { MinimStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import Router from 'next/router'
 import { Formik, Form } from 'formik';
-import { SygexInput, SygexSelect, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
+import { customStyle, SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
 import styled from 'styled-components';
+import Select from 'react-select'
 import * as Yup from 'yup';
-import { getSelectedObject, uniqueCodeGen, candExamSessionCode } from '../queries&Mutations&Functions/Functions';
+import { getSelectedObject, removeTypename, getObjectFromID, uniqueCodeGen, candExamSessionCode } from '../queries&Mutations&Functions/Functions';
 import { createRegistrationMutation } from '../queries&Mutations&Functions/Mutations';
 import {
     getExamSessionQuery,
@@ -37,13 +38,13 @@ flex-direction:column;
 const validationSchema = Yup
     .object()
     .shape({
-        examID: Yup
+        exam: Yup
             .string()
             .required("Choix De l'examen Obligatoire"),
-        sessionID: Yup
+        session: Yup
             .string()
             .required("Choix de la session Obligatoire"),
-        seriesID: Yup
+        series: Yup
             .string()
             .required("Choix de la Séries Obligatoire"),
         centerNumber: Yup
@@ -54,14 +55,14 @@ const validationSchema = Yup
 
 class RecentNewRegistration extends Component {
     initialValues = {
-        examID: "",
-        sessionID: "",
+        exam: "",
+        session: "",
         centerNumber: "",
         candCode: "",
-        seriesID: "",
+        series: "",
 
     };
-    state = { seriesID: "", centerNumber: "", examID: "", sessionID: "12" }
+    state = { series: "", centerNumber: "", exam: "", session: "12" }
 
     handleChange = e => {
         const { name, value, type } = e.target;
@@ -96,12 +97,8 @@ class RecentNewRegistration extends Component {
 
     render() {
 
-        const { centerNumber, sessionID, examID, seriesID } = this.state
-        this.initialValues.seriesID = seriesID
-        this.initialValues.sessionID = sessionID
+        const { centerNumber, session, exam, series } = this.state
         this.initialValues.centerNumber = centerNumber
-        this.initialValues.examID = examID
-
         return (
             <Query query={getAllExamsQuery}>
                 {({ data, loading, error }) => {
@@ -114,14 +111,11 @@ class RecentNewRegistration extends Component {
 
                     const { exams } = data;
                     console.log(exams);
-                    const getExamName = exams && { ...getSelectedObject(exams, examID) }
+                    const getExamName = exams && { ...getSelectedObject(exams, exam) }
                     const refinedExams =
-                        exams && exams.map(({ __typename, examName, ...others }) => others);
-                    const examsOptions = exams && exams.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.examName}
-                        </option>
-                    ))
+                        exams && removeTypename(exams);
+                    const getExams = refinedExams && refinedExams.map((item) => ({ ...item, value: item.id, label: item.examName }))
+                    console.log('state values', this.state);
                     return (
                         <Query query={getAllSessionsQuery}>
                             {({ data, loading, error }) => {
@@ -133,27 +127,21 @@ class RecentNewRegistration extends Component {
                                 }
 
                                 const { sessions } = data;
-                                const getSessionName = sessions && { ...getSelectedObject(sessions, sessionID) }
-                                const refinedSessions = sessions && sessions.map(({ __typename, sessionName, ...others }) => others);
-                                const sessionsOptions = sessions && sessions.map((item) => (
-                                    <option key={item.id} value={item.id}>
-                                        {item.sessionName}
-                                    </option>
-                                ))
+                                const getSessionName = sessions && { ...getSelectedObject(sessions, session) }
+                                const refinedSessions = sessions && removeTypename(sessions);
+                                const getSessions = refinedSessions && refinedSessions.map((item) => ({ ...item, value: item.id, label: item.sessionName }))
                                 return (
 
                                     <Query query={getExamSessionQuery}
                                         variables={{
-
-                                            exam: refinedExams && getSelectedObject(refinedExams, examID),
-                                            session: refinedSessions && getSelectedObject(refinedSessions, sessionID)
+                                            exam: refinedExams && getSelectedObject(refinedExams, exam),
+                                            session: refinedSessions && getSelectedObject(refinedSessions, session)
                                         }}  >
                                         {({ data, error, loading }) => {
-                                            console.log(`examName-- ${getExamName}, examen--${examID},  session- ${sessionID}`);
                                             console.log(data)
                                             const { examSessions } = { ...data }
-                                            const refinedES = examSessions && examSessions.map(({ __typename, ...others }) => others)
-                                            const reducedES = refinedES && refinedES.reduce((item) => item)
+                                            const refinedES = examSessions && removeTypename(examSessions)
+                                            const reducedES = refinedES && refinedES[0]
                                             console.log(reducedES)
 
                                             return (
@@ -163,7 +151,7 @@ class RecentNewRegistration extends Component {
                                                         { loading && <p>...Loading</p> }
                                                         { error && <Error error={error} /> }
                                                         const { centerByNumber } = { ...data }
-                                                        centerByNumber && delete centerByNumber.__typename
+                                                        centerByNumber && removeTypename(centerByNumber)
                                                         console.log(centerByNumber)
                                                         return (
                                                             <Query
@@ -180,9 +168,9 @@ class RecentNewRegistration extends Component {
                                                                     console.log(centerExamSessionsByCode);
                                                                     // remove typename from the object
                                                                     const refinedCenterExamSessions =
-                                                                        centerExamSessionsByCode && centerExamSessionsByCode.map(({ __typename, ...others }) => others);
+                                                                        centerExamSessionsByCode && removeTypename(centerExamSessionsByCode);
                                                                     // transform the array into a single object
-                                                                    const getObj = refinedCenterExamSessions && refinedCenterExamSessions.reduce((item) => item);
+                                                                    const getObj = refinedCenterExamSessions && refinedCenterExamSessions[0]
                                                                     console.log(getObj);
 
                                                                     return (
@@ -203,28 +191,23 @@ class RecentNewRegistration extends Component {
 
                                                                                 const newSeries = centerExamSessionSeries && centerExamSessionSeries.map((item) => (item.series))
                                                                                 const refinedSeries =
-                                                                                    newSeries && newSeries.map(({ __typename, seriesName, ...others }) => others);
+                                                                                    newSeries && removeTypename(newSeries);
                                                                                 console.log(refinedSeries);
-                                                                                const seriesOptions = newSeries && newSeries.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.seriesName}
-                                                                                    </option>
-                                                                                ));
-
+                                                                                const getSeries = refinedSeries && refinedSeries.map((item) => ({ ...item, value: item.id, label: item.seriesName }))
                                                                                 return (
 
                                                                                     <Query query={getCenterExamSessionSeriesQuery}
                                                                                         variables={{
                                                                                             centerExamSession: getObj && getObj,
-                                                                                            series: refinedSeries && getSelectedObject(refinedSeries, seriesID)
+                                                                                            series: refinedSeries && getSelectedObject(refinedSeries, series)
                                                                                         }}
                                                                                     >
                                                                                         {({ data, error, loading }) => {
                                                                                             { loading && <p>...Loading</p> }
                                                                                             { error && <Error error={error} /> }
-                                                                                            console.log(refinedSeries && getSelectedObject(refinedSeries, seriesID));
+                                                                                            console.log(refinedSeries && getSelectedObject(refinedSeries, series));
                                                                                             const { centerExamSessionSerieses } = { ...data }
-                                                                                            const getCESS = centerExamSessionSerieses && centerExamSessionSerieses.reduce((item) => item)
+                                                                                            const getCESS = centerExamSessionSerieses && centerExamSessionSerieses[0]
                                                                                             const { id: idObj } = { ...getCESS }
                                                                                             const refinedCESS = idObj && this.makeCESSObject(idObj)
                                                                                             console.log(refinedCESS)
@@ -236,16 +219,16 @@ class RecentNewRegistration extends Component {
                                                                                                             method="POST"
                                                                                                             initialValues={this.initialValues}
                                                                                                             validationSchema={validationSchema}
-                                                                                                            onSubmit={async ({ candCode, seriesID, sessionID, examID, centerNumber, ...others }, actions, setSubmitting, resetForm) => {
+                                                                                                            onSubmit={async ({ candCode, series, session, exam, centerNumber, ...others }, actions, setSubmitting, resetForm) => {
                                                                                                                 const res = await createRegistration({
                                                                                                                     variables: {
                                                                                                                         others,
                                                                                                                         candExamSecretCode: uniqueCodeGen(8),
                                                                                                                         candidate: this.makeCandVariableObject(candCode),
                                                                                                                         centerExamSession: getObj && getObj,
-                                                                                                                        series: refinedSeries && getSelectedObject(refinedSeries, seriesID),
+                                                                                                                        series: refinedSeries && getSelectedObject(refinedSeries, series),
                                                                                                                         centerExamSessionSeries: refinedCESS && refinedCESS,
-                                                                                                                        candExamSession: candExamSessionCode(candCode, examID, sessionID),
+                                                                                                                        candExamSession: candExamSessionCode(candCode, exam, session),
                                                                                                                         candRegistrationNumber: exams && sessions && this.candRegistrationNumber(centerNumber, getExamName.examCode, getSessionName.sessionName)
                                                                                                                     }
 
@@ -261,41 +244,38 @@ class RecentNewRegistration extends Component {
                                                                                                                     actions.setSubmitting(false);
                                                                                                                 }, 400);
                                                                                                             }}>
-                                                                                                            <MinimStyledPage>
-                                                                                                                <h4>Inscription à l'Examen</h4>
-                                                                                                                <Error error={error} />
-                                                                                                                <StyledForm>
-                                                                                                                    <Form>
-                                                                                                                        <AllControls>
-                                                                                                                            <InputGroup>
-                                                                                                                                <SygexInput
-                                                                                                                                    value={centerByNumber && centerByNumber.centerCode}
-                                                                                                                                    name="centerName" type="text" placeholder=" Nom du centre" />
-                                                                                                                                <SygexInput onChange={this.handleChange} name="centerNumber" type="number" placeholder="no du centre" />
+                                                                                                            {({ setFieldValue }) => {
 
-                                                                                                                                <SygexSelect onChange={this.handleChange} name="sessionID">
-                                                                                                                                    <option>La session</option>
-                                                                                                                                    {sessionsOptions}
-                                                                                                                                </SygexSelect>
-                                                                                                                                <SygexSelect onChange={this.handleChange} name="examID">
-                                                                                                                                    <option>L'Examen </option>
-                                                                                                                                    {examsOptions}
-                                                                                                                                </SygexSelect>
-                                                                                                                                <SygexSelect onChange={this.handleChange} name="seriesID">
-                                                                                                                                    <option >La Séries</option>
-                                                                                                                                    {seriesOptions}
-                                                                                                                                </SygexSelect>
+                                                                                                                return (
 
-                                                                                                                                <SygexInput name="candCode" type="text" placeholder="Code secret candidat" />
 
-                                                                                                                            </InputGroup>
-                                                                                                                            <ButtonStyled>
-                                                                                                                                <StyledButton type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
-                                                                                                                            </ButtonStyled>
-                                                                                                                        </AllControls>
-                                                                                                                    </Form>
-                                                                                                                </StyledForm>
-                                                                                                            </MinimStyledPage>
+                                                                                                                    <MinimStyledPage>
+                                                                                                                        <h4>Inscription à l'Examen</h4>
+                                                                                                                        <Error error={error} />
+                                                                                                                        <StyledForm disabled={loading} aria-busy={loading} >
+                                                                                                                            <Form>
+                                                                                                                                <AllControls>
+                                                                                                                                    <InputGroup>
+                                                                                                                                        <SygexInput
+                                                                                                                                            value={centerByNumber && centerByNumber.centerCode}
+                                                                                                                                            name="centerName" type="text" label=" Nom du centre" />
+                                                                                                                                        <SygexInput onChange={this.handleChange} name="centerNumber" value={centerNumber} type="number" label="Numero du centre" />
+
+                                                                                                                                        <Select onChange={(value) => (setFieldValue('session', value))} styles={customStyle} name="session" options={getSessions} placeholder={'La Session'} />
+                                                                                                                                        <Select onChange={(value) => (setFieldValue('exam', value))} styles={customStyle} name="exam" options={getExams} placeholder={"L'Examen"} />
+                                                                                                                                        <Select onChange={(value) => (setFieldValue('series', value))} styles={customStyle} name="series" options={getSeries} placeholder={'La Serie'} />
+
+                                                                                                                                        <SygexInput name="candCode" type="text" label="Code secret candidat" />
+                                                                                                                                    </InputGroup>
+                                                                                                                                    <ButtonStyled>
+                                                                                                                                        <StyledButton type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
+                                                                                                                                    </ButtonStyled>
+                                                                                                                                </AllControls>
+                                                                                                                            </Form>
+                                                                                                                        </StyledForm>
+                                                                                                                    </MinimStyledPage>
+                                                                                                                )
+                                                                                                            }}
                                                                                                         </Formik>
                                                                                                     )
                                                                                                     }

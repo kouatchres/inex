@@ -43,7 +43,7 @@ const Form = styled.form`
   button,
   input[type='submit'] {
     width: auto;
-    background: ${(props) => props.theme.googleBlue};
+    background: ${(props) => props.theme.blues[2]};
     color: white;
     border: 0;
     height: 2.5rem;
@@ -59,13 +59,13 @@ const Form = styled.form`
     max-width: 80vw;
     margin: 20px ;
     /* height: 60vh; */
-    border: 0.1rem solid ${(props) => props.theme.googleBlue};
+    border: 0.1rem solid ${(props) => props.theme.blues[2]};
     padding:1.2rem;
     display: flex;
     flex-direction: row;
     border-radius:.9rem;
     justify-items: center;
-    box-shadow: ${(props) => props.theme.bs2};
+    box-shadow: ${(props) => props.theme.formBS};
 
     &[disabled] {
       opacity: 0.6;

@@ -6,7 +6,7 @@ import Link from "next/link";
 import Error from "../ErrorMessage";
 import styled from "styled-components";
 import DeleteRegion from "../region/DeleteRegion";
-import { getAllRegionsQuery } from "../queries&Mutations&Functions/Queries";
+import { getAllRegionsQuery, getAllCountrysQuery } from "../queries&Mutations&Functions/Queries";
 
 const DeleteBlock = styled.div`
   align-content: left;

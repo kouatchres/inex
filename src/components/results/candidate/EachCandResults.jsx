@@ -2,45 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Query } from "react-apollo";
 import Form from "../../styles/Form";
-import { BigStyledPage } from "../../styles/StyledPage";
+import { StyledPage } from "../../styles/StyledPage";
 import { format } from "date-fns";
 import Error from "../../ErrorMessage";
 import styled from "styled-components";
-import ResultDetails from "./ResultDetails";
 import { getEachCandidateResultsQuery } from "../../queries&Mutations&Functions/Queries";
-import {
-  roundFloatNumber,
-  calcCandTotalScore,
-  calcCandTotalCoeff,
-  calcCandAve
-} from "../../queries&Mutations&Functions/Functions";
 
-const AveTotals = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
-  background-color: ${props => props.theme.lightGrey};
-  align-items: left;
-  justify-items: left;
-  border-bottom: 1px solid black;
-  padding-left: 15px;
-`;
-const SubjectTitles = styled.div`
-  display: flex;
-  color: white;
-  font-size: 1.5rem;
-  justify-content: left;
-  background: ${props => props.theme.googleBlue};
-  border-radius: 0.5rem;
-`;
-
-const TitleItem = styled.div`
-  margin: 0 20px;
-  border-right: 1px solid black;
-  width: 25%;
-  text-align: left;
-  /* padding-left: 15px; */
-`;
 
 const ResultsHeader = styled.div`
   display: grid;
@@ -56,17 +23,7 @@ const SchoolInfo = styled.div`
   justify-items: center;
   align-items: center;
 `;
-const CandPic = styled.div`
-  margin-top: 1rem;
-  display: block;
-  flex-direction: column;
 
-  img {
-    height: 30vh;
-    width: 10vw;
-    border-radius: 0.5rem;
-  }
-`;
 
 const FirstInfo = styled.div`
   display: block;
@@ -87,7 +44,7 @@ class EachCandResults extends Component {
           const { candidate, exam, session, center, series, scores } = { ...registration };
 
           return (
-            <BigStyledPage>
+            <StyledPage>
               <Form
                 onSubmit={e => {
                   e.preventDefault();
@@ -158,23 +115,10 @@ class EachCandResults extends Component {
                       </p>
                     </SecInfo>
                   </ResultsHeader>
-                  {/* <AveTotals>
-                    <span>
-                      <strong>Total Matieres:</strong>
-                      {roundFloatNumber(calcCandTotalScore(scores), 4)}
-                    </span>
-                    <span>
-                      <strong>Somme Coefficients: </strong>
-                      {roundFloatNumber(calcCandTotalCoeff(scores), 4)}
-                    </span>
-                    <span>
-                      <strong>Moyenne: </strong>
-                      {roundFloatNumber(calcCandAve(scores), 4)}
-                    </span>
-                  </AveTotals> */}
+
                 </fieldset>
               </Form>
-            </BigStyledPage>
+            </StyledPage>
           );
         }}
       </Query>

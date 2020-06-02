@@ -32,22 +32,6 @@ const UpdateBlock = styled.button`
 	}
 `;
 
-const StyledDivision = styled.div`
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 2rem;
-	text-align: center;
-	margin: 0 auto;
-	min-width: 82rem;
-`;
-
-const CenterSelect = styled.div`
-	display: block;
-	text-align: center;
-	margin: 0 auto;
-	min-width: 40rem;
-`;
-
 class SelectCenterToModify extends Component {
 	state = {
 		regionID: '125',
@@ -70,7 +54,7 @@ class SelectCenterToModify extends Component {
 
 		return (
 			<Query query={getSingleCenterQuery}
-				variables={{ centerNumber: centerNumber, }}  >
+				variables={{ centerNumber: centerNumber, }}>
 				{({ data, error, loading }) => {
 					{ loading && <p>...Loading</p> }
 					{ error && <Error error={error} /> }

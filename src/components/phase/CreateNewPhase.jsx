@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo'
 import { MinimStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import { Formik, Form } from 'formik';
-import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
+import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../utils/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { createPhaseMutation } from '../queries&Mutations&Functions/Mutations'
@@ -56,12 +56,12 @@ class CreateNewPhase extends Component {
                         <MinimStyledPage>
                             <h4>Crée phase de l'Examen</h4>
                             <Error error={error} />
-                            <StyledForm>
+                            <StyledForm disabled={loading} aria-busy={loading} >
                                 <Form>
                                     <AllControls>
                                         <InputGroup>
-                                            <SygexInput name="phaseName" type="text" placeholder="Nom Phase de l'examen" />
-                                            <SygexInput name="phaseCode" type="text" placeholder="Code Phase de l'examen" />
+                                            <SygexInput name="phaseName" type="text" label="Nom Phase de l'examen" />
+                                            <SygexInput name="phaseCode" type="text" label="Code Phase de l'examen" />
 
                                         </InputGroup>
                                         <ButtonStyled>

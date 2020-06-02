@@ -1,12 +1,12 @@
 import React from 'react';
-import CreateNewExam from '../../src/components/exam/CreateNewExam';
+import CreateNewExamHook from '../../src/components/exam/CreateNewExamHook';
 import styled from 'styled-components';
 
 
 const NewExam = () => {
 	return (
 		<div>
-			<CreateNewExam />
+			<CreateNewExamHook />
 		</div>
 	);
 };

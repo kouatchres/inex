@@ -9,11 +9,35 @@ const getACenterAdminQuery = gql`
   }
 `;
 
+const meQuery = gql`
+  query meQuery {
+    me {
+      id
+     email
+     name 
+     password
+    }
+  }
+`;
+
 const singleEducationTypeQuery = gql`
   query singleEducationTypeQuery($id: ID!) {
     educationType(id: $id) {
       educationTypeName
       educationTypeCode
+      id
+    }
+  }
+`;
+
+const getCESExaminerQuery = gql`
+  query getCESExaminerQuery(
+    $examiner: ExaminerWhereUniqueInput!,
+     $centerExamSession:CenterExamSessionWhereUniqueInput!) {
+    getCenterExamSessionExaminers(
+      examiner: $examiner, 
+      centerExamSession:$centerExamSession  ) {
+     
       id
     }
   }
@@ -48,21 +72,39 @@ const getAllEducationTypesQuery = gql`
     }
   }
 `;
+const getAllRegionsOfACountryQuery = gql`
+  query getAllRegionsOfACountryQuery($id: ID!) {
+    country(id: $id) {
+      id
+      region(orderBy: regName_ASC){
+       regName
+      regCode
+      id
+      }
+    }
+  }
+`;
 const getAllRegionsQuery = gql`
   query getAllRegionsQuery {
-    regions(orderBy: regName_ASC) {
-      regName
+      regions{
+       regName
       regCode
+      id
+  }}
+`;
+const getAllCountrysQuery = gql`
+  query getAllCountrysQuery {
+    countries(orderBy:countryName_ASC) {
+      countryName
+      countryCode
       id
     }
   }
 `;
-const getAllCountrysQuery = gql`
-  query getAllCountrysQuery {
-    countrys(orderBy: countryName_ASC) {
-      countryName
-      countryCode
-      id
+const getAllCountrysRegionCreateQuery = gql`
+  query getAllCountrysRegionCreateQuery {
+    countries(orderBy:countryName_ASC) {
+           id
     }
   }
 `;
@@ -165,6 +207,49 @@ const getCandidateResultsQuery = gql`
           id
           subjectName
         }
+      }
+    }
+  }
+`;
+
+const getExaminerRegistrationQuery = gql`
+  query getExaminerRegistrationQuery($id: ID!) {
+    centerExamSessionExaminer(id: $id) {
+      id
+      examiner{
+        examiner1stName
+        examiner2ndName
+        examinerOtherNames
+        examinerMatricule
+        examinerPhone
+        examinerCNI
+        examinerImage
+        examinerEmail
+        gender {
+          genderName
+        }
+      }
+      centerExamSession{
+        id 
+      examSession {
+       id
+        exam{
+          id 
+          examName
+        }
+        session{
+          id
+          sessionName
+      }}
+      center {
+        id
+        centerName
+      }
+      
+      }
+      phaseRank {
+        id
+        rankName
       }
     }
   }
@@ -820,7 +905,6 @@ const getSingleCenterQuery = gql`
       id
       centerNumber
       centerCode
-      id
     }
   }
 `;
@@ -849,7 +933,6 @@ const getSingleCenterByCodeQuery = gql`
 const getASingleCenterQuery = gql`
   query getASingleCenterQuery($centerNumber: Int!) {
     centerByNumber(centerNumber:  $centerNumber) {
-      id
       centerNumber
       centerName
       centerCode
@@ -879,13 +962,15 @@ const getSingleCenterExamSessionQuery = gql`
   }
 `;
 
-const getASinglePhaseRankQuery = gql`
-  query getASinglePhaseRankQuery(
-    $phase: PhaseWhereUniqueInput!
-    $rank: RankWhereUniqueInput!
-  ) {
-    getPhaseRankID(rank: $rank, phase: $phase) {
+const getAllRanksOfAnExamPhaseQuery = gql`
+  query getAllRanksOfAnExamPhaseQuery($id: ID!) {
+    phase(id: $id) {
       id
+      phaseRank{
+             id
+          rankName
+          rankCode
+      }
     }
   }
 `;
@@ -961,7 +1046,7 @@ const singleCandidateQuery = gql`
       cand1stName
       cand2ndName
       cand3rdName
-      candCode
+      candCode  
       dadName
       momName
       email
@@ -989,6 +1074,7 @@ const singleExaminerQuery = gql`
       examinerImage
       examinerPhone
       examinerMatricule
+      examinerCNI
       
     }
   }
@@ -1146,7 +1232,7 @@ export {
   getAllSubjectTypesQuery,
   getAllGendersQuery,
   getAllEducTypeQuery,
-  getAllRegionsQuery,
+  getAllRegionsOfACountryQuery,
   getAllSeriesOfAnEducationTypeQuery,
   getAllExamsQuery,
   getAllSessionsQuery,
@@ -1210,10 +1296,16 @@ export {
   getRegistrationIDFromRegNumberQuery,
   centerExamSessionSeriesResultsQuery,
   dataForAverage,
+  getAllCountrysRegionCreateQuery,
   getAllPhasesQuery,
+  getAllRegionsQuery,
   getAllCountrysQuery,
   singleExaminerQuery,
+  getCESExaminerQuery,
+  getExaminerRegistrationQuery,
   getSingleProfQuery,
+  getAllRanksOfAnExamPhaseQuery,
   getASinglePhaseRankQuery,
+  meQuery,
   getSingleCenterByCodeQuery
 };

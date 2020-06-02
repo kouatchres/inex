@@ -1,10 +1,10 @@
 import React from 'react'
-import CreateExaminer from '../../src/components/examiner/CreateExaminer'
+import CreateNewExaminer from '../../src/components/examiner/CreateNewExaminer'
 
 const newExaminer = props => {
   return (
     <div>
-      <CreateExaminer />
+      <CreateNewExaminer />
     </div>
   )
 }

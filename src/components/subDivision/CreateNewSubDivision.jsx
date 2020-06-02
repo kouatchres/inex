@@ -4,23 +4,25 @@ import { Mutation, Query } from 'react-apollo'
 import { MinimStyledPage } from '../styles/StyledPage'
 import Error from '../ErrorMessage.js';
 import { Formik, Form } from 'formik';
-import { SygexSelect, SygexInput, StyledForm, ButtonStyled, StyledButtonBlue } from '../formikForms/FormInputs'
+import { SygexSelect, SygexInput, StyledForm, ButtonStyled, StyledButton } from '../formikForms/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { createSubDivisionMutation } from "../queries&Mutations&Functions/Mutations";
-import { getSelectedObject } from "../queries&Mutations&Functions/Functions";
-import { getAllRegionsQuery, getDivisionsOfARegionQuery } from "../queries&Mutations&Functions/Queries";
+import { getSelectedObject, removeTypename } from "../queries&Mutations&Functions/Functions";
+import { getAllCountrysQuery, getAllRegionsOfACountryQuery, getDivisionsOfARegionQuery } from "../queries&Mutations&Functions/Queries";
 
 const InputGroup = styled.div`
     
     display: flex;
     flex-direction:column;
     margin:0 1rem;
+    margin-bottom: 1rem;
    
 `;
 const AllControls = styled.div`
   display: flex;
 flex-direction:column;
+padding-bottom:1rem;
 `;
 
 const validationSchema = Yup
@@ -65,7 +67,8 @@ class CreateNewSubDivision extends Component {
     this.initialValues.regionID = regionID;
 
     return (
-      <Query query={getAllRegionsQuery} >
+      <Query query={getAllCountrysQuery}  >
+
         {({ data, loading, error }) => {
           {
             loading && <p>Loading...</p>;
@@ -73,14 +76,13 @@ class CreateNewSubDivision extends Component {
           {
             error && <Error error={error} />;
           }
-          const { regions } = data
-          const refinedRegions = regions && regions.map(({ __typename, ...others }) => others)
-          const regionOptions = refinedRegions && refinedRegions.map((item) => (<option value={item.id} key={item.id}>{item.regName}  </option>))
+          const { countries } = data
+          !countries ? null : delete countries[0].__typename
+
 
           return (
-            <Query query={getDivisionsOfARegionQuery}
-              variables={regions && getSelectedObject(refinedRegions, regionID)}
-            >
+
+            <Query query={getAllRegionsOfACountryQuery} variables={countries} >
               {({ data, loading, error }) => {
                 {
                   loading && <p>Loading...</p>;
@@ -88,70 +90,92 @@ class CreateNewSubDivision extends Component {
                 {
                   error && <Error error={error} />;
                 }
-                console.log(refinedRegions);
-                const { region } = data;
-                const allDivs = { ...region };
-                const { division } = allDivs;
-                console.log(division);
-                const refinedDivision = division && division.map(({ __typename, divName, ...others }) => others);
-                const divisionOptions =
-                  division &&
-                  division.map(item => (
-                    <option value={item.id} key={item.id}>{item.divName}</option>));
+                const { country } = data
+                const { region } = { ...country }
+                console.log(region);
+
+                const refinedRegions = region && removeTypename(region)
+                const regionOptions = refinedRegions && refinedRegions.map((item) => (<option value={item.id} key={item.id}>{item.regName}  </option>))
 
                 return (
-                  <Mutation mutation={createSubDivisionMutation}>
-                    {(createSubDivision, { loading, error }) => (
-                      <Formik
-                        method="POST"
-                        initialValues={this.initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={async (values, actions, setSubmitting, resetForm) => {
-                          const res = await createSubDivision({
-                            variables:
-                            {
-                              ...values,
-                              division: refinedDivision && getSelectedObject(refinedDivision, values.divisionID)
-                            }
-                          });
-                          setTimeout(() => {
-                            console.log(JSON.stringify(values, null, 2));
-                            console.log(res);
-                            actions.setSubmitting(false);
-                            actions.resetForm(true);
-                          }, 400);
-                        }}>
-                        <MinimStyledPage>
-                          <h4>Crée Nouveau Arrondissement</h4>
-                          <Error error={error} />
-                          <StyledForm>
-                            <Form>
-                              <AllControls>
-                                <InputGroup>
+                  <Query query={getDivisionsOfARegionQuery}
+                    variables={region && getSelectedObject(refinedRegions, regionID)}
+                  >
+                    {({ data, loading, error }) => {
+                      {
+                        loading && <p>Loading...</p>;
+                      }
+                      {
+                        error && <Error error={error} />;
+                      }
+                      console.log(refinedRegions);
+                      const { region } = data;
+                      const allDivs = { ...region };
+                      const { division } = allDivs;
+                      console.log(division);
+                      const refinedDivision = division && removeTypename(division);
+                      const divisionOptions =
+                        refinedDivision &&
+                        refinedDivision.map(item => (
+                          { value: item.id, label: item.divName }))
 
-                                  <SygexSelect onChange={this.handleChange} name="regionID">
-                                    <option>La Region</option>
-                                    {regionOptions}
-                                  </SygexSelect>
-                                  <SygexSelect name="divisionID">
-                                    <option>Le  Departement</option>
-                                    {divisionOptions}
-                                  </SygexSelect>
-                                  <SygexInput name="subDivName" type="text" placeholder="Libéllé de l'arrondissement" />
-                                  <SygexInput name="subDivCode" type="text" placeholder="Code de l'arrondissement" />
+                      return (
+                        <Mutation mutation={createSubDivisionMutation}>
+                          {(createSubDivision, { loading, error }) => (
+                            <Formik
+                              method="POST"
+                              initialValues={this.initialValues}
+                              validationSchema={validationSchema}
+                              onSubmit={async (values, actions, setSubmitting, resetForm) => {
+                                const res = await createSubDivision({
+                                  variables:
+                                  {
+                                    ...values,
+                                    division: refinedDivision && getSelectedObject(refinedDivision, values.divisionID)
+                                  }
+                                });
+                                setTimeout(() => {
+                                  console.log(JSON.stringify(values, null, 2));
+                                  console.log(res);
+                                  actions.setSubmitting(false);
+                                  actions.resetForm(true);
+                                }, 400);
+                              }}>
+                              <MinimStyledPage>
+                                <h4>Crée Nouvel Arrondissement</h4>
+                                <Error error={error} />
+                                <StyledForm disabled={loading} aria-busy={loading} >
+                                  <Form>
+                                    <AllControls>
+                                      <InputGroup>
 
-                                </InputGroup>
-                                <ButtonStyled>
-                                  <StyledButtonBlue type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButtonBlue>
-                                </ButtonStyled>
-                              </AllControls>
-                            </Form>
-                          </StyledForm>
-                        </MinimStyledPage>
-                      </Formik>
-                    )
+                                        <SygexSelect onChange={this.handleChange} name="regionID">
+                                          <option>La Region</option>
+                                          {regionOptions}
+                                        </SygexSelect>
+                                        <SygexSelect name="divisionID">
+                                          <option>Le  Departement</option>
+                                          {divisionOptions}
+                                        </SygexSelect>
+                                        <SygexInput name="subDivName" type="text" label="Libéllé de l'arrondissement" />
+                                        <SygexInput name="subDivCode" type="text" label="Code de l'arrondissement" />
+
+                                      </InputGroup>
+                                      <ButtonStyled>
+                                        <StyledButton type="submit">Valid{loading ? 'ation en cours' : 'er'}</StyledButton>
+                                      </ButtonStyled>
+                                    </AllControls>
+                                  </Form>
+                                </StyledForm>
+                              </MinimStyledPage>
+                            </Formik>
+                          )
+                          }
+                        </Mutation>
+                      )
                     }
-                  </Mutation>
+                    }
+                  </Query>
                 )
               }
               }
