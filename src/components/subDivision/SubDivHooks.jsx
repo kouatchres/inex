@@ -9,7 +9,7 @@ import { Formik, Form } from 'formik';
 import { SygexInput, StyledForm, ButtonStyled, StyledButton, customStyle } from '../utils/FormInputs'
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import { getAllCountrysQuery, getAllDivisionsQuery, getDivisionsOfARegionQuery, getAllRegionsOfACountryQuery } from '../queries&Mutations&Functions/Queries'
+import { getAllCountrysQuery, getAllSubDivisionsQuery, getAllDivisionsQuery, getDivisionsOfARegionQuery, getAllRegionsOfACountryQuery } from '../queries&Mutations&Functions/Queries'
 import { removeTypename, getObjectFromID } from '../queries&Mutations&Functions/Functions'
 import { createSubDivisionMutation } from '../queries&Mutations&Functions/Mutations'
 
@@ -86,7 +86,9 @@ const SubDivHooks = () => {
     console.log(division);
     const getDivOptions = division && division.map(item => ({ value: item.id, label: item.divName }))
 
-    const [createSubDivision, { loading, error }] = useMutation(createSubDivisionMutation)
+    const [createSubDivision, { loading, error }] = useMutation(createSubDivisionMutation, {
+        refetchQueries: ["getAllSubDivisionsQuery"]
+    })
     return (
         <Formik
             method="POST"

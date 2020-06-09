@@ -807,6 +807,16 @@ const getAllSubDivisionsQuery = gql`
   }
 `;
 
+const getAllTownsQuery = gql`
+  query getAllTownsQuery {
+    towns(orderBy: townName_ASC) {
+      townName
+      townCode
+      id
+    }
+  }
+`;
+
 const getTownsOfASubDivisionQuery = gql`
   query getTownsOfASubDivision($id: ID!) {
     subDivision(id: $id) {
@@ -1302,6 +1312,7 @@ export {
   getAllCountrysQuery,
   singleExaminerQuery,
   getCESExaminerQuery,
+  getAllTownsQuery,
   getExaminerRegistrationQuery,
   getSingleProfQuery,
   getAllRanksOfAnExamPhaseQuery,

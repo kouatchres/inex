@@ -6,7 +6,7 @@ import { SygexInput, StyledForm, ButtonStyled, StyledButton } from '../utils/For
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { getAllCountrysQuery } from '../queries&Mutations&Functions/Queries'
+import { getAllCountrysQuery, getAllRegionsQueries } from '../queries&Mutations&Functions/Queries'
 import { removeTypename, getObjectFromID } from '../queries&Mutations&Functions/Functions'
 import { createNewRegionMutation } from '../queries&Mutations&Functions/Mutations'
 
@@ -56,7 +56,9 @@ const NewRegionHooks = () => {
     const refinedCountry = reducedCountries && removeTypename(reducedCountries)
     const { id } = { ...refinedCountry }
 
-    const [createRegion, { loading, error }] = useMutation(createNewRegionMutation)
+    const [createRegion, { loading, error }] = useMutation(createNewRegionMutation, {
+        refetchQueries: ["getAllRegionsQueries"]
+    })
 
     return (
 

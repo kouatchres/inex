@@ -11,8 +11,8 @@ const useForm = (initialValues) => {
     };
 
     const handleReactSelectChange = (value, action) => {
-        console.log(action.name);
         console.log(value.value);
+        console.log(action.name);
 
         setState(state => ({ ...state, [action.name]: value.value }))
     }

@@ -13,6 +13,7 @@ import { createTownMutation } from '../queries&Mutations&Functions/Mutations'
 import { removeTypename, getObjectFromID } from '../queries&Mutations&Functions/Functions'
 import {
     getAllCountrysQuery,
+    getAllTownsQuery,
     getDivisionsOfARegionQuery,
     getAllRegionsOfACountryQuery,
     getSubDivisionsOfADivisionQuery
@@ -106,7 +107,9 @@ const CreateTownHook = () => {
     const getSubDivOptions = subDivision && subDivision.map(item => ({ value: item.id, label: item.subDivName }))
 
 
-    const [createTown, { loading, error }] = useMutation(createTownMutation)
+    const [createTown, { loading, error }] = useMutation(createTownMutation, {
+        refetchQueries: ["getAllTownsQuery"]
+    })
     return (
         <Formik
             method="POST"

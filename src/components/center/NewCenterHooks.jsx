@@ -14,6 +14,7 @@ import { getObjectFromID, uniqueCodeGen } from "../queries&Mutations&Functions/F
 
 import {
     getAllCountrysQuery,
+    getAllCentersQuery,
     getAllRegionsOfACountryQuery,
     getDivisionsOfARegionQuery,
     getSubDivisionsOfADivisionQuery,
@@ -121,7 +122,9 @@ const NewCenterHooks = () => {
     console.log(town);
     const getTownOptions = town && town.map(item => ({ value: item.id, label: item.townName }))
 
-    const [createCenter, { loading, error }] = useMutation(createCenterMutation)
+    const [createCenter, { loading, error }] = useMutation(createCenterMutation, {
+        refetchQueries: ["getAllCentersQuery"]
+    })
     return (
         <Formik
             method="POST"

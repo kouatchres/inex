@@ -7,7 +7,7 @@ import { customStyle, SygexInput, StyledForm, ButtonStyled, StyledButton } from 
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { getAllCountrysQuery, getAllDivisionsQuery, getDivisionsOfARegionQuery, getAllRegionsOfACountryQuery } from '../queries&Mutations&Functions/Queries'
+import { getAllCountrysQuery, getAllSubDivisionsQuery, getAllDivisionsQuery, getDivisionsOfARegionQuery, getAllRegionsOfACountryQuery } from '../queries&Mutations&Functions/Queries'
 import { removeTypename, getObjectFromID } from '../queries&Mutations&Functions/Functions'
 import { createSubDivisionMutation } from '../queries&Mutations&Functions/Mutations'
 import useForm from '../utils/useForm'
@@ -73,7 +73,9 @@ const NewSubDivisionHooks = () => {
         }))
     console.log(state.regionID);
 
-    const [createSubDivision, { loading, error }] = useMutation(createSubDivisionMutation)
+    const [createSubDivision, { loading, error }] = useMutation(createSubDivisionMutation, {
+        refetchQueries: ["getAllSubDivisionsQuery"]
+    })
 
 
     return (
