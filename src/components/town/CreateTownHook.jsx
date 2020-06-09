@@ -140,8 +140,6 @@ const CreateTownHook = () => {
                                         <Select onChange={(value) => (setFieldValue('subDiv', value))} name="subDiv" styles={customStyle} placeholder="L'Arrondissement" options={getSubDivOptions} disabled={isSubmitting} />
                                         <SygexInput name="townName" type="text" label="Libéllé de la ville" disabled={isSubmitting} />
                                         <SygexInput name="townCode" type="text" label="Code de la ville" disabled={isSubmitting} />
-
-
                                     </InputGroup>
                                     <ButtonStyled>
                                         <StyledButton type="submit" disabled={isSubmitting}>Valid{isSubmitting ? 'ation en cours' : 'er'}</StyledButton>

@@ -1231,7 +1231,6 @@ export {
   getAllSubjectsOfASeriesQuery,
   getAllSubjectTypesQuery,
   getAllGendersQuery,
-  getAllEducTypeQuery,
   getAllRegionsOfACountryQuery,
   getAllSeriesOfAnEducationTypeQuery,
   getAllExamsQuery,
@@ -1244,7 +1243,6 @@ export {
   getAllEducationTypesQuery,
   getAllSubjectsQuery,
   getAllRanksQuery,
-  getAllEducTypesOfAnExam,
   getAllCandidatesQuery,
   getAllCentersQuery,
   getSingleRegionQuery,
@@ -1264,7 +1262,6 @@ export {
   singleCenterAdminQuery,
   singleExamQuery,
   singleTownQuery,
-  schoolDataQuery,
   getAllCenterResultsQuery,
   singleSessionQuery,
   singleDivisionQuery,
@@ -1305,7 +1302,6 @@ export {
   getExaminerRegistrationQuery,
   getSingleProfQuery,
   getAllRanksOfAnExamPhaseQuery,
-  getASinglePhaseRankQuery,
   meQuery,
   getSingleCenterByCodeQuery
 };

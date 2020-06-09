@@ -234,6 +234,13 @@ const SygexSelect = ({ label, ...props }) => {
   );
 };
 
-
-
-export { customStyles, StyledLabel, StyledButton, StyledButtonBlue, customStyle, SygexSelect, ButtonStyled, SygexInput, StyledForm }
+export
+{
+  StyledLabel,
+    StyledButton,
+    customStyle,
+    SygexSelect,
+    ButtonStyled,
+    SygexInput,
+    StyledForm
+}

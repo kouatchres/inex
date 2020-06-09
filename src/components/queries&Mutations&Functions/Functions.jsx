@@ -132,12 +132,10 @@ export {
   calcCandTotalCoeff,
   calcCandAve,
   objectFromCode,
-  updateItemMutation,
   uniqueCodeGen,
   getSelectedObject,
   getObjectFromID,
   removeTypename,
   uploadFile,
-  registrationSerialNumber,
   centerExamSessionObjectFromCode,
 }

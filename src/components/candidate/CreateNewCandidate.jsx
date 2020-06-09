@@ -184,7 +184,7 @@ const CreateNewCandidate = () => {
                 setTimeout(() => {
                     console.log(JSON.stringify(values, null, 2));
                     console.log(res);
-                    resetForm();
+                   actions.resetForm();
                     actions.setSubmitting(false);
                 }, 200);
             }}
